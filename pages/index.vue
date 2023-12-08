@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import Lenis from '@studio-freight/lenis'
-
 export default {
   name: 'IndexPage',
 }
