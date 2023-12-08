@@ -1,7 +1,7 @@
 <template>
 	<nav>
 		<div class="NavContainer">
-
+			
 		</div>
 	</nav>
 </template>
@@ -14,7 +14,7 @@ export default {
 
 <style lang="postcss">
 nav {
-	.MavContainer {
+	.NavContainer {
 		
 	}
 }

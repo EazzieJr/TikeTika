@@ -9,6 +9,10 @@
 		font-weight: 400;
 		font-style: normal
 	}
+
+	.constraint {
+		@apply px-5 lg:container mx-auto
+	}
 }
 
 @layer utilities {
