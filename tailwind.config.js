@@ -12,6 +12,11 @@ module.exports = {
     extend: {
       fontFamily: {
         satoshi: ['Satoshi']
+      },
+
+      colors: {
+        primary: "#2FA048",
+        secondary: "#484848"
       }
     },
   },
