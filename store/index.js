@@ -11,7 +11,7 @@ export const state = () => ({
 
 export const mutations = {
 	changeSelectedBooking(state, payload) {
-		state.bookings = payload
+		state.selectedBooking = payload
 	},
 
 	toggleMenuState(state) {

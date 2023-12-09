@@ -8,8 +8,8 @@
 					</nuxt-link>
 				</div>
 
-				<div class="Bookings hidden md:start">
-					<button :class="{'active' : booking == selectedBooking }" v-for="booking in bookings" :key="booking" @click="changeActiveBooking(booking)">
+				<div class="Bookings hidden lg:start">
+					<button :class="{'active' : booking == selectedBooking }" v-for="booking in bookings" :key="booking" @click="changeSelectedBooking(booking)">
 						{{ booking }}
 					</button>
 				</div>
@@ -17,9 +17,9 @@
 
 			<div class="Right start">
 				<div class="Misc start">
-					<nuxt-link to="/">
+					<button>
 						Support
-					</nuxt-link>
+					</button>
 
 					<button>
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,9 +42,9 @@
 						</svg>
 					</button>
 
-					<nuxt-link to="/">
-						Support
-					</nuxt-link>
+					<button>
+						Reference Number
+					</button>
 				</div>
 
 				<div class="Actions start">
@@ -92,7 +92,7 @@ export default {
 
 <style lang="postcss">
 nav {
-	@apply bg-white sticky top-0;
+	@apply bg-white sticky top-0 py-3.5;
 	
 	.NavContainer {
 		.Left {
@@ -110,7 +110,56 @@ nav {
 				@apply space-x-5 xl:space-x-6;
 
 				button {
-					@apply 
+					@apply text-secondary font-bold xl:text-lg !leading-[100%] relative;
+
+					&.active {
+						@apply text-primary;
+
+						&::after {
+							@apply absolute -bottom-2 left-[50%] -translate-x-1/2 rounded-full w-1 h-1 bg-primary;
+							content: '';
+						}
+					}
+				}
+			}
+		}
+
+		.Right {
+			@apply space-x-4 xl:space-x-6;
+
+			.Misc {
+				@apply space-x-3 md:space-x-4 xl:space-x-6;
+
+				button {
+					@apply text-xs xl:text-sm font-bold text-secondary;
+
+					&:nth-child(3) {
+						@apply hidden md:block
+					}
+
+					svg {
+						@apply w-4 lg:w-5 xl:w-6
+					}
+				}
+			}
+
+			.Actions {
+				@apply space-x-4;
+				
+				.Signin, .Login {
+					@apply hidden md:block rounded px-6 py-2.5 xl:px-12 xl:py-4 !leading-[100%] xl:text-lg font-bold
+				}
+
+				.Signin {
+					@apply text-primary bg-[#DFF6E4]
+				}
+
+				.Login {
+					@apply bg-primary text-white
+				}
+
+				.MenuBurger {
+					@apply md:hidden
 				}
 			}
 		}
