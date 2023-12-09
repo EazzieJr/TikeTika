@@ -3,9 +3,9 @@
     <section class="Hero">
       <div class="Container constraint">
         <div class="BookingTypes">
-          <button :class="{ 'active': booking == selectedBooking }" v-for="booking in bookings" :key="booking"
+          <button class="start" :class="{ 'active': booking == selectedBooking }" v-for="booking in bookings" :key="booking"
             @click="changeSelectedBooking(booking)">
-            <img :src="`/svg/${booking.lowerCase()}`" alt="">
+            <img :src="`/svg/${booking.toLowerCase()}-icon.svg`" alt="">
             
             <span>
               {{ booking }}
