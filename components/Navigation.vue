@@ -9,7 +9,8 @@
 				</div>
 
 				<div class="Bookings hidden lg:start">
-					<button :class="{'active' : booking == selectedBooking }" v-for="booking in bookings" :key="booking" @click="changeSelectedBooking(booking)">
+					<button :class="{ 'active': booking == selectedBooking }" v-for="booking in bookings" :key="booking"
+						@click="changeSelectedBooking(booking)">
 						{{ booking }}
 					</button>
 				</div>
@@ -93,7 +94,7 @@ export default {
 <style lang="postcss">
 nav {
 	@apply bg-white sticky top-0 py-3.5;
-	
+
 	.NavContainer {
 		.Left {
 			@apply md:space-x-14 xl:space-x-16;
@@ -145,8 +146,9 @@ nav {
 
 			.Actions {
 				@apply space-x-4;
-				
-				.Signin, .Login {
+
+				.Signin,
+				.Login {
 					@apply hidden md:block rounded px-6 py-2.5 xl:px-12 xl:py-4 !leading-[100%] xl:text-lg font-bold
 				}
 
