@@ -98,13 +98,14 @@
                   stroke-linecap="round" stroke-linejoin="round" />
               </svg>
 
-              <div class="Inputs">
+              <div class="Inputs start">
                 <div class="Input">
                   <span>
                     {{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
                   </span>
 
-                  <input type="date">
+                  <!-- <input type="date"> -->
+                  <input type="date" v-model="trip.date.start">
                 </div>
 
                 <div class="Input" v-if="selectedBooking == 'Buses'">
@@ -112,14 +113,17 @@
                     Returning on
                   </span>
 
-                  <input type="date">
+                  <!-- <input type="date"> -->
+                  <input type="date" v-model="trip.date.end">
                 </div>
               </div>
             </div>
 
-            <button submit>
-              Search
-            </button>
+            <div class="Search md:end">
+              <button submit>
+                Search
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -135,6 +139,12 @@ export default {
 
   data() {
     return {
+      trip: {
+        date: {
+          start: '2023-12-12',
+          end: '2023-12-12',
+        }
+      }
     }
   },
 
@@ -204,7 +214,7 @@ export default {
         }
 
         form {
-          @apply w-full mt-2 mb-6;
+          @apply w-full mt-3 mb-6;
 
           .Destination,
           .Date {
@@ -238,14 +248,47 @@ export default {
           }
 
           .Date {
-            @apply mt-4 md:mt-0;
+            @apply w-full bg-white py-2 px-4 flex items-start justify-normal space-x-2 mt-4 md:mt-0 relative;
 
             svg {
-              @apply w-5 lg:w-auto
+              @apply w-5 h-5 lg:w-auto shrink-0
+            }
+
+            .Inputs {
+              @apply w-full overflow-hidden;
+
+              .Input {
+                @apply rounded-none;
+                
+                &:nth-child(1) {
+                  @apply border-dotted border-r-[0.5px] border-[#8E8E8E];
+                }
+
+                &:nth-child(2) {
+                  @apply pl-4
+                }
+
+                input {
+                  @apply !w-fit;
+
+                  &::-webkit-calendar-picker-indicator {
+                    @apply hidden
+                  }
+                }
+              }
+            }
+          }
+
+          .Search {
+            @apply w-full mt-6;
+
+            button {
+              @apply w-full text-sm lg:text-base xl:text-lg font-bold text-white !leading-[100%] py-4 lg:py-6 px-12 lg:px-[94px] rounded bg-primary
             }
           }
         }
       }
     }
   }
-}</style>
+}
+</style>
