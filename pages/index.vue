@@ -172,7 +172,7 @@ export default {
     }
 
     .Container {
-      @apply py-12 lg:py-14 xl:py-16 relative z-20 max-w-[1138px] 2xl:max-w-[1280px];
+      @apply py-12 lg:py-14 xl:py-16 relative z-20;
 
       .BookingTypes {
         @apply space-x-1 lg:space-x-2;
