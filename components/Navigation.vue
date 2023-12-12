@@ -93,7 +93,7 @@ export default {
 
 <style lang="postcss">
 nav {
-	@apply bg-white sticky top-0 py-3.5;
+	@apply bg-white sticky top-0 py-3.5 z-50;
 
 	.NavContainer {
 		.Left {
