@@ -172,7 +172,7 @@ export default {
     }
 
     .Container {
-      @apply py-12 lg:py-14 xl:py-16 relative z-20;
+      @apply py-12 lg:py-14 xl:py-16 relative z-20 max-w-[1138px] 2xl:max-w-[1280px];
 
       .BookingTypes {
         @apply space-x-1 lg:space-x-2;
@@ -195,11 +195,11 @@ export default {
       }
 
       h1 {
-        @apply text-xl font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8;
+        @apply text-xl md:text-3xl lg:text-4xl font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8;
       }
 
       .Forms {
-        @apply md:bg-[#1D1D1D] bg-opacity-60 md:px-10 lg:px-12 md:py-12 lg:py-16;
+        @apply md:bg-[#1D2022] md:bg-opacity-60 md:px-10 lg:px-12 md:py-12 lg:py-16;
 
         .Dropdowns {
           @apply space-x-3;
@@ -214,12 +214,12 @@ export default {
         }
 
         form {
-          @apply w-full mt-3 mb-6;
+          @apply w-full mt-3 mb-6 md:grid grid-cols-2 md:gap-x-4;
 
           .Destination,
           .Date {
             .Input {
-              @apply space-y-1 lg:space-y-2 bg-white rounded;
+              @apply space-y-1 lg:space-y-2 bg-white rounded overflow-hidden;
 
               span {
                 @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
@@ -248,10 +248,10 @@ export default {
           }
 
           .Date {
-            @apply w-full bg-white py-2 px-4 flex items-start justify-normal space-x-2 mt-4 md:mt-0 relative;
+            @apply w-full bg-white py-2 lg:py-3 px-4 flex items-start justify-normal space-x-2 mt-4 md:mt-0 relative rounded;
 
             svg {
-              @apply w-5 h-5 lg:w-auto shrink-0
+              @apply w-5 h-5 lg:w-8 shrink-0
             }
 
             .Inputs {
@@ -280,10 +280,10 @@ export default {
           }
 
           .Search {
-            @apply w-full mt-6;
+            @apply w-full mt-6 md:col-span-2;
 
             button {
-              @apply w-full text-sm lg:text-base xl:text-lg font-bold text-white !leading-[100%] py-4 lg:py-6 px-12 lg:px-[94px] rounded bg-primary
+              @apply w-full md:w-fit text-sm lg:text-base xl:text-lg font-bold text-white !leading-[100%] py-4 lg:py-6 px-12 lg:px-[94px] rounded bg-primary
             }
           }
         }
