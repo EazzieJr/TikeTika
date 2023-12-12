@@ -128,6 +128,16 @@
         </div>
       </div>
     </section>
+
+    <div class="Partners">
+      <span>
+        Our Partners
+      </span>
+
+      <div class="Lists center">
+        <div v-for="partner in partners" :key="partner" class="Partner"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -144,7 +154,9 @@ export default {
           start: '2023-12-12',
           end: '2023-12-12',
         }
-      }
+      },
+
+      partners: 6
     }
   },
 
@@ -195,7 +207,7 @@ export default {
       }
 
       h1 {
-        @apply text-xl md:text-3xl lg:text-4xl font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8;
+        @apply text-xl md:text-3xl lg:text-[40px] font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8;
       }
 
       .Forms {
@@ -259,7 +271,7 @@ export default {
 
               .Input {
                 @apply rounded-none;
-                
+
                 &:nth-child(1) {
                   @apply border-dotted border-r-[0.5px] border-[#8E8E8E];
                 }
@@ -287,6 +299,22 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+
+  .Partners {
+    @apply my-6 md:my-9 lg:mt-12 lg:mb-24 space-y-5 md:space-y-4 lg:space-y-[26px];
+
+    span {
+      @apply text-black text-lg md:text-2xl lg:text-[40px] font-bold text-center block space-y-[140%]
+    }
+
+    .Lists {
+      @apply space-x-3 md:space-x-6 lg:space-x-10 xl:space-x-12;
+
+      .Partner {
+        @apply w-10 h-10 md:w-16 lg:w-20 xl:w-[100px] md:h-16 lg:h-20 xl:h-[100px] rounded-full bg-primary;
       }
     }
   }
