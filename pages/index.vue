@@ -138,6 +138,27 @@
         <div v-for="partner in partners" :key="partner" class="Partner"></div>
       </div>
     </div>
+
+    <div class="NewsLetter">
+      <img src="/svg/newsletter-tl-bg.svg" alt="">
+      <img src="/svg/newsletter-br-bg.svg" alt="">
+
+
+      <div class="Container constraint md:between">
+        <h5>
+          Subscribe to our Email <br class="hidden md:block"> address to get discounts
+        </h5>
+
+        <form action="" class="between">
+          <input type="text" placeholder="Your Email address">
+
+          <button>
+            Subscribe
+          </button>
+        </form>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -315,6 +336,42 @@ export default {
 
       .Partner {
         @apply w-10 h-10 md:w-16 lg:w-20 xl:w-[100px] md:h-16 lg:h-20 xl:h-[100px] rounded-full bg-primary;
+      }
+    }
+  }
+
+  .NewsLetter {
+    @apply bg-primary py-8 md:py-14 lg:py-16 xl:py-20 relative overflow-hidden;
+
+    img {
+      @apply absolute;
+
+      &:nth-child(1) {
+        @apply top-0 left-0
+      }
+
+      &:nth-child(2) {
+        @apply bottom-0 right-0
+      }
+    }
+
+    .Container {
+      @apply space-y-8 md:space-y-0 relative z-10;
+
+      h5 {
+        @apply text-lg md:text-2xl lg:text-3xl xl:text-[40px] font-bold !leading-[140%] text-white
+      }
+
+      form {
+        @apply p-2 lg:p-1 bg-white bg-opacity-30 rounded-sm lg:w-[430px] xl:w-[568px];
+
+        input {
+          @apply bg-transparent px-4 md:px-5 lg:px-6 w-full grow font-medium text-sm placeholder:text-white leading-[157%] h-full
+        }
+
+        button {
+          @apply bg-white text-primary py-4 lg:py-5 xl:py-6 px-6 md:px-10 lg:px-12 xl:px-14 text-sm lg:text-base font-bold !leading-[100%] rounded-sm
+        }
       }
     }
   }
