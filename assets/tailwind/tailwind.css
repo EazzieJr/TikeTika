@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+	* {
+		@apply focus:outline-none
+	}
+	
 	body {
 		@apply font-satoshi
 	}
