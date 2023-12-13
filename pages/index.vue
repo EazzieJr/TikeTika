@@ -313,6 +313,10 @@
 </template>
 
 <script>
+let Flickity;
+if (process.client) {
+  Flickity = require('flickity');
+}
 import { mapState, mapMutations } from "vuex"
 
 export default {
@@ -356,6 +360,7 @@ export default {
         }
       },
 
+      flkty: null,
       partners: 6
     }
   },
@@ -365,8 +370,69 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["changeSelectedBooking"])
-  }
+    ...mapMutations(["changeSelectedBooking"]),
+
+    initFlkty() {
+      const elem = document.querySelector('.Routes');
+
+      //   elem.forEach(el => {
+      // })
+
+      this.flkty = new Flickity(elem, {
+        // options
+        cellAlign: 'left',
+        // autoPlay: 5000,
+        freeScroll: true,
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        draggable: true,
+        pauseAutoPlayOnHover: true,
+        selectedAttraction: 0.01,
+        friction: 0.15,
+        hash: false,
+        accessibility: true
+      });
+
+      let isScrollingHorizontally = false; // Initialize to false
+
+      elem.addEventListener('wheel', (event) => {
+        // Prevent the default behavior of the wheel event, which is scrolling the page
+        event.preventDefault();
+
+        // Calculate the absolute values of deltaX and deltaY
+        const deltaX = Math.abs(event.deltaX);
+        const deltaY = Math.abs(event.deltaY);
+
+        // Set a threshold value (adjust as needed)
+        const threshold = 50;
+
+        // Check if the movement is primarily horizontal
+        if (deltaX > deltaY && deltaX > threshold) {
+          isScrollingHorizontally = true;
+        } else {
+          isScrollingHorizontally = false;
+        }
+
+        // Determine the scroll direction and perform actions based on whether it's horizontal or vertical
+        if (isScrollingHorizontally) {
+          // Horizontal scroll: Handle it as needed
+          // For example, navigate between slides horizontally
+          if (event.deltaX < 0) {
+            // Scroll to the next slide
+            this.flkty.next();
+          } else {
+            // Scroll to the previous slide
+            this.flkty.previous();
+          }
+        }
+      });
+    },
+  },
+
+  mounted() {
+    this.initFlkty();
+  },
 }
 </script>
 
