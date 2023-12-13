@@ -21,7 +21,7 @@
           Search for Bus routes, Hotels, <br> Restaurant.
         </h1>
 
-        <div class="Forms">
+        <div class="Forms" :class="{ 'Pad': selectedBooking != 'Buses' }">
           <div class="Dropdowns start" v-if="selectedBooking == 'Buses'">
             <button class="Dropdown between">
               <span>
@@ -781,7 +781,7 @@ export default {
     }
 
     .Container {
-      @apply py-12 lg:py-14 xl:py-16 relative z-20;
+      @apply py-12 lg:py-14 xl:py-16 relative z-20 max-w-[1160px] 2xl:max-w-[1400px];
 
       .BookingTypes {
         @apply space-x-1 lg:space-x-2;
@@ -809,6 +809,18 @@ export default {
 
       .Forms {
         @apply md:bg-[#1D2022] md:bg-opacity-60 md:px-10 lg:px-12 md:py-12 lg:py-16;
+
+        &.Pad {
+          @apply lg:px-28 xl:px-[142px];
+
+          form {
+            .Destination {
+              .Input {
+                @apply md:col-span-2;
+              }
+            }
+          }
+        }
 
         .Dropdowns {
           @apply space-x-3;
@@ -1093,4 +1105,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
