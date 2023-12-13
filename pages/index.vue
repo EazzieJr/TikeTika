@@ -228,10 +228,12 @@
     </section>
 
     <section class="Ads">
-      <div class="Container constraint center">
-        <span>
-          Ad Placement
-        </span>
+      <div class="Container constraint">
+        <div class="Ad center">
+          <span>
+            Ad Placement
+          </span>
+        </div>
       </div>
     </section>
 
@@ -319,10 +321,12 @@
     </section>
 
     <section class="Ads">
-      <div class="Container constraint center">
-        <span>
-          Ad Placement
-        </span>
+      <div class="Container constraint">
+        <div class="Ad center">
+          <span>
+            Ad Placement
+          </span>
+        </div>
       </div>
     </section>
 
@@ -1020,10 +1024,12 @@ export default {
     @apply py-12 md:py-14 lg:py-[70px];
 
     .Container {
-      @apply w-full max-w-[1040px] 2xl:max-w-[1200px] h-[200px] md:h-[260px] lg:h-[324px] bg-primary rounded-[10px];
+      .Ad {
+        @apply w-full max-w-[1040px] 2xl:max-w-[1200px] h-[200px] md:h-[260px] lg:h-[324px] bg-primary rounded-[10px] mx-auto;
 
-      span {
-        @apply block text-white text-2xl xl:text-[32px] font-bold !leading-[150%] text-center
+        span {
+          @apply block text-white text-2xl xl:text-[32px] font-bold !leading-[150%] text-center
+        }
       }
     }
   }
