@@ -165,7 +165,7 @@ footer {
 			}
 
 			.BottomRight {
-				@apply space-y-12 md:space-y-0 md:flex justify-between space-x-6 mt-8 lg:mt-0 grow;
+				@apply space-y-12 md:space-y-0 md:flex justify-between md:space-x-6 mt-8 lg:mt-0 grow;
 
 				.LinkBlock {
 					@apply space-y-6;
