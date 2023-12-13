@@ -139,6 +139,76 @@
       </div>
     </div>
 
+    <section class="PopularRoutes">
+      <div class="Container constraint">
+        <div class="Top">
+          <h2>
+            Popular Routes
+          </h2>
+
+          <p>
+            Search for Bus routes, Hotels, Restaurant, Search for Bus routes, Hotels, Restaurant
+          </p>
+        </div>
+
+        <div class="Bottom">
+          <div class="Routes start">
+            <div v-for="(route, index) in routes" :key="index" class="Route">
+              <div class="Image">
+                <img src="/images/route.png" alt="">
+              </div>
+
+              <div class="Content">
+                <div class="Top between">
+                  <div class="Left start">
+                    <span>
+                      {{ route.location.from }}
+                    </span>
+
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M16.1114 7.44915C16.1238 7.48005 16.1288 7.5126 16.1363 7.54571C16.1418 7.56778 16.1549 7.58709 16.158 7.61081C16.1592 7.62074 16.1536 7.62957 16.1543 7.6395C16.1555 7.65109 16.1623 7.66157 16.1623 7.67371C16.1623 7.68364 16.1561 7.69247 16.1555 7.70295C16.1555 7.71398 16.1605 7.72336 16.1592 7.73495C16.1561 7.76143 16.1406 7.7824 16.1344 7.80778C16.1282 7.83702 16.1232 7.86571 16.1121 7.89384C16.104 7.91315 16.0972 7.93247 16.0872 7.95067C16.0686 7.98488 16.0438 8.01412 16.0202 8.04447C16.0034 8.06598 15.9892 8.08695 15.9693 8.10626C15.955 8.1206 15.942 8.1344 15.9258 8.14764C15.8942 8.17467 15.8576 8.19398 15.8203 8.2155C15.7955 8.22984 15.7725 8.24419 15.7458 8.25577C15.7266 8.26405 15.7086 8.27233 15.6881 8.2795C15.649 8.29274 15.6087 8.29771 15.5671 8.30488C15.5429 8.30874 15.5236 8.32143 15.4988 8.32309C15.3064 8.34074 10.7841 8.78377 9.9033 12.6994C9.88435 12.7834 9.84695 12.8634 9.79324 12.9346C9.73954 13.0059 9.67057 13.067 9.59028 13.1145C9.50999 13.1621 9.41996 13.1951 9.32531 13.2117C9.23067 13.2283 9.13327 13.2282 9.03868 13.2114C8.94408 13.1945 8.85415 13.1613 8.77401 13.1135C8.69387 13.0658 8.6251 13.0045 8.57161 12.9331C8.51812 12.8618 8.48097 12.7817 8.46228 12.6976C8.44359 12.6135 8.44373 12.5269 8.46268 12.4428C8.92199 10.4009 10.1956 9.1264 11.5245 8.32695H2.20365C2.00874 8.32695 1.82182 8.25812 1.684 8.13562C1.54618 8.01311 1.46875 7.84696 1.46875 7.67371C1.46875 7.50046 1.54618 7.3343 1.684 7.2118C1.82182 7.08929 2.00874 7.02047 2.20365 7.02047L11.5245 7.02047C10.1963 6.22047 8.92199 4.94598 8.46268 2.90405C8.4244 2.73432 8.46356 2.55801 8.57152 2.41393C8.67948 2.26985 8.84741 2.1698 9.03837 2.13578C9.22932 2.10176 9.42766 2.13656 9.58975 2.23253C9.75184 2.32849 9.8644 2.47776 9.90268 2.6475C10.7841 6.56309 15.3064 7.00612 15.4963 7.02322C15.5274 7.02598 15.5522 7.04033 15.582 7.0464C15.623 7.05412 15.6652 7.05633 15.7036 7.07012C15.7179 7.07564 15.7297 7.08336 15.7434 7.08943C15.7787 7.10488 15.8085 7.12529 15.8402 7.14516C15.8712 7.16391 15.9035 7.17881 15.9302 7.20198C15.9438 7.21302 15.955 7.22571 15.9674 7.23784C15.9923 7.26267 16.0096 7.29026 16.0307 7.31784C16.0506 7.34433 16.073 7.36805 16.0885 7.39784C16.0972 7.4144 16.104 7.4315 16.1114 7.44915Z"
+                        fill="#DFF6E4" />
+                    </svg>
+
+                    <span>
+                      {{ route.location.to }}
+                    </span>
+                  </div>
+
+                  <div class="Right">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M25.9993 16.6668C25.9993 14.8268 27.4927 13.3335 29.3327 13.3335V12.0002C29.3327 6.66683 27.9993 5.3335 22.666 5.3335H9.33268C3.99935 5.3335 2.66602 6.66683 2.66602 12.0002V12.6668C4.50602 12.6668 5.99935 14.1602 5.99935 16.0002C5.99935 17.8402 4.50602 19.3335 2.66602 19.3335V20.0002C2.66602 25.3335 3.99935 26.6668 9.33268 26.6668H22.666C27.9993 26.6668 29.3327 25.3335 29.3327 20.0002C27.4927 20.0002 25.9993 18.5068 25.9993 16.6668Z"
+                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M13.334 5.3335L13.334 26.6668" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-dasharray="5 5" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="Bottom between">
+                  <div class="Left">
+                    <span>
+                      From
+                    </span>
+
+                    <p>
+                      Tsz {{ route.price }}
+                    </p>
+                  </div>
+
+                  <div class="Right">
+                    <button>Book Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="Aims">
       <div class="Container constraint md:center">
         <div class="Aim col-center">
@@ -250,6 +320,35 @@ export default {
 
   data() {
     return {
+      routes: [
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+      ],
+
       trip: {
         date: {
           start: '2023-12-12',
@@ -404,6 +503,90 @@ export default {
     }
   }
 
+  .PopularRoutes {
+    @apply py-8 md:py-12 lg:py-16;
+
+    .Container {
+      @apply space-y-6 lg:space-y-16;
+
+      >.Top {
+        @apply space-y-3 text-center mx-auto max-w-[342px] lg:max-w-[640px];
+
+        h2 {
+          @apply text-[#0A0A0A] text-lg md:text-2xl lg:text-4xl xl:text-5xl font-bold !leading-[138%]
+        }
+
+        p {
+          @apply text-[#484848] text-sm lg:text-base xl:text-lg !leading-[133.33%]
+        }
+      }
+
+      >.Bottom {
+        .Routes {
+          @apply space-x-4 md:space-x-5 lg:space-x-6 relative overflow-hidden;
+
+          .Route {
+            @apply w-80 lg:w-[400px] h-[380px] lg:h-[484px] shrink-0 relative rounded-sm;
+
+            .Image {
+              @apply w-full h-full overflow-hidden;
+
+              img {
+                @apply w-full h-full object-cover object-center;
+              }
+            }
+
+            .Content {
+              @apply absolute top-0 left-0 w-full h-full flex flex-col justify-end pb-6 px-4 md:px-5 lg:px-6 space-y-6;
+
+              .Top {
+                .Left {
+                  @apply space-x-2;
+
+                  span {
+                    @apply text-white text-lg md:text-xl lg:text-2xl font-bold !leading-[150%]
+                  }
+
+                  svg {
+                    @apply w-3 md:w-4 lg:w-[18px]
+                  }
+                }
+
+                .Right {
+                  svg {
+                    @apply w-6 md:w-7 lg:w-auto
+                  }
+                }
+              }
+
+              .Bottom {
+                @apply items-end;
+                
+                .Left {
+                  @apply space-y-1 lg:space-y-2;
+                  
+                  span {
+                    @apply text-white text-[8px] md:text-[10px] lg:text-xs font-bold;                  
+                  }
+
+                  p {
+                    @apply text-white text-xl lg:text-2xl font-bold !leading-[150%]
+                  }
+                }
+
+                .Right {
+                  button {
+                    @apply bg-[#DFF6E4] text-primary text-sm font-bold !leading-[100%] py-3 lg:py-4 px-4 lg:px-6 rounded
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   .Partners {
     @apply my-6 md:my-9 lg:mt-12 lg:mb-24 space-y-5 md:space-y-4 lg:space-y-[26px];
 
@@ -423,7 +606,7 @@ export default {
   .Aims {
     @apply py-12 md:space-y-14 xl:space-y-16 bg-[#F7F7F7];
 
-    .Container{
+    .Container {
       @apply text-center space-y-12 md:space-y-0 md:space-x-6;
 
       .Aim {
@@ -481,5 +664,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>

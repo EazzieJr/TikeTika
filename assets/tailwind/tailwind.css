@@ -94,4 +94,8 @@
 	.col-between {
 		@apply flex flex-col items-start justify-between;
 	}
+
+	/* .center-image {
+		@apply obje
+	} */
 }
