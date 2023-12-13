@@ -153,7 +153,7 @@
 
         <div class="Bottom">
           <div class="Routes start">
-            <div v-for="(route, index) in routes" :key="index" class="Route">
+            <div v-for="(route, index) in routes" :key="index" class="Route Carousel-cell">
               <div class="Image">
                 <img src="/images/route.png" alt="">
               </div>
@@ -351,6 +351,38 @@ export default {
           },
           price: 700
         },
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
+        {
+          image: '',
+          location: {
+            from: 'Mwanza',
+            to: 'Mbenya'
+          },
+          price: 700
+        },
       ],
 
       trip: {
@@ -373,7 +405,7 @@ export default {
     ...mapMutations(["changeSelectedBooking"]),
 
     initFlkty() {
-      const elem = document.querySelector('.Routes');
+      const elem = document.querySelector('.PopularRoutes .Routes');
 
       //   elem.forEach(el => {
       // })
@@ -570,7 +602,7 @@ export default {
   }
 
   .PopularRoutes {
-    @apply py-8 md:py-12 lg:py-16;
+    @apply py-8 md:py-12 lg:py-16 overflow-hidden;
 
     .Container {
       @apply space-y-6 lg:space-y-16;
@@ -588,8 +620,10 @@ export default {
       }
 
       >.Bottom {
+        /* @apply overflow-hidden; */
+        
         .Routes {
-          @apply space-x-4 md:space-x-5 lg:space-x-6 relative overflow-hidden;
+          @apply w-full space-x-4 md:space-x-5 lg:space-x-6 relative;
 
           .Route {
             @apply w-80 lg:w-[400px] h-[380px] lg:h-[484px] shrink-0 relative rounded-sm;
