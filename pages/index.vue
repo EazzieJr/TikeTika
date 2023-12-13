@@ -227,11 +227,19 @@
       </div>
     </section>
 
+    <section class="Ads">
+      <div class="Container constraint center">
+        <span>
+          Ad Placement
+        </span>
+      </div>
+    </section>
+
     <section class="PopularEntertainment">
       <div class="Container constraint">
         <div class="Top">
           <h2>
-            Popular Routes
+            Popular Entertainment Locations
           </h2>
 
           <p>
@@ -315,11 +323,19 @@
       </div>
     </section>
 
+    <section class="Ads">
+      <div class="Container constraint center">
+        <span>
+          Ad Placement
+        </span>
+      </div>
+    </section>
+
     <section class="PopularEvents">
       <div class="Container constraint">
         <div class="Top">
           <h2>
-            Popular Routes
+            Popular Events Locations
           </h2>
 
           <p>
@@ -908,6 +924,18 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+
+  .Ads {
+    @apply py-12 md:py-14 lg:py-[70px];
+
+    .Container {
+      @apply w-full max-w-[1040px] 2xl:max-w-[1200px] h-[200px] md:h-[260px] lg:h-[324px] bg-primary rounded-[10px];
+
+      span {
+        @apply block text-white text-2xl xl:text-[32px] font-bold !leading-[150%] text-center
       }
     }
   }
