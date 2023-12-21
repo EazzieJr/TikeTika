@@ -93,7 +93,7 @@ export default {
 				{
 					title: "Popular Routes",
 					links: [
-						"Dae es Salaam to Kilimanjoro",
+						"Dar es Salaam to Kilimanjoro",
 						"Iringa to Kaskazini Pemba",
 						"Kilimanjoro to Mjini Magharabi",
 						"Mbeya to Kilimanjoro",
@@ -115,11 +115,11 @@ export default {
 				{
 					title: "Popular Event Locations",
 					links: [
-						"Dae es Salaam to Kilimanjoro",
-						"Iringa to Kaskazini Pemba",
-						"Kilimanjoro to Mjini Magharabi",
-						"Mbeya to Kilimanjoro",
-						"Mbeya to Kusini Unguja",
+						"Tips Coco Beach",
+						"Kidimbwi Beach",
+						"Tips Mikocheni",
+						"Tips Tegeta",
+						"Tips Tegeta",
 					]
 				},
 			],
