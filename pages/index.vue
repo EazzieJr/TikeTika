@@ -17,8 +17,16 @@
           </button>
         </div>
 
-        <h1>
-          Search for Bus routes, Hotels, <br> Restaurant.
+        <h1 v-if="selectedBooking == 'Buses'">
+          Journey with ease, tickets in a <br> breeze
+        </h1>
+
+        <h1 v-else-if="selectedBooking == 'Entertainments'">
+          Unveil the finest entertainment <br> spots and delightful Moments
+        </h1>
+
+        <h1 v-else>
+          Events Unfold, Moments <br> Untold
         </h1>
 
         <div class="Forms" :class="{ 'Pad': selectedBooking != 'Buses' }">
@@ -229,10 +237,20 @@
 
     <section class="Ads">
       <div class="Container constraint">
-        <div class="Ad center">
-          <span>
-            Ad Placement
-          </span>
+        <div class="Ad col-center md:between">
+          <div class="Texts">
+            <div class="Logo">
+              <img src="/svg/mm-logo.svg" alt="">
+            </div>
+
+            <span>
+              Connecting The Dots To Africa’s <br class="hidden md:block"> Progress.
+            </span>
+          </div>
+
+          <a href="/" target="blank">
+            Got to website
+          </a>
         </div>
       </div>
     </section>
@@ -322,10 +340,20 @@
 
     <section class="Ads">
       <div class="Container constraint">
-        <div class="Ad center">
-          <span>
-            Ad Placement
-          </span>
+        <div class="Ad col-center md:between">
+          <div class="Texts">
+            <div class="Logo">
+              <img src="/svg/mm-logo.svg" alt="">
+            </div>
+
+            <span>
+              Connecting The Dots To Africa’s <br class="hidden md:block"> Progress.
+            </span>
+          </div>
+
+          <a href="/" target="blank">
+            Got to website
+          </a>
         </div>
       </div>
     </section>
@@ -418,7 +446,7 @@
     </section>
 
     <div class="Aims">
-      <div class="Container constraint md:center">
+      <div class="Container constraint md:center md:items-start">
         <div class="Aim col-center">
           <div class="Icon">
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -441,7 +469,7 @@
           </span>
 
           <p>
-            24 Kilimanjaro street, Arusha,Mbenya,Tanzania, 24 Kilimanjaro
+            A reshaped more connected and transformed Africa.
           </p>
         </div>
 
@@ -463,11 +491,11 @@
           </div>
 
           <span>
-            Our vision
+            Our Mission
           </span>
 
           <p>
-            24 Kilimanjaro street, Arusha,Mbenya,Tanzania, 24 Kilimanjaro
+            Is unequivocal: to empower, to connect and to usher Atrica's rise into limitless opportunities.
           </p>
         </div>
 
@@ -489,23 +517,20 @@
           </div>
 
           <span>
-            Our vision
+            Our Guarantee
           </span>
 
           <p>
-            24 Kilimanjaro street, Arusha,Mbenya,Tanzania, 24 Kilimanjaro
+            We are not just an advisory firm; we architects of growth, creators of opportunities and champions of progress.
           </p>
         </div>
       </div>
     </div>
 
     <div class="NewsLetter">
-      <img src="/svg/newsletter-tl-bg.svg" alt="">
-      <img src="/svg/newsletter-br-bg.svg" alt="">
-
-      <div class="Container constraint md:between">
+      <div class="Container constraint md:col-center">
         <h5>
-          Subscribe to our Email <br class="hidden md:block"> address to get discounts
+          Subscribe to get amazing offers <br> from us
         </h5>
 
         <form action="" class="between">
@@ -1021,14 +1046,31 @@ export default {
   }
 
   .Ads {
-    @apply py-12 md:py-14 lg:py-[70px];
+    @apply py-12 md:py-14 lg:py-16;
 
     .Container {
       .Ad {
-        @apply w-full max-w-[1040px] 2xl:max-w-[1200px] h-[200px] md:h-[260px] lg:h-[324px] bg-primary rounded-[10px] mx-auto;
+        @apply w-full bg-no-repeat bg-cover bg-center rounded-[10px] mx-auto px-6 md:px-8 lg:px-10 xl:px-16 py-5 md:py-10 lg:py-16 xl:py-[75px] 2xl:py-20 space-y-[18px] md:space-y-0;
+        background-image: url('/images/ads-bg.webp');
 
-        span {
-          @apply block text-white text-2xl xl:text-[32px] font-bold !leading-[150%] text-center
+        .Texts {
+          @apply space-y-3.5 lg:space-y-5 xl:space-y-6 w-fit;
+
+          .Logo {
+            @apply w-fit mx-auto md:mx-0;
+
+            img {
+              @apply w-[174px] md:w-[200px] lg:w-[260px] xl:w-auto
+            }
+          }
+
+          span {
+            @apply text-white font-bold text-xl lg:text-2xl xl:text-[32px] text-center md:text-left block lg:!leading-[140%]
+          }
+        }
+
+        a {
+          @apply px-12 lg:px-14 xl:px-16 py-3.5 lg:py-12 xl:py-6 w-fit mx-auto md:mx-0 block rounded bg-[#061933] text-xs lg:text-base xl:text-lg font-bold !leading-[100%] text-white
         }
       }
     }
@@ -1054,7 +1096,7 @@ export default {
     @apply py-12 md:space-y-14 xl:space-y-16 bg-[#F7F7F7];
 
     .Container {
-      @apply text-center space-y-12 md:space-y-0 md:space-x-6;
+      @apply text-center space-y-12 md:space-y-0 md:space-x-6 xl:space-x-10;
 
       .Aim {
         @apply mx-auto w-full max-w-[360px] lg:max-w-[300px] xl:max-w-[400px] md:m-0;
@@ -1077,36 +1119,24 @@ export default {
   }
 
   .NewsLetter {
-    @apply bg-primary py-8 md:py-14 lg:py-16 xl:py-20 relative overflow-hidden;
-
-    img {
-      @apply absolute;
-
-      &:nth-child(1) {
-        @apply top-0 left-0
-      }
-
-      &:nth-child(2) {
-        @apply bottom-0 right-0
-      }
-    }
+    @apply bg-[#E0F6E5] py-8 md:py-14 lg:py-16 xl:py-20 relative overflow-hidden;
 
     .Container {
-      @apply space-y-8 md:space-y-0 relative z-10;
+      @apply space-y-8 md:space-y-10 lg:space-y-14 xl:space-y-16 relative z-10;
 
       h5 {
-        @apply text-lg md:text-2xl lg:text-3xl xl:text-[40px] font-bold !leading-[140%] text-white
+        @apply text-lg md:text-2xl lg:text-3xl xl:text-[40px] font-bold !leading-[140%] text-[#0A0A0A] text-center
       }
 
       form {
-        @apply p-2 lg:p-1 bg-white bg-opacity-30 rounded-sm lg:w-[430px] xl:w-[568px];
+        @apply lg:w-[430px] xl:w-[654px] space-x-3 lg:space-x-4;
 
         input {
-          @apply bg-transparent px-4 md:px-5 lg:px-6 w-full grow font-medium text-sm placeholder:text-white leading-[157%] h-full
+          @apply bg-white py-3 md:py-4 xl:py-5 px-4 md:px-5 lg:px-6 w-full grow font-medium text-sm xl:text-lg placeholder:text-[#0A0A0A] leading-[133%] h-full
         }
 
         button {
-          @apply bg-white text-primary py-4 lg:py-5 xl:py-6 px-6 md:px-10 lg:px-12 xl:px-14 text-sm lg:text-base font-bold !leading-[100%] rounded-sm
+          @apply bg-primary text-white self-stretch px-6 md:px-10 lg:px-12 xl:px-14 text-sm lg:text-base font-bold !leading-[100%] rounded
         }
       }
     }
