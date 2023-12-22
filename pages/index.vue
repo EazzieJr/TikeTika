@@ -446,7 +446,7 @@
     </section>
 
     <div class="Aims">
-      <div class="Container constraint md:center md:items-start">
+      <div class="Container constraint md:center md:!items-start">
         <div class="Aim col-center">
           <div class="Icon">
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
