@@ -57,6 +57,17 @@
 				</div>
 			</form>
 		</header>
+
+		<section class="constraint">
+			<div class="Results">
+				<EventResult />
+				<EventResult />
+				<EventResult />
+				<EventResult />
+				<EventResult />
+				<EventResult />
+			</div>
+		</section>
 	</div>
 </template>
 
@@ -159,5 +170,12 @@ export default {
 			}
 		}
 	}
-}
-</style>
+
+	section {
+		.Results {
+			@apply py-12 lg:py-14 xl:py-16 grid md:grid-cols-2 gap-6 lg:gap-y-8;
+
+			
+		}
+	}
+}</style>
