@@ -1,5 +1,5 @@
 <template>
-	<div class="Modal center">
+	<div class="Modal center" @click.self="close">
 		<div class="Popup col-center">
 			<div class="Success" v-if="type == 'success'">
 				<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
 					{{ hint }}
 				</p>
 
-				<button class="Close">
+				<button class="Close" @click.self="close">
 					<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="32" cy="32" r="32" fill="#DFF6E4" />
 						<path d="M25.2129 39.3555L39.355 25.2133" stroke="#2FA048" stroke-width="2" stroke-linecap="round"
@@ -63,7 +63,7 @@
 				</button>
 			</header>
 
-			<div class="Form" v-if="type == 'form'">
+			<div class="Form w-full" v-if="type == 'form'">
 				<slot />
 			</div>
 		</div>
@@ -76,6 +76,12 @@ export default {
 		type: String,
 		title: String,
 		hint: String,
+	},
+
+	methods: {
+		close() {
+			this.$emit('close')
+		}
 	}
 }
 </script>

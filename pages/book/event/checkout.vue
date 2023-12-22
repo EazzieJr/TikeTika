@@ -107,7 +107,7 @@
 						<span>
 							Ticket Fare
 						</span>
-						
+
 						<span v-for="ticket in filteredTickets" :key="ticket.title">
 							{{ ticket.title }} X {{ ticket.count }}
 						</span>
@@ -137,15 +137,26 @@
 				</div>
 
 				<div class="Right">
-					<button @click="modalOpened = true">
+					<button @click="toggleModal">
 						Checkout
 					</button>
 				</div>
 			</div>
 		</div>
 
-		<Modal title="Checkout" hint="Make payment through your mobile money number">
+		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
+			<form @submit.prevent="submitForm" class="Form">
+				<div class="Inputs">
+					<InputField type="text" placeholder="Name" />
+					<InputField type="numeric" placeholder="Phone Number" />
+					<InputField type="email" placeholder="Email Address" />
+					<InputField type="numeric" placeholder="Mobile money number" />
+				</div>
 
+				<button>
+					Pay Now
+				</button>
+			</form>
 		</Modal>
 	</div>
 </template>
@@ -172,7 +183,8 @@ export default {
 				}
 			],
 
-			modalOpened: false
+			modalOpened: false,
+			modalType: 'form'
 		}
 	},
 
@@ -194,18 +206,36 @@ export default {
 			return price;
 		},
 
+		title() {
+			return this.modalType == 'form' ? "Checkout" : "Congratulations"
+		},
+
+		hint() {
+			return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
+		},
+
 		// calculateHeight() {
 		// 	const mobile = window.matchMedia('(max-width: 1023px)')
-			
+
 		// 	return (this.tickets.length + 1) * mobile.matches ? 14 : 16 + 16 * this.tickets.length;
 		// }
 	},
 
+	methods: {
+		submitForm() {
+			this.modalType = 'success'
+		},
+
+		toggleModal() {
+			this.modalOpened = !this.modalOpened
+		}
+	},
+
 	mounted() {
 		const mobile = window.matchMedia('(max-width: 1023px)')
-		const spans = document.querySelector(".Spans")	
+		const spans = document.querySelector(".Spans")
 		const footer = document.querySelector('footer')
-		
+
 		footer.style.display = "none"
 	}
 }
@@ -245,7 +275,7 @@ export default {
 
 		.TicketInfo {
 			@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 md:w-80 xl:w-[400px] shrink-0;
-			
+
 			h2 {
 				@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
 			}
@@ -255,10 +285,10 @@ export default {
 
 				.Ticket {
 					@apply lg:pb-8 last:p-0 lg:border-b border-dashed border-[#C2C2C2] last:border-none;
-					
+
 					.Left {
 						@apply space-y-2;
-						
+
 						span {
 							@apply text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
 						}
@@ -281,7 +311,7 @@ export default {
 
 								span {
 									@apply text-white text-sm md:text-base lg:text-lg font-medium
-								} 
+								}
 							}
 						}
 					}
@@ -320,7 +350,7 @@ export default {
 		.Container {
 			.Left {
 				@apply space-y-1 lg:space-y-4;
-				
+
 				p {
 					@apply md:text-right text-[8px] leading-[125%] lg:text-[18px] lg:leading-[100%] font-bold text-secondary
 				}
@@ -331,8 +361,22 @@ export default {
 			}
 
 			.Right {
-				@apply rounded bg-primary text-white py-4 lg:py-6 px-6 lg:px-12 text-xs lg:text-lg font-bold leading-[100%];
+				button {
+					@apply rounded bg-primary text-white py-4 lg:py-6 px-6 lg:px-12 text-xs lg:text-lg font-bold leading-[100%];
+				}
 			}
+		}
+	}
+
+	.Form {
+		@apply w-full space-y-8 lg:space-y-12 xl:space-y-16 mt-6 lg:mt-9 xl:mt-12;
+
+		.Inputs {
+			@apply space-y-4 lg:space-y-5 xl:space-y-6 w-full;
+		}
+
+		button {
+			@apply rounded bg-primary w-full text-white py-4 lg:py-6 px-6 lg:px-12 text-xs lg:text-lg font-bold leading-[100%];
 		}
 	}
 }
