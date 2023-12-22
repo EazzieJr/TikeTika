@@ -126,8 +126,7 @@
 			</div>
 		</section>
 
-		<!-- <div class="Footer" v-if="totalPrice > 0"> -->
-		<div class="Footer">
+		<div class="Footer" v-if="totalPrice > 0">
 			<div class="Container constraint between">
 				<div class="Left">
 					<p>Total fare</p>
@@ -144,6 +143,10 @@
 				</div>
 			</div>
 		</div>
+
+		<Modal title="Checkout" hint="Make payment through your mobile money number">
+
+		</Modal>
 	</div>
 </template>
 
