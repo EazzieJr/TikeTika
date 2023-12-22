@@ -67,6 +67,10 @@
 				<EventResult />
 				<EventResult />
 			</div>
+
+			<button class="More">
+				Show more Results
+			</button>
 		</section>
 	</div>
 </template>
@@ -88,6 +92,8 @@ export default {
 
 <style lang="postcss" scoped>
 .Events {
+	@apply pb-12 lg:pb-24 bg-[#FAFAFA];
+	
 	header {
 		@apply md:py-8 bg-[#0A0A0A] px-5;
 
@@ -173,9 +179,12 @@ export default {
 
 	section {
 		.Results {
-			@apply py-12 lg:py-14 xl:py-16 grid md:grid-cols-2 gap-6 lg:gap-y-8;
+			@apply py-12 lg:py-14 xl:py-16 grid md:grid-cols-2 gap-6 lg:gap-y-8;	
+		}
 
-			
+		.More {
+			@apply block mx-auto w-full max-w-[500px] py-4 lg:py-5 xl:py-6 rounded bg-primary text-white font-bold !leading-[100%] text-sm lg:text-base xl:text-lg
 		}
 	}
-}</style>
+}
+</style>
