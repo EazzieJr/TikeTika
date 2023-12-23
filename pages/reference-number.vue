@@ -314,7 +314,7 @@ export default {
 					@apply space-y-3;
 
 					p {
-						@apply text-[10px] font-bold text-secondary !leading-[100%]
+						@apply text-[10px] xl:text-sm font-bold text-secondary !leading-[100%]
 					}
 					
 					.Place {
