@@ -31,21 +31,31 @@
 				<div class="List">
 					<div class="Data" v-if="data.length > 0">
 						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
 					</div>
 
 					<div class="Empty col-center" v-else>
 						<img src="/svg/empty.svg" alt="">
-						
+
 						<div class="Texts">
 							<h2>
 								No Tickets Available
 							</h2>
 
 							<p>
-								Apologies, no tickets available for your selected destination or filters. Please adjust your preferences or try another destination.
+								Apologies, no tickets available for your selected destination or filters. Please adjust your preferences
+								or try another destination.
 							</p>
 						</div>
 					</div>
+
+					<button class="More">
+						Show more Results
+					</button>
 				</div>
 			</section>
 
@@ -67,7 +77,7 @@ export default {
 			],
 
 			selectedBooking: "bus",
-			data: []
+			data: ["lmao"]
 		}
 	},
 
@@ -82,6 +92,8 @@ export default {
 
 <style lang="postcss" scoped>
 .Tickets {
+	@apply bg-[#FCFCFC] pb-12 md:pb-16 xl:pb-24;
+	
 	header {
 		@apply space-y-6 md:space-y-8 lg:space-y-12 xl:space-y-16 pt-12 pb-1;
 
@@ -121,6 +133,8 @@ export default {
 		}
 
 		.List {
+			@apply mt-8 lg:mt-12 xl:mt-16;
+			
 			.Data {
 				@apply grid md:grid-cols-2 gap-6;
 			}
@@ -141,8 +155,12 @@ export default {
 
 					p {
 						@apply text-secondary text-sm xl:text-base leading-[150%] font-medium
-					} 
+					}
 				}
+			}
+
+			.More {
+				@apply block mx-auto w-full max-w-[500px] py-4 lg:py-5 xl:py-6 rounded bg-primary text-white font-bold !leading-[100%] text-sm lg:text-base xl:text-lg mt-8 lg:mt-12 xl:mt-16
 			}
 		}
 	}

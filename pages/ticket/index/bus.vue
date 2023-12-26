@@ -31,7 +31,7 @@ export default {
 
 <style lang="postcss" scoped>
 .Bus {
-	@apply mt-8 md:mt-1;
+	@apply mt-8 md:mt-1 bg-[#FCFCFC];
 	
 	header {
 		.Search {
