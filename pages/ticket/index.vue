@@ -121,7 +121,29 @@ export default {
 		}
 
 		.List {
-			@apply grid md:grid-cols-2 gap-6;
+			.Data {
+				@apply grid md:grid-cols-2 gap-6;
+			}
+
+			.Empty {
+				@apply space-y-8 xl:space-y-9 mt-12 xl:mt-24;
+
+				img {
+					@apply w-[200px] md:w-60 lg:w-72 xl:w-auto
+				}
+
+				.Texts {
+					@apply text-center space-y-3 max-w-[310px] xl:max-w-[445px];
+
+					h2 {
+						@apply text-2xl lg:text-3xl xl:text-[32px] text-[#0A0A0A] font-bold
+					}
+
+					p {
+						@apply text-secondary text-sm xl:text-base leading-[150%] font-medium
+					} 
+				}
+			}
 		}
 	}
 }
