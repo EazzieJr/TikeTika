@@ -4,7 +4,7 @@
 			<div class="Inputs">
 				<InputField type="email" placeholder="Email Address" />
 				<InputField type="password" placeholder="Password" />
-				<NuxtLink to="/user/forgot-password/email"></NuxtLink>
+				<NuxtLink to="/user/forgot-password/email">Forgot Password</NuxtLink>
 			</div>
 
 			<button class="">
@@ -34,7 +34,11 @@ export default {
 		@apply space-y-8 lg:space-y-10 xl:space-y-12;
 
 		.Inputs {
-			@apply space-y-4 lg:space-y-5 xl:space-y-6
+			@apply space-y-4 lg:space-y-5 xl:space-y-6;
+
+			a {
+				@apply text-primary font-bold text-right block
+			}
 		}
 
 		button {
