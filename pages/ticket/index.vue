@@ -39,12 +39,12 @@
 					</div>
 
 					<div class="Data" v-else-if="events.length > 0 && selectedBooking == 'event'">
-						<BusTicket />
-						<BusTicket />
-						<BusTicket />
-						<BusTicket />
-						<BusTicket />
-						<BusTicket />
+						<EventTicket />
+						<EventTicket />
+						<EventTicket />
+						<EventTicket />
+						<EventTicket />
+						<EventTicket />
 					</div>
 					
 					<div class="Data" v-else-if="entertainment.length > 0 && selectedBooking == 'entertainment'">
@@ -90,7 +90,7 @@ export default {
 				"entertainment"
 			],
 
-			selectedBooking: "entertainment",
+			selectedBooking: "event",
 			buses: ["lmao"],
 			events: ["lmao"],
 			entertainment: ["lmnao"],
