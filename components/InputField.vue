@@ -2,25 +2,24 @@
 	<div class="Input">
 		<template v-if="isPasswordField">
 			<input ref="Input" :id="iid" :placeholder="placeholder" :type="reveal ? 'text' : 'password'" :value="value"
-				@input.prevent="updateModel" @change="$emit('change', model)" @focus="focusOnInput" @blur="blurInput" tabindex="10"
-				:autocomplete="`${autocomplete ? 'autocomplete' : 'off'}`" :readonly="readonly" :disabled="disabled">
-	
-			<template slot="suffix">
-				<div class="ToggleReveal center">
-					<button type="button" @click="toggleReveal" tabindex="-1">
-						<img v-if="reveal" src="/svg/eye.svg" class="IconGlyph" />
-						<img v-else src="/svg/eye-slash.svg" class="IconGlyph" />
-					</button>
-				</div>
-			</template>
+				@input.prevent="updateModel" @change="$emit('change', model)" @focus="focusOnInput" @blur="blurInput"
+				tabindex="10" :autocomplete="`${autocomplete ? 'autocomplete' : 'off'}`" :readonly="readonly"
+				:disabled="disabled">
+
+			<div class="ToggleReveal center">
+				<button type="button" @click.stop="toggleReveal" tabindex="-1">
+					{{ reveal ? "Hide" : "Show" }}
+				</button>
+			</div>
 		</template>
-	
-		<template v-else-if="type === 'numeric'">	
+
+		<template v-else-if="type === 'numeric'">
 			<input ref="Input" :id="iid" :placeholder="placeholder" type="text" :value="value" @keydown="acceptNumber"
-				@input.prevent="updateModel" @change="$emit('change', model)" @focus="focusOnInput" @blur="blurInput" tabindex="10"
-				:autocomplete="`${autocomplete ? 'autocomplete' : 'off'}`" :readonly="readonly" :disabled="disabled">
+				@input.prevent="updateModel" @change="$emit('change', model)" @focus="focusOnInput" @blur="blurInput"
+				tabindex="10" :autocomplete="`${autocomplete ? 'autocomplete' : 'off'}`" :readonly="readonly"
+				:disabled="disabled">
 		</template>
-	
+
 		<template v-else>
 			<input ref="Input" :id="iid" :placeholder="placeholder" :type="type || 'text'" :value="value" @input="updateModel"
 				@change="$emit('change', model)" @blur="blurInput" tabindex="10"
@@ -163,10 +162,18 @@ export default {
 
 <style lang="postcss" scoped>
 .Input {
-	@apply rounded-lg border border-[#EBEBEB] w-full overflow-hidden;
+	@apply rounded-lg border border-[#EBEBEB] w-full overflow-hidden flex bg-white;
 
 	input {
-		@apply w-full p-4 md:p-5 xl:p-6 leading-[157%] lg:leading-[133%] text-sm lg:text-base xl:text-lg font-medium text-[#0A0A0A] placeholder:text-secondary
+		@apply w-full p-4 md:p-5 xl:p-6 leading-[157%] lg:leading-[133%] text-sm lg:text-base xl:text-lg font-medium text-[#0A0A0A] placeholder:text-secondary grow
+	}
+
+	div {
+		@apply shrink-0 pr-4 md:pr-5 xl:pr-6;
+
+		button {
+			@apply text-primary-black font-bold text-xs lg:text-sm xl:text-base
+		}
 	}
 }
 </style>
