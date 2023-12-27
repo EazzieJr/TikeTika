@@ -29,13 +29,31 @@
 				</div>
 
 				<div class="List">
-					<div class="Data" v-if="data.length > 0">
+					<div class="Data" v-if="buses.length > 0 && selectedBooking == 'bus'">
 						<BusTicket />
 						<BusTicket />
 						<BusTicket />
 						<BusTicket />
 						<BusTicket />
 						<BusTicket />
+					</div>
+
+					<div class="Data" v-else-if="events.length > 0 && selectedBooking == 'event'">
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+						<BusTicket />
+					</div>
+					
+					<div class="Data" v-else-if="entertainment.length > 0 && selectedBooking == 'entertainment'">
+						<EntertainmentTicket />
+						<EntertainmentTicket />
+						<EntertainmentTicket />
+						<EntertainmentTicket />
+						<EntertainmentTicket />
+						<EntertainmentTicket />
 					</div>
 
 					<div class="Empty col-center" v-else>
@@ -58,10 +76,6 @@
 					</button>
 				</div>
 			</section>
-
-			<!-- <main>
-				<nuxt-child />
-			</main> -->
 		</div>
 	</div>
 </template>
@@ -76,8 +90,10 @@ export default {
 				"entertainment"
 			],
 
-			selectedBooking: "bus",
-			data: ["lmao"]
+			selectedBooking: "entertainment",
+			buses: ["lmao"],
+			events: ["lmao"],
+			entertainment: ["lmnao"],
 		}
 	},
 
