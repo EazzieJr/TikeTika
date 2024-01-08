@@ -60,7 +60,7 @@
             <div class="Destination">
               <div class="Input">
                 <span>
-                  From Where?
+                  From?
                 </span>
 
                 <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.from">
@@ -82,7 +82,7 @@
 
               <div class="Input" v-if="selectedBooking == 'Buses'">
                 <span>
-                  To Where?
+                  To?
                 </span>
 
                 <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.to">

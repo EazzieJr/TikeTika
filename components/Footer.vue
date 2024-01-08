@@ -93,10 +93,10 @@ export default {
 				{
 					title: "Popular Routes",
 					links: [
-						"Dar es Salaam to Kilimanjoro",
+						"Dar es Salaam to Kilimanjaro",
 						"Iringa to Kaskazini Pemba",
-						"Kilimanjoro to Mjini Magharabi",
-						"Mbeya to Kilimanjoro",
+						"Kilimanjaro to Mjini Magharabi",
+						"Mbeya to Kilimanjaro",
 						"Mbeya to Kusini Unguja",
 					]
 				},
@@ -104,10 +104,10 @@ export default {
 				{
 					title: "Popular Entertainment Locations",
 					links: [
-						"Dae es Salaam to Kilimanjoro",
+						"Dae es Salaam to Kilimanjaro",
 						"Iringa to Kaskazini Pemba",
-						"Kilimanjoro to Mjini Magharabi",
-						"Mbeya to Kilimanjoro",
+						"Kilimanjaro to Mjini Magharabi",
+						"Mbeya to Kilimanjaro",
 						"Mbeya to Kusini Unguja",
 					]
 				},
