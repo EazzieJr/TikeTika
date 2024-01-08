@@ -794,7 +794,7 @@ export default {
     },
 
     submit() {
-      this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainments' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
+      this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainment' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
     }
   },
 

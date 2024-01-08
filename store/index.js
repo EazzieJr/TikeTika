@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 export const state = () => ({
 	bookings: [
 		"Buses",
-		"Entertainments",
+		"Entertainment",
 		"Events",
 	],
 

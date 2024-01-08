@@ -1,6 +1,10 @@
 <template>
 	<div class="Checkout">
-		<section class="constraint">
+		<div class="inDev">
+			Currently In Development
+		</div>
+		
+		<!-- <section class="constraint">
 			<div class="TopLeft">
 
 			</div>
@@ -173,7 +177,7 @@
 					Pay Now
 				</button>
 			</form>
-		</Modal>
+		</Modal> -->
 	</div>
 </template>
 
@@ -463,6 +467,10 @@ export default {
 		button {
 			@apply rounded bg-primary w-full text-white py-4 lg:py-6 px-6 lg:px-12 text-xs lg:text-lg font-bold leading-[100%];
 		}
+	}
+
+	.inDev {
+		@apply fixed top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center text-center text-[#484848] text-3xl font-bold;
 	}
 }
 </style>

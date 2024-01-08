@@ -49,11 +49,11 @@
 				</div>
 
 				<div class="Actions start">
-					<button class="Signin">
-						Sign in
+					<button class="Signin" @click="$router.push('/user/signup')">
+						Sign up
 					</button>
 
-					<button class="Login">
+					<button class="Login" @click="$router.push('/user/login')">
 						Log in
 					</button>
 
@@ -143,11 +143,11 @@
 				</div>
 
 				<div class="Buttons">
-					<button>
+					<button @click="$router.push('/user/signup')">
 						Sign up
 					</button>
 
-					<button>
+					<button @click="$router.push('/user/login')">
 						Login
 					</button>
 				</div>
