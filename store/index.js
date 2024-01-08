@@ -21,7 +21,11 @@ export const mutations = {
 
 	toggleMenuState(state) {
 		state.menuOpened = !state.menuOpened
-	}
+	},
+
+	setToken(state, token) {
+		state.token = token;
+	},
 }
 
 export const actions = {
@@ -73,15 +77,14 @@ export const actions = {
 			const response = await this.$axios.get('authenticate/token/');
 			console.log("Token:", response)
 
-			// const { token } = response.data.data;
+			const { token } = response.data;
 			// const { id } = response.data.data.brand.brand_user;
-			// commit('setToken', token);
+			commit('setToken', token);
+			// console.log(token)
 			// commit('setUserId', id);
 
 			// // Save token to Cookie
-			// Cookies.set('token', token, { expires: 3 });
-			// Cookies.set('user_id', id, { expires: 3 });
-			// console.log(response.data.brand.id)
+			Cookies.set('token', token, { expires: 3 });
 			return { response: response.data };
 		} catch (error) {
 			console.error(error);

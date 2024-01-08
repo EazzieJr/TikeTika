@@ -90,30 +90,31 @@
             </div>
 
             <div class="Date">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M29.2399 9.01318L24.7465 27.0532C24.4265 28.3999 23.2265 29.3332 21.8399 29.3332H4.31985C2.30651 29.3332 0.866535 27.3598 1.46653 25.4264L7.07986 7.3999C7.46652 6.14657 8.62654 5.27979 9.93321 5.27979H26.3332C27.5999 5.27979 28.6532 6.05312 29.0932 7.11979C29.3465 7.69312 29.3999 8.34652 29.2399 9.01318Z"
-                  stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" />
-                <path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8" stroke="#4F4F4F"
-                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M21.8398 8.52002L23.0932 2.7334" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M10.2666 16H20.9333" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M8.93359 21.3335H19.6003" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-
-              <div class="Inputs start">
+              <div class="Inputs">
                 <div class="Input">
-                  <span>
-                    {{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
-                  </span>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M29.2399 9.01318L24.7465 27.0532C24.4265 28.3999 23.2265 29.3332 21.8399 29.3332H4.31985C2.30651 29.3332 0.866535 27.3598 1.46653 25.4264L7.07986 7.3999C7.46652 6.14657 8.62654 5.27979 9.93321 5.27979H26.3332C27.5999 5.27979 28.6532 6.05312 29.0932 7.11979C29.3465 7.69312 29.3999 8.34652 29.2399 9.01318Z"
+                      stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" />
+                    <path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8" stroke="#4F4F4F"
+                      stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21.8398 8.52002L23.0932 2.7334" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10.2666 16H20.9333" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.93359 21.3335H19.6003" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
 
-                  <!-- <input type="date"> -->
-                  <input type="date" v-model="trip.date.start">
+                  <div class="Cont">
+                    <span>
+                      {{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
+                    </span>
+
+                    <input type="date" v-model="trip.date.start">
+                  </div>
                 </div>
 
                 <div class="Input" v-if="selectedBooking == 'Buses'">
@@ -121,7 +122,6 @@
                     Returning on
                   </span>
 
-                  <!-- <input type="date"> -->
                   <input type="date" v-model="trip.date.end">
                 </div>
               </div>
@@ -792,12 +792,12 @@ export default {
 
   async mounted() {
     this.initFlkty();
-    try {
-      const response = await this.$store.dispatch('createToken')
-      console.log(response)
-    } catch (error) {
-
-    }
+    // try {
+    //   const response = await this.$store.dispatch('createToken')
+    //   // console.log(response)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 }
 </script>
@@ -875,7 +875,7 @@ export default {
           .Destination,
           .Date {
             .Input {
-              @apply space-y-1 lg:space-y-2 bg-white rounded overflow-hidden;
+              @apply space-y-2 bg-white rounded overflow-hidden;
 
               span {
                 @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
@@ -911,24 +911,31 @@ export default {
             }
 
             .Inputs {
-              @apply w-full overflow-hidden;
+              @apply w-full overflow-hidden grid grid-cols-2;
 
               .Input {
-                @apply rounded-none;
-
                 &:nth-child(1) {
+                  @apply rounded-none flex justify-start items-start !space-x-3;
                   @apply border-dotted border-r-[0.5px] border-[#8E8E8E];
                 }
 
                 &:nth-child(2) {
-                  @apply pl-4
+                  @apply pl-5 xl:pl-6
                 }
 
-                input {
-                  @apply !w-fit;
+                svg {
+                  @apply w-6 xl:w-8 h-6 xl:h-8 shrink-0
+                }
 
-                  &::-webkit-calendar-picker-indicator {
-                    @apply hidden
+                .Cont {
+                  @apply space-y-2 !m-0;
+
+                  input {
+                    @apply !w-fit;
+
+                    &::-webkit-calendar-picker-indicator {
+                      @apply hidden
+                    }
                   }
                 }
               }
