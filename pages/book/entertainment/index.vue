@@ -33,19 +33,11 @@
 
 							<div class="Cont">
 								<span>
-									{{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
+									Leaving on
 								</span>
 
 								<input type="date" v-model="trip.date.start">
 							</div>
-						</div>
-
-						<div class="Input" v-if="selectedBooking == 'Buses'">
-							<span>
-								Returning on
-							</span>
-
-							<input type="date" v-model="trip.date.end">
 						</div>
 					</div>
 				</div>

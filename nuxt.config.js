@@ -40,6 +40,11 @@ export default {
     'nuxt-route-meta'
   ],
 
+  axios: {
+    // Axios options
+    baseURL: 'https://tiketika.co.tz/api/',
+  },
+
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
