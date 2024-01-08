@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export const state = () => ({
 	bookings: [
 		"Buses",
@@ -18,3 +20,121 @@ export const mutations = {
 		state.menuOpened = !state.menuOpened
 	}
 }
+
+export const actions = {
+	async signup({ commit, state }, { email, password }) {
+		try {
+			// Make an API request to signup endpoint
+			const response = await this.$axios.post('/auth/signup', { user_type: "brand", email, password });
+
+			console.log('Signup:', response.data)
+
+			// Extract user and token from the response (adjust based on your API structure)
+			const { data } = response.data;
+
+			// Commit mutations to update state
+			// commit('setUser', user);
+			// commit('setToken', token);
+			commit('setCode', data);
+			console.log(state.code)
+			// Save token to local storage for persistence (optional)
+			// localStorage.setItem('token', token);
+
+			return { response: response.data };
+		} catch (error) {
+			console.log(error)
+			// Handle error, possibly show a user-friendly message
+			throw error;
+		}
+	},
+
+	async updateBrand({ commit, state }, { brand_name, nature, industry, target_audience }) {
+		try {
+			// Make an API request to signup endpoint
+			const response = await this.$axios.put('/brand/update', {
+				brand_name,
+				nature,
+				industry,
+				target_audience
+			}, {
+				headers: {
+					Authorization: `Bearer ${Cookies.get('token') || state?.token}`, // Use localStorage token if available
+				},
+			});
+
+			return { response: response.data };
+		} catch (error) {
+			console.log(error)
+			// Handle error, possibly show a user-friendly message
+			throw error;
+		}
+	},
+
+	async updateUser({ commit, state }, { first_name, last_name, phone_code, phone, country, stateOption, city }) {
+		try {
+			// Make an API request to signup endpoint
+			const response = await this.$axios.put(`/brand/brand-user/${state.user.id || Cookies.get('user_id')}`, {
+				first_name,
+				last_name,
+				phone_code,
+				phone,
+				country,
+				state: stateOption,
+				city,
+			}, {
+				headers: {
+					Authorization: `Bearer ${Cookies.get('token') || state?.token}`, // Use localStorage token if available
+				},
+			});
+
+			return { response: response.data };
+		} catch (error) {
+			console.log(error)
+			// Handle error, possibly show a user-friendly message
+			throw error;
+		}
+	},
+
+	async signin({ commit }, { email, password }) {
+		try {
+			const response = await this.$axios.post('/auth/login', { user_type: "brand", email, password });
+
+			console.log('Signin:', response)
+
+			const { data } = response.data;
+
+			commit('setCode', data);
+
+			return { response: response.data };
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async validateOtp({ commit }, { email, code, auth_type }) {
+		try {
+			const response = await this.$axios.post('/brand/validate-otp', { email, code, auth_type });
+			console.log("Otp:", response)
+
+			const { token } = response.data.data;
+			const { id } = response.data.data.brand.brand_user;
+			commit('setToken', token);
+			commit('setUserId', id);
+
+			// Save token to Cookie
+			Cookies.set('token', token, { expires: 3 });
+			Cookies.set('user_id', id, { expires: 3 });
+			// console.log(response.data.brand.id)
+			return { response: response.data };
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+};
+
+export const getters = {
+	user: state => state.user,
+	code: state => state.code,
+};
