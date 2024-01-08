@@ -790,9 +790,15 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     this.initFlkty();
-  },
+    try {
+      const response = await this.$store.dispatch('createToken')
+      console.log(response)
+    } catch (error) {
+
+    }
+  }
 }
 </script>
 

@@ -7,8 +7,11 @@ export const state = () => ({
 		"Events",
 	],
 
+	user: null,
+	
 	selectedBooking: "Buses",
-	menuOpened: false
+	menuOpened: false,
+	token: null,
 })
 
 export const mutations = {
@@ -48,53 +51,6 @@ export const actions = {
 		}
 	},
 
-	async updateBrand({ commit, state }, { brand_name, nature, industry, target_audience }) {
-		try {
-			// Make an API request to signup endpoint
-			const response = await this.$axios.put('/brand/update', {
-				brand_name,
-				nature,
-				industry,
-				target_audience
-			}, {
-				headers: {
-					Authorization: `Bearer ${Cookies.get('token') || state?.token}`, // Use localStorage token if available
-				},
-			});
-
-			return { response: response.data };
-		} catch (error) {
-			console.log(error)
-			// Handle error, possibly show a user-friendly message
-			throw error;
-		}
-	},
-
-	async updateUser({ commit, state }, { first_name, last_name, phone_code, phone, country, stateOption, city }) {
-		try {
-			// Make an API request to signup endpoint
-			const response = await this.$axios.put(`/brand/brand-user/${state.user.id || Cookies.get('user_id')}`, {
-				first_name,
-				last_name,
-				phone_code,
-				phone,
-				country,
-				state: stateOption,
-				city,
-			}, {
-				headers: {
-					Authorization: `Bearer ${Cookies.get('token') || state?.token}`, // Use localStorage token if available
-				},
-			});
-
-			return { response: response.data };
-		} catch (error) {
-			console.log(error)
-			// Handle error, possibly show a user-friendly message
-			throw error;
-		}
-	},
-
 	async signin({ commit }, { email, password }) {
 		try {
 			const response = await this.$axios.post('/auth/login', { user_type: "brand", email, password });
@@ -112,19 +68,19 @@ export const actions = {
 		}
 	},
 
-	async validateOtp({ commit }, { email, code, auth_type }) {
+	async createToken({ commit }) {
 		try {
-			const response = await this.$axios.post('/brand/validate-otp', { email, code, auth_type });
-			console.log("Otp:", response)
+			const response = await this.$axios.get('authenticate/token/');
+			console.log("Token:", response)
 
-			const { token } = response.data.data;
-			const { id } = response.data.data.brand.brand_user;
-			commit('setToken', token);
-			commit('setUserId', id);
+			// const { token } = response.data.data;
+			// const { id } = response.data.data.brand.brand_user;
+			// commit('setToken', token);
+			// commit('setUserId', id);
 
-			// Save token to Cookie
-			Cookies.set('token', token, { expires: 3 });
-			Cookies.set('user_id', id, { expires: 3 });
+			// // Save token to Cookie
+			// Cookies.set('token', token, { expires: 3 });
+			// Cookies.set('user_id', id, { expires: 3 });
 			// console.log(response.data.brand.id)
 			return { response: response.data };
 		} catch (error) {
