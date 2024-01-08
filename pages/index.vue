@@ -63,7 +63,7 @@
                   From Where?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg">
+                <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.from">
               </div>
 
               <div class="Swap" v-if="selectedBooking == 'Buses'">
@@ -85,7 +85,7 @@
                   To Where?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg">
+                <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.to">
               </div>
             </div>
 
@@ -697,6 +697,10 @@ export default {
       ],
 
       trip: {
+        destinations: {
+          from: 'Mwanza',
+          to: 'Mbenya'
+        },
         date: {
           start: '2023-12-12',
           end: '2023-12-12',
@@ -788,6 +792,10 @@ export default {
         this.flkty[num].next();
       }
     },
+
+    submit() {
+      this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainments' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
+    }
   },
 
   async mounted() {

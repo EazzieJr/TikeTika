@@ -54,7 +54,7 @@
 				</div>
 
 				<div class="Right">
-					<button>
+					<button @click="$router.push('/book/entertainment/checkout')">
 						Make Reservation
 					</button>
 				</div>

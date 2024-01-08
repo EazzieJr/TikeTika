@@ -76,7 +76,7 @@
 				</div>
 
 				<div class="Right">
-					<button>
+					<button @click="$router.push('/book/event/checkout')">
 						Book Now
 					</button>
 				</div>
@@ -116,7 +116,7 @@ export default {
 				.Location,
 				.Date,
 				.Time {
-					@apply flex items-start space-x-1 md:space-x-2 lg:space-x-3 xl:space-x-4;
+					@apply flex items-start space-x-1 md:space-x-2 lg:space-x-3 xl:space-x-4 lg:max-w-[70%];
 
 					svg {
 						@apply w-4 lg:w-6 h-4 lg:h-6 shrink-0

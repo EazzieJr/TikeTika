@@ -26,6 +26,7 @@ export default {
   plugins: [
     '~/plugins/vue-html-secure.client',
     '~/plugins/cookie',
+    { src: '~/plugins/clickaway.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

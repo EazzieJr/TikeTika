@@ -33,19 +33,11 @@
 
 							<div class="Cont">
 								<span>
-									{{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
+									Check Date
 								</span>
 
 								<input type="date" v-model="trip.date.start">
 							</div>
-						</div>
-
-						<div class="Input" v-if="selectedBooking == 'Buses'">
-							<span>
-								Returning on
-							</span>
-
-							<input type="date" v-model="trip.date.end">
 						</div>
 					</div>
 				</div>
@@ -58,7 +50,7 @@
 			</form>
 		</header>
 
-		<section class="constraint">
+	<section class="constraint">
 			<div class="Results">
 				<EventResult />
 				<EventResult />
@@ -77,6 +69,17 @@
 
 <script>
 export default {
+	async asyncData({$axios}) {
+		try {
+			const response = await $axios.$post('search/?type=event', {
+				// region: "10"
+			})
+			console.log(response.message)
+		} catch (error) {
+			console.log(error.message)
+		}
+	},
+	
 	data() {
 		return {
 			trip: {
@@ -86,7 +89,20 @@ export default {
 				}
 			},
 		}
-	}
+	},
+
+	// async mounted() {
+	// 	console.log(this.$axios)
+		
+	// 	try {
+	// 		const response = await this.$axios.post('search/?type=event', {
+	// 			region: "2"
+	// 		})
+	// 		console.log(response)
+	// 	} catch (error) {
+
+	// 	}
+	// }
 }
 </script>
 
