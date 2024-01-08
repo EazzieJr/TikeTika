@@ -22,7 +22,7 @@
 						Support
 					</button>
 
-					<button>
+					<button @click="toggleMenu">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_246_8690)">
 								<path d="M0 0H24V24H0V0Z" fill="#0A0A0A" />
@@ -57,14 +57,99 @@
 						Log in
 					</button>
 
-					<div class="MenuBurger">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="MenuBurger" @click="toggleMenu">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+							v-if="!menuOpened">
 							<path d="M3 4.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							<path d="M3 9.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							<path d="M3 14.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							<path d="M3 19.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
+
+						<svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" v-else>
+							<path d="M12.75 23.25L23.25 12.75" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+							<path d="M23.25 23.25L12.75 12.75" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+						</svg>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="MenuDropdown" v-if="menuOpened">
+			<div class="Container">
+				<div class="Top">
+					<div class="Services">
+						<button class="Top between" @click="servicesToggled = !servicesToggled">
+							<span>
+								Services
+							</span>
+	
+							<svg class="duration-300" :class="{ 'rotate-180': servicesToggled }" width="24" height="24" viewBox="0 0 24 24"
+								fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+									stroke="#2FA048" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+									stroke-linejoin="round" />
+							</svg>
+						</button>
+	
+						<ul v-if="servicesToggled">
+							<li @click="toggleMenu">
+								<nuxt-link to="/">Buses</nuxt-link>
+							</li>
+							<li @click="toggleMenu">
+								<nuxt-link to="/">Entertainment</nuxt-link>
+							</li>
+
+							<li @click="toggleMenu">
+								<nuxt-link to="/">Events</nuxt-link>
+							</li>
+						</ul>
+					</div>
+	
+					<nuxt-link to="/reference-number">
+						Reference number
+					</nuxt-link>
+	
+					<div class="Support">
+						<button class="Top between" @click="supportToggled = !supportToggled">
+							<span>
+								Support
+							</span>
+	
+							<svg class="duration-300" :class="{ 'rotate-180': supportToggled }" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+									stroke="#2FA048" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+									stroke-linejoin="round" />
+							</svg>
+						</button>
+	
+						<ul v-if="supportToggled">
+							<li @click="toggleMenu">
+								<a href="mailto:MMConnect@gmail.com">
+									MMConnect@gmail.com
+								</a>
+							</li>
+
+							<li @click="toggleMenu">
+								<a href="tel: +2337062770716">
+									+2337062770716
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="Buttons">
+					<button>
+						Sign up
+					</button>
+
+					<button>
+						Login
+					</button>
 				</div>
 			</div>
 		</div>
@@ -77,16 +162,21 @@ import { mapState, mapMutations } from "vuex"
 export default {
 	data() {
 		return {
-
+			servicesToggled: false,
+			supportToggled: false
 		}
 	},
 
 	computed: {
-		...mapState(["bookings", "selectedBooking"])
+		...mapState(["menuOpened", "bookings", "selectedBooking"])
 	},
 
 	methods: {
-		...mapMutations(["changeSelectedBooking"])
+		...mapMutations(["changeSelectedBooking", "toggleMenuState"]),
+
+		toggleMenu() {
+			this.toggleMenuState()
+		}
 	}
 }
 </script>
@@ -162,6 +252,78 @@ nav {
 
 				.MenuBurger {
 					@apply md:hidden
+				}
+			}
+		}
+	}
+
+	.MenuDropdown {
+		@apply fixed left-0 right-0 top-[52.5px] bg-white z-50 py-12 px-5;
+
+		.Container {
+			@apply space-y-12;
+
+			>.Top {
+				@apply space-y-8;
+
+				> a, .Services span, .Support span {
+					@apply block text-2xl leading-[125%] text-[#484848] font-bold
+				}
+
+				.Services {
+					@apply space-y-6;
+
+					.Top {
+						@apply w-full
+					}
+
+					ul {
+						@apply space-y-4;
+
+						li {
+							@apply block;
+							
+							a {
+								@apply font-bold leading-[100%] text-sm text-[#484848] block
+							}
+						}
+					}
+				}
+
+				.Support {
+					@apply space-y-6;
+
+					.Top {
+						@apply w-full
+					}
+
+					ul {
+						@apply space-y-4;
+						
+						li {
+							@apply block;
+							
+							a {
+								@apply font-bold leading-[100%] text-sm text-primary block
+							}
+						}
+					}
+				}
+			}
+
+			.Buttons {
+				@apply space-y-4;
+
+				button {
+					@apply rounded py-4 w-full block leading-[100%] font-bold text-sm ;
+
+					&:nth-child(1) {
+						@apply bg-[#DFF6E4] text-primary
+					}
+
+					&:nth-child(2) {
+						@apply bg-primary text-white
+					}
 				}
 			}
 		}
