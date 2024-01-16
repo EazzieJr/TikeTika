@@ -1,11 +1,12 @@
 <template>
 	<div class="Signup">
-		<form action="">
+		<form @submit.prevent="signup">
 			<div class="Inputs">
-				<InputField type="text" placeholder="Name" />
-				<InputField type="numeric" placeholder="Phone Number" />
-				<InputField type="email" placeholder="Email Address" />
-				<InputField type="password" placeholder="Create Password" />
+				<InputField type="text" placeholder="Name" v-model="user.name" />
+				<InputField type="numeric" placeholder="Phone Number" v-model="user.phone" />
+				<InputField type="email" placeholder="Email Address" v-model="user.email" />
+				<InputField type="password" placeholder="Create Password" v-model="user.password" />
+				<InputField type="password" placeholder="Confirm Password" v-model="user.rpassword" />
 			</div>
 
 			<button class="">
@@ -28,7 +29,34 @@
 export default {
 	layout: "onboarding",
 	title: "Create your Account",
-	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)"
+	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)",
+
+	data() {
+		return {
+			user: {
+				name: "",
+				phone: "",
+				email: "",
+				password: "",
+				rpassword: "",
+			}
+		}
+	},
+
+	methods: {
+		async signup() {
+			try {
+				const { data } = await this.$store.dispatch("signup", this.user);
+
+				console.log(data);
+				this.$router.push("/user/login/");
+				// this.$store.commit("user/setUser", data);
+				// this.$router.push("/user/profile/");
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
 	<div class="Login">
-		<form action="">
+		<form @submit.prevent="signin">
 			<div class="Inputs">
-				<InputField type="email" placeholder="Email Address" />
-				<InputField type="password" placeholder="Password" />
+				<InputField type="email" placeholder="Email Address"  v-model="user.email"/>
+				<InputField type="password" placeholder="Password" v-model="user.password" />
 				<NuxtLink to="/user/forgot-password/email">Forgot Password</NuxtLink>
 			</div>
 
@@ -22,7 +22,31 @@
 export default {
 	layout: "onboarding",
 	title: "Log in to your Account",
-	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)"
+	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)",
+
+	data() {
+		return {
+			user: {
+				email: "",
+				password: "",
+			}
+		}
+	},
+	
+	methods: {
+		async signin() {
+			try {
+				const { data } = await this.$store.dispatch("signin", this.user);
+
+				console.log(data);
+				this.$router.push("/");
+				// this.$store.commit("user/setUser", data);
+				// this.$router.push("/user/profile/");
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}
 }
 </script>
 
