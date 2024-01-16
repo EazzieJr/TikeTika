@@ -1,7 +1,7 @@
 <template>
 	<transition name="dropdown-content">
 		<div v-if="active"
-			class="origin-top-right absolute right-0 left-0 mt-2 w-full bg-white rounded-xl border border-[#EDF2F7] p-3">
+			class="origin-top-right absolute right-0 left-0 mt-2 w-full bg-white rounded pt-4 pb-8">
 			<slot />
 		</div>
 	</transition>

@@ -30,30 +30,54 @@
         </h1>
 
         <div class="Forms" :class="{ 'Pad': selectedBooking != 'Buses' }">
-          <div class="Dropdowns start" v-if="selectedBooking == 'Buses'">
-            <button class="Dropdown between">
-              <span>
-                Trip type
-              </span>
+          <div class="Dropdowns start relative z-10" v-if="selectedBooking == 'Buses'">
+            <Dropdown class="Dropdown">
+              <template #toggler>
+                <div class="DropdownToggler between">
+                  <span>
+                    Trip type
+                  </span>
+    
+                  <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                      fill="white" />
+                  </svg>
+                </div>
+              </template>
 
-              <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
-                  fill="white" />
-              </svg>
-            </button>
+              <DropdownContent class="Content">
+                <div class="Item" v-for="tp in tripTypes" :key="tp" :class="{'active': selectedTripType === tp}" @click="selectedTripType = tp">
+                  <span>
+                    {{ tp }}
+                  </span>
+                </div>
+              </DropdownContent>
+            </Dropdown>
 
-            <button class="Dropdown between">
-              <span>
-                Class
-              </span>
+             <Dropdown class="Dropdown">
+                <template #toggler>
+                  <div class="DropdownToggler between">
+                    <span>
+                      Class
+                    </span>
+    
+                    <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                        fill="white" />
+                    </svg>
+                  </div>
+                </template>
 
-              <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
-                  fill="white" />
-              </svg>
-            </button>
+                <DropdownContent class="Content">
+                  <div class="Item" v-for="cl in classes" :key="cl" :class="{ 'active': selectedClassType === cl }" @click="selectedClassType = cl">
+                    <span>
+                      {{ cl }}
+                    </span>
+                  </div>
+                </DropdownContent>
+              </Dropdown>
           </div>
 
           <form @submit.prevent="submit" action="">
@@ -63,7 +87,7 @@
                   From?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.from">
+                <input type="text" placeholder="Jo' Burg" v-model="search.origin">
               </div>
 
               <div class="Swap" v-if="selectedBooking == 'Buses'">
@@ -85,7 +109,7 @@
                   To?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg" v-model="trip.destinations.to">
+                <input type="text" placeholder="Jo' Burg" v-model="search.destination">
               </div>
             </div>
 
@@ -113,16 +137,16 @@
                       {{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
                     </span>
 
-                    <input type="date" v-model="trip.date.start">
+                    <input type="date" v-model="search.date">
                   </div>
                 </div>
 
-                <div class="Input" v-if="selectedBooking == 'Buses'">
+                <div class="Input" v-if="selectedBooking == 'Buses' && selectedTripType === 'Round Trip'">
                   <span>
                     Returning on
                   </span>
 
-                  <input type="date" v-model="trip.date.end">
+                  <input type="date" v-model="search.returnDate">
                 </div>
               </div>
             </div>
@@ -696,16 +720,25 @@ export default {
         },
       ],
 
-      trip: {
-        destinations: {
-          from: 'Mwanza',
-          to: 'Mbenya'
-        },
-        date: {
-          start: '2023-12-12',
-          end: '2023-12-12',
-        }
+      search: {
+        origin: '',
+        destination: '',
+        date: '',
+        returnDate: '',
       },
+
+      tripTypes: [
+        "One Way",
+        "Round Trip"
+      ],
+
+      classes: [
+        "Semi Luxury",
+        "VIP"
+      ],
+      
+      selectedTripType: "One Way",
+      selectedClassType: "VIP",
 
       flkty: [],
       partners: 6
@@ -793,19 +826,36 @@ export default {
       }
     },
 
-    submit() {
-      this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainment' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
+    async submit() {
+      const type = this.selectedBooking.toLowerCase()
+      const filteredType = type == 'buses' ? 'bus' : type == 'entertainment' ? 'entertainment' : 'event'
+
+      console.log(this.search)
+      try {
+        const data = await this.$axios.post(`/search/?type=${filteredType}`, this.search)
+        console.log(data)
+        // this.routes = data.data
+      } catch (error) {
+        console.log(error, error.code)
+      }
+      
+      // this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainment' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
+    },
+
+    async loadRoutes() {
+      try {
+        const { data } = await this.$axios.get('route')
+        console.log(data)
+        // this.routes = data.data
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 
-  async mounted() {
+   mounted() {
     this.initFlkty();
-    // try {
-    //   const response = await this.$store.dispatch('createToken')
-    //   // console.log(response)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    this.loadRoutes()
   }
 }
 </script>
@@ -868,11 +918,29 @@ export default {
         .Dropdowns {
           @apply space-x-3;
 
-          button {
+          .DropdownToggler {
             @apply bg-white bg-opacity-30 w-[84px] md:w-[118px] p-2 lg:px-4 lg:py-3 rounded;
 
             span {
               @apply text-white font-bold !leading-[125%] text-[8px] lg:text-xs
+            }
+          }
+
+          .Content {
+            .Item {
+              @apply py-2 px-4 cursor-pointer;
+
+              span {
+                @apply text-sm font-bold;
+              }
+
+              &.active {
+                @apply bg-[#DFF6E4];
+
+                span {
+                  @apply text-primary;
+                }
+              }
             }
           }
         }
