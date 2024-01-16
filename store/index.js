@@ -61,13 +61,44 @@ export const actions = {
 			console.log('Signup:', response.data)
 
 			// Extract user and token from the response (adjust based on your API structure)
-			const { data } = response.data;
+			const { token } = response.data;
 
 			console.log(data)
+			Cookies.set('token', token, { expires: 3 });
 			// commit('setCode', data);
 			// console.log(state.code)
 			// Save token to local storage for persistence (optional)
 			// localStorage.setItem('token', token);
+
+			return { response: response.data };
+		} catch (error) {
+			console.log(error)
+			// Handle error, possibly show a user-friendly message
+			throw error;
+		}
+	},
+
+	async forgotPassword({ commit }, { email }) {
+		try {
+			// Make an API request to signup endpoint
+			const response = await this.$axios.post('/authenticate/forgot/', { email });
+
+			console.log('Forgot:', response)
+
+			return { response: response.data };
+		} catch (error) {
+			console.log(error)
+			// Handle error, possibly show a user-friendly message
+			throw error;
+		}
+	},
+
+	async resetPassword({ commit }, { email, password, rpassword }) {
+		try {
+			// Make an API request to signup endpoint
+			const response = await this.$axios.post(`/authenticate/reset/?token=${Cookies.get('token')}`, { email, password, rpassword });
+
+			console.log('Reset:', response)
 
 			return { response: response.data };
 		} catch (error) {

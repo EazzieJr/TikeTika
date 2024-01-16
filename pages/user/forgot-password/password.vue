@@ -1,18 +1,16 @@
 <template>
 	<div class="ForgotEmail">
-		<form action="">
+		<form @submit.prevent="resetPassword">
 			<div class="Inputs">
-				<InputField type="password" placeholder="Create new Password" />
+				<InputField type="email" placeholder="Email Address" v-model="user.email" />
+				<InputField type="password" placeholder="Create Password" v-model="user.password" />
+				<InputField type="password" placeholder="Confirm Password" v-model="user.rpassword" />
 			</div>
 
 			<button class="">
 				Create password
 			</button>
 		</form>
-
-		<div class="Others">
-			<span>Don't have an account? <NuxtLink to="/user/signup/">Sign up</NuxtLink></span>
-		</div>
 	</div>
 </template>
 
@@ -20,7 +18,38 @@
 export default {
 	layout: "onboarding",
 	title: "Forgot Password",
-	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)"
+	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)",
+
+	data() {
+		return {
+			user: {
+				email: "",
+				password: "",
+				rpassword: "",
+			}
+		}
+	},
+
+	methods: {
+		async resetPassword() {
+			try {
+				const { data } = await this.$store.dispatch("resetPassword", this.user);
+
+				console.log(data);
+				this.$router.push("password");
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	},
+	
+	async mounted() {
+		try {
+			await this.$store.dispatch("createToken")
+		} catch (error) {
+			console.log(error);
+		}
+	}
 }
 </script>
 

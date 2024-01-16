@@ -1,8 +1,8 @@
 <template>
 	<div class="ForgotEmail">
-		<form action="">
+		<form @submit.prevent="forgotPassword">
 			<div class="Inputs">
-				<InputField type="email" placeholder="Email Address" />
+				<InputField type="email" placeholder="Email Address" v-model="email" />
 			</div>
 
 			<button class="">
@@ -16,7 +16,31 @@
 export default {
 	layout: "onboarding",
 	title: "Forgot Password",
-	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)"
+	hint: "Create your Account,NameSelect AgeGenderPhone numberEmail Address (Optional)",
+
+	data() {
+		return {
+			email: "",
+		}
+	},
+
+	methods: {
+		async forgotPassword() {
+			console.log(this.email);
+			try {
+				const { data } = await this.$store.dispatch("forgotPassword", {
+					email: this.email
+				});
+
+				console.log(data);
+				this.$router.push("password");
+				// this.$store.commit("user/setUser", data);
+				// this.$router.push("/user/profile/");
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}
 }
 </script>
 
