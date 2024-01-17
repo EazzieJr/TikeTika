@@ -853,9 +853,16 @@ export default {
     }
   },
 
-   mounted() {
+  async mounted() {
     this.initFlkty();
-    this.loadRoutes()
+    try {
+      const { data } = await this.$axios.get('route')
+      console.log(data)
+      // this.routes = data.data
+    } catch (error) {
+      console.log(error)
+    }
+    // this.loadRoutes()
   }
 }
 </script>
