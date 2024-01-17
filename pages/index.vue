@@ -37,7 +37,7 @@
                   <span>
                     Trip type
                   </span>
-    
+
                   <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
@@ -47,7 +47,8 @@
               </template>
 
               <DropdownContent class="Content">
-                <div class="Item" v-for="tp in tripTypes" :key="tp" :class="{'active': selectedTripType === tp}" @click="selectedTripType = tp">
+                <div class="Item" v-for="tp in tripTypes" :key="tp" :class="{ 'active': selectedTripType === tp }"
+                  @click="selectedTripType = tp">
                   <span>
                     {{ tp }}
                   </span>
@@ -55,29 +56,30 @@
               </DropdownContent>
             </Dropdown>
 
-             <Dropdown class="Dropdown">
-                <template #toggler>
-                  <div class="DropdownToggler between">
-                    <span>
-                      Class
-                    </span>
-    
-                    <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
-                        fill="white" />
-                    </svg>
-                  </div>
-                </template>
+            <Dropdown class="Dropdown">
+              <template #toggler>
+                <div class="DropdownToggler between">
+                  <span>
+                    Class
+                  </span>
 
-                <DropdownContent class="Content">
-                  <div class="Item" v-for="cl in classes" :key="cl" :class="{ 'active': selectedClassType === cl }" @click="selectedClassType = cl">
-                    <span>
-                      {{ cl }}
-                    </span>
-                  </div>
-                </DropdownContent>
-              </Dropdown>
+                  <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                      fill="white" />
+                  </svg>
+                </div>
+              </template>
+
+              <DropdownContent class="Content">
+                <div class="Item" v-for="cl in classes" :key="cl" :class="{ 'active': selectedClassType === cl }"
+                  @click="selectedClassType = cl">
+                  <span>
+                    {{ cl }}
+                  </span>
+                </div>
+              </DropdownContent>
+            </Dropdown>
           </div>
 
           <form @submit.prevent="submit" action="">
@@ -203,16 +205,17 @@
           </button>
 
           <div class="Routes start">
-            <div v-for="(route, index) in routes" :key="index" class="Route Carousel-cell">
+            <div v-for="(route, index) in routes" :key="index" class="Route Carousel-cell"
+              @click="fetchEvent(route, 'bus')">
               <div class="Image">
-                <img src="/images/route.png" alt="">
+                <img :src="route.background" alt="">
               </div>
 
               <div class="Content">
                 <div class="Top between">
                   <div class="Left start">
                     <span>
-                      {{ route.location.from }}
+                      {{ route.from }}
                     </span>
 
                     <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -222,7 +225,7 @@
                     </svg>
 
                     <span>
-                      {{ route.location.to }}
+                      {{ route.to }}
                     </span>
                   </div>
 
@@ -545,7 +548,8 @@
           </span>
 
           <p>
-            We are not just an advisory firm; we architects of growth, creators of opportunities and champions of progress.
+            We are not just an advisory firm; we architects of growth, creators of opportunities and champions of
+            progress.
           </p>
         </div>
       </div>
@@ -579,68 +583,21 @@ import { mapState, mapMutations } from "vuex"
 export default {
   name: 'IndexPage',
 
+  async asyncData({ $axios }) {
+    try {
+      const data = await $axios.$get('/popular/?type=routes')
+
+      return {
+        routes: data.routes
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   data() {
     return {
-      routes: [
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-        {
-          image: '',
-          location: {
-            from: 'Mwanza',
-            to: 'Mbenya'
-          },
-          price: 700
-        },
-      ],
+      routes: [],
 
       entertainments: [
         {
@@ -736,7 +693,7 @@ export default {
         "Semi Luxury",
         "VIP"
       ],
-      
+
       selectedTripType: "One Way",
       selectedClassType: "VIP",
 
@@ -838,15 +795,33 @@ export default {
       } catch (error) {
         console.log(error, error.code)
       }
-      
+
       // this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainment' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
     },
 
-    async loadRoutes() {
+    async loadData() {
       try {
-        const { data } = await this.$axios.get('route')
+        const { data } = await this.$axios.get('/popular/?type=routes')
         console.log(data)
-        // this.routes = data.data
+        this.routes = data.routes
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async fetchEvent(data, type) {
+      const { origin, destination } = data
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+
+      try {
+        const response = await this.$axios.post(`/search/?type=${type}`, {
+          origin,
+          destination,
+          date: formattedDate
+        })
+
+        console.log(response)
       } catch (error) {
         console.log(error)
       }
@@ -855,14 +830,14 @@ export default {
 
   async mounted() {
     this.initFlkty();
-    try {
-      const { data } = await this.$axios.get('route')
-      console.log(data)
-      // this.routes = data.data
-    } catch (error) {
-      console.log(error)
-    }
-    // this.loadRoutes()
+    // try {
+    //   const { data } = await this.$axios.get('/popular/?type=routes')
+    //   console.log(data)
+    //   // this.routes = data.data
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // this.loadData()
   }
 }
 </script>
@@ -1087,7 +1062,7 @@ export default {
             }
 
             .Content {
-              @apply absolute top-0 left-0 w-full h-full flex flex-col justify-end pb-6 px-4 md:px-5 lg:px-6 space-y-6;
+              @apply absolute top-0 left-0 w-full h-full flex flex-col justify-end pb-6 px-4 md:px-5 lg:px-6 space-y-6 bg-black bg-opacity-30;
 
               .Top {
                 .Left {
@@ -1161,7 +1136,7 @@ export default {
           }
 
           span {
-            @apply text-white font-bold text-xl lg:text-2xl xl:text-[32px] text-center md:text-left block lg:!leading-[140%]
+            @apply text-white font-bold text-xl lg:text-2xl xl:text-[32px] text-center md:text-left block lg: !leading-[140%]
           }
         }
 
@@ -1237,5 +1212,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>
