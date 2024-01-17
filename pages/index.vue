@@ -1136,7 +1136,7 @@ export default {
           }
 
           span {
-            @apply text-white font-bold text-xl lg:text-2xl xl:text-[32px] text-center md:text-left block lg: !leading-[140%]
+            @apply text-white font-bold text-xl lg:text-2xl xl:text-[32px] text-center md:text-left block lg:leading-[140%]
           }
         }
 
@@ -1212,4 +1212,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
