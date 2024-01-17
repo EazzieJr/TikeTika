@@ -1,12 +1,169 @@
 <template>
 	<div class="Checkout">
-		<div class="inDev">
+		<!-- <div class="inDev">
 			Currently In Development
-		</div>
-		
-		<!-- <section class="constraint">
-			<div class="TopLeft">
+		</div> -->
 
+		<section class="constraint">
+			<div class="TopLeft">
+				<div class="Reservations">
+					<h2>
+						Reservations
+					</h2>
+
+					<div class="Placements">
+						<div class="Sofas start">
+							<button class="Sofa center" :class="{ 'selected': sofa.selected, 'reserved': sofa.reserved }"
+								v-for="(sofa, index) in seats.sofas" :key="index" @click="sofa.selected = !sofa.selected"
+								:disabled="sofa.reserved">
+								<img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt="" class="Class">
+
+								<span>
+									{{ sofa.seat }}
+								</span>
+							</button>
+						</div>
+
+						<div class="Tables start">
+							<button class="Table center" :class="{ 'selected': table.selected, 'reserved': table.reserved }"
+								v-for="(table, index) in seats.tables" :key="index" @click="table.selected = !table.selected"
+								:disabled="table.reserved">
+								<img :src="`/svg/classes/${table.selected ? table.class + '-white' : table.class}.svg`" alt=""
+									class="Class">
+
+								<span>
+									{{ table.seat }}
+								</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="Guide start">
+						<div class="Sofa col-center">
+							<div class="Box center">
+								<img src="/svg/classes/sofa.svg" alt="">
+
+								<span>
+									S*
+								</span>
+							</div>
+
+							<p>
+								Sofa
+							</p>
+						</div>
+
+						<div class="Table col-center">
+							<div class="Box center">
+								<img src="/svg/classes/table.svg" alt="">
+
+								<span>
+									T*
+								</span>
+							</div>
+
+							<p>
+								Table
+							</p>
+						</div>
+
+						<div class="Selected col-center">
+							<div class="Box selected center">
+								<span>
+									00
+								</span>
+							</div>
+
+							<p>
+								Selected
+							</p>
+						</div>
+
+						<div class="Reserved col-center">
+							<div class="Box reserved center">
+								<span>
+									ST*
+								</span>
+							</div>
+
+							<p>
+								Reserved
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="ReservationsFare" v-if="filteredSofaSeats.length > 0 || filteredTableSeats.length > 0">
+					<h2>
+						Reservations Fare
+					</h2>
+
+					<div class="Fares">
+						<div class="Fare start" v-for="fare in filteredSofaSeats" :key="fare.seat">
+							<div>
+								{{ fare.seat }}
+							</div>
+
+							<div>
+								Tsh 26, 000
+							</div>
+						</div>
+
+						<div class="Fare start" v-for="fare in filteredTableSeats" :key="fare.seat">
+							<div>
+								{{ fare.seat }}
+							</div>
+
+							<div>
+								Tsh 26, 000
+							</div>
+						</div>
+					</div>
+
+					<div class="TotalFare col-end">
+						<p>
+							Total Fare
+						</p>
+
+						<span>
+							Tsh {{ 26000 * (filteredTableSeats.length + filteredSofaSeats.length) }}
+						</span>
+					</div>
+				</div>
+
+				<div class="ReservationsDare">
+					<h2>
+						Reservation Date
+					</h2>
+
+					<div class="Date">
+						<div class="Input">
+							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M29.2399 9.01318L24.7465 27.0532C24.4265 28.3999 23.2265 29.3332 21.8399 29.3332H4.31985C2.30651 29.3332 0.866535 27.3598 1.46653 25.4264L7.07986 7.3999C7.46652 6.14657 8.62654 5.27979 9.93321 5.27979H26.3332C27.5999 5.27979 28.6532 6.05312 29.0932 7.11979C29.3465 7.69312 29.3999 8.34652 29.2399 9.01318Z"
+									stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" />
+								<path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8" stroke="#4F4F4F"
+									stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M21.8398 8.52002L23.0932 2.7334" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M10.2666 16H20.9333" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M8.93359 21.3335H19.6003" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+
+							<div class="Cont">
+								<span>
+									Date
+								</span>
+
+								<input type="date">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="BottomRight">
@@ -25,7 +182,7 @@
 					</p>
 
 					<div class="Bottom between">
-						<button class="SeatMap">
+						<button class="SeatMap" @click="seatMap = true">
 							View Seat Map
 						</button>
 
@@ -92,24 +249,24 @@
 									<span class="Title">
 										{{ ticket.title }}
 									</span>
-	
+
 									<p>
 										Tsh {{ ticket.price }}
 									</p>
 								</div>
-	
+
 								<div class="Right">
 									<div class="Counter start">
 										<button class="Reduce" @click="ticket.count--" :disabled="ticket.count == 0">
 											-
 										</button>
-	
+
 										<div class="Count center">
 											<span>
 												{{ ticket.count }}
 											</span>
 										</div>
-	
+
 										<button class="Add" @click="ticket.count++">
 											+
 										</button>
@@ -177,7 +334,13 @@
 					Pay Now
 				</button>
 			</form>
-		</Modal> -->
+		</Modal>
+
+		<div class="SeatMap center" v-if="seatMap" @click="seatMap = false">
+			<div class="Image">
+				<img src="/images/seatmap.png" alt="An image showing the sitting positions">
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -248,12 +411,133 @@ export default {
 				},
 			],
 
+			seats: {
+				sofas: [
+					{
+						class: "sofa",
+						seat: "S1",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S2",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S3",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S4",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S5",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S6",
+						selected: false,
+						reserved: true
+					},
+
+					{
+						class: "sofa",
+						seat: "S7",
+						selected: false
+					},
+
+					{
+						class: "sofa",
+						seat: "S8",
+						selected: false
+					},
+				],
+
+				tables: [
+					{
+						class: "table",
+						seat: "T1",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T2",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T3",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T4",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T5",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T6",
+						selected: false
+					},
+
+					{
+						class: "table",
+						seat: "T7",
+						selected: false,
+						reserved: true
+					},
+
+					{
+						class: "table",
+						seat: "T8",
+						selected: false
+					},
+				]
+			},
+
 			modalOpened: false,
+			seatMap: false,
 			modalType: 'form'
 		}
 	},
 
 	computed: {
+		filteredSofaSeats() {
+			const data = this.seats.sofas.filter(sofa => {
+				return sofa.selected > 0
+			})
+
+			return data;
+		},
+
+		filteredTableSeats() {
+			const data = this.seats.tables.filter(table => {
+				return table.selected > 0
+			})
+
+			return data;
+		},
+
 		filteredTickets() {
 			const data = this.tickets.filter(tk => {
 				return tk.count > 0
@@ -308,20 +592,179 @@ export default {
 
 <style lang="postcss" scoped>
 .Checkout {
-	@apply py-12 lg:py-14 xl:pt-16 xl:pb-32 bg-[#FAFAFA] min-h-[100svh];
+	@apply py-12 lg:py-14 xl:pt-16 md:pb-20 xl:pb-40 bg-[#FAFAFA] min-h-[100svh];
 
 	section {
 		@apply space-y-8 md:space-y-0 md:space-x-6 md:flex;
 
 		.TopLeft {
-			@apply shrink-0 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[408px]
+			@apply shrink-0 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[408px] space-y-8;
+
+			.Reservations {
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 lg:pb-16 h-fit bg-white;
+
+				h2 {
+					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-secondary !leading-[150%] font-bold
+				}
+
+				.Placements {
+					@apply space-y-6 lg:space-y-8 mt-8 pb-12 lg:pb-16 border-b border-dashed border-[#C2C2C2];
+
+					.Sofas,
+					.Tables {
+						@apply flex-wrap gap-4;
+
+						button {
+							@apply w-10 lg:w-16 h-10 md:h-16 rounded relative;
+							border: 0.5px solid #EBEBEB;
+
+							img {
+								@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2 lg:w-auto;
+							}
+
+							span {
+								@apply block text-[#0A0A0A] font-bold text-lg lg:text-2xl
+							}
+
+							&.selected {
+								@apply bg-primary border border-primary;
+
+								span {
+									@apply text-white
+								}
+							}
+
+							&.reserved {
+								@apply bg-[#EBEBEB];
+
+								span {
+									@apply text-white
+								}
+							}
+						}
+					}
+				}
+
+				.Guide {
+					@apply space-x-4 mt-4;
+
+					>div {
+						@apply space-y-1;
+
+						.Box {
+							@apply w-9 h-9 rounded relative;
+							border: 0.5px solid #EBEBEB;
+
+							img {
+								@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2;
+							}
+
+							span {
+								@apply block text-[#0A0A0A] font-bold text-sm
+							}
+
+							&.selected {
+								@apply bg-primary border border-primary;
+
+								span {
+									@apply text-white
+								}
+							}
+
+							&.reserved {
+								@apply bg-[#EBEBEB];
+
+								span {
+									@apply text-white
+								}
+							}
+						}
+
+						p {
+							@apply text-[#484848] text-[8px] font-bold leading-[125%]
+						}
+					}
+				}
+			}
+
+			.ReservationsFare {
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 lg:pb-16 h-fit bg-white;
+
+				h2 {
+					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-secondary !leading-[150%] font-bold
+				}
+
+				.Fares {
+					@apply mt-5 mb-7 space-y-[18px] lg:space-y-[22px];
+
+					.Fare {
+						@apply font-bold leading-[100%] text-sm xl:text-lg text-primary-black;
+
+						div {
+							@apply first:pr-4 last:pl-3;
+
+							&:nth-child(1) {
+								@apply border-r border-dashed border-border
+							}
+						}
+					}
+				}
+
+				.TotalFare {
+					@apply space-y-2 pt-3 lg:pt-4 border-t border-dashed border-[#c2c2c2];
+
+					p {
+						@apply text-xs lg:text-sm font-bold
+					}
+
+					span {
+						@apply block text-xl lg:text-2xl text-primary !leading-[150%] font-bold
+					}
+				}
+			}
+
+			.ReservationsDare {
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 lg:pb-16 h-fit bg-white;
+
+				h2 {
+					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-secondary !leading-[150%] font-bold
+				}
+
+				.Date {
+					@apply py-3 px-6 bg-white rounded border border-border mt-4;
+					
+					.Input {
+						@apply rounded-none flex justify-start items-start !space-x-3;
+
+						svg {
+							@apply w-6 xl:w-8 h-6 xl:h-8 shrink-0
+						}
+
+						.Cont {
+							@apply space-y-2 !m-0;
+
+							span {
+                @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
+              }
+
+							input {
+                @apply text-[#1D1D1D] font-bold lg:font-medium text-lg !leading-[133.33%] pb-1 md:pb-0 !w-fit;
+
+								&::-webkit-calendar-picker-indicator {
+									@apply hidden
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
 		.BottomRight {
 			@apply space-y-8 grow;
-			
+
 			.Description {
-				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 h-fit;
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 h-fit bg-white;
 				box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
 
 				h2 {
@@ -335,7 +778,7 @@ export default {
 				.Bottom {
 					@apply mt-6 !items-end;
 
-					.SeatMap {
+					button.SeatMap {
 						@apply bg-primary rounded py-3 xl:py-4 px-8 xl:px-12 text-white font-bold text-sm xl:text-lg
 					}
 
@@ -354,7 +797,7 @@ export default {
 			}
 
 			.TicketInfo {
-				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 shrink-0 w-full;
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 shrink-0 w-full bg-white;
 
 				h2 {
 					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
@@ -364,7 +807,7 @@ export default {
 					@apply mt-4 md:mt-5 lg:mt-6;
 
 					.Container {
-						@apply grid lg:grid-cols-2 gap-6 overflow-auto h-[500px] xl:max-h-[566px]; 
+						@apply grid lg:grid-cols-2 gap-6 overflow-auto h-[500px] xl:max-h-[566px];
 
 						.Food {
 							@apply pb-4 lg:pb-6 border-b border-dashed border-[#C2C2C2];
@@ -466,6 +909,18 @@ export default {
 
 		button {
 			@apply rounded bg-primary w-full text-white py-4 lg:py-6 px-6 lg:px-12 text-xs lg:text-lg font-bold leading-[100%];
+		}
+	}
+
+	>.SeatMap {
+		@apply fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-25 z-50 px-5 lg:px-0;
+
+		.Image {
+				@apply lg:w-4/5 max-w-[1200px];
+			
+			img {
+				@apply w-full
+			}
 		}
 	}
 
