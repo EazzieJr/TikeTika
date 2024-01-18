@@ -1,12 +1,12 @@
 <template>
 	<div class="BusResult" @click="ticketOpened = !ticketOpened">
-		<div class="Main">
-			<div class="Container">
+		<div class="Details">
+			<div class="Main">
 				<div class="Top">
 					<div class="Left">
 						<div class="top start">
 							<h2>
-								Leaving.
+								Leaving on.
 							</h2>
 
 							<span>Oct 31,2023</span>
@@ -26,19 +26,10 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="Right">
-						<div class="TripType">
-							<span>
-								Round Trip
-							</span>
-						</div>
-					</div>
 				</div>
 
 				<div class="Bottom">
 					<div class="From">
-						<p>From Where?</p>
 						<span class="Place">
 							Kaskazini Pemba
 						</span>
@@ -47,18 +38,18 @@
 							<span>
 								09:00am
 							</span>
-
-							<p>Dar Bust stop</p>
 						</div>
 					</div>
 
-					<div class="Mid">
+					<div class="Mid ">
 						<img src="/svg/ticket-mid.svg" alt="">
+
+						<span>
+							2hr55min
+						</span>
 					</div>
 
 					<div class="To">
-						<p>To Where?</p>
-
 						<span class="Place">
 							Dar es Salaam
 						</span>
@@ -67,21 +58,17 @@
 							<span>
 								09:00am
 							</span>
-
-							<p>Dar Bust stop</p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="Main" v-if="ticketOpened && tripType == 'round trip'">
-			<div class="Container">
+			<div class="Main">
 				<div class="Top">
 					<div class="Left">
 						<div class="top start">
 							<h2>
-								Returning
+								Returning on.
 							</h2>
 
 							<span>Oct 31,2023</span>
@@ -101,19 +88,10 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="Right">
-						<div class="TripType">
-							<span>
-								Round Trip
-							</span>
-						</div>
-					</div>
 				</div>
 
 				<div class="Bottom">
 					<div class="From">
-						<p>From Where?</p>
 						<span class="Place">
 							Kaskazini Pemba
 						</span>
@@ -122,18 +100,18 @@
 							<span>
 								09:00am
 							</span>
-
-							<p>Dar Bust stop</p>
 						</div>
 					</div>
 
-					<div class="Mid">
+					<div class="Mid ">
 						<img src="/svg/ticket-mid.svg" alt="">
+
+						<span>
+							2hr55min
+						</span>
 					</div>
 
 					<div class="To">
-						<p>To Where?</p>
-
 						<span class="Place">
 							Dar es Salaam
 						</span>
@@ -142,34 +120,35 @@
 							<span>
 								09:00am
 							</span>
-
-							<p>Dar Bust stop</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 </template>
 
 <script>
 export default {
-
+	props: {
+		data: {
+			type: Object,
+			default: () => {}
+		}
+	}
 }
 </script>
 
 <style lang="postcss" scoped>
 .BusResult {
-	@apply cursor-pointer;
+	@apply cursor-pointer bg-white rounded-lg p-6 lg:px-8;
+	border: 0.5px solid #EBEBEB;
 
-	.Main {
-		.Container {
-			@apply w-full space-y-2 md:space-y-4 lg:space-y-[18px] p-6 lg:px-8 bg-white rounded-[10px] mx-auto;
-			border: 0.5px solid #EBEBEB;
+	.Details {
+		@apply space-y-8 lg:space-y-0 lg:flex lg:divide-x divide-dashed lg:divide-border lg:border-b border-dashed border-border;
 
-			/* @apply w-full max-w-[342px] md:max-w-[440px] lg:max-w-[500px] xl:max-w-[612px] space-y-2 md:space-y-4 lg:space-y-[18px] p-6 lg:px-8 bg-white rounded-[10px] mx-auto; */
-			box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
+		.Main {
+			@apply w-full lg:w-1/2 space-y-2 md:space-y-4 lg:space-y-6 lg:first:pr-8 lg:last:pl-8 border-b border-dashed border-border lg:border-none pb-6;
 
 			.Top {
 				@apply flex justify-between;
@@ -178,7 +157,7 @@ export default {
 					@apply space-y-3;
 
 					.top {
-						@apply space-x-1 lg:space-x-2;
+						@apply space-x-1 lg:space-x-2 pl-6 xl:pl-11;
 
 						h2 {
 							@apply font-bold text-[#0A0A0A] md:text-lg lg:text-xl xl:text-2xl md:leading-[150%] lg:leading-[150%]
@@ -190,21 +169,21 @@ export default {
 					}
 
 					.bottom {
-						@apply space-x-2 flex md:items-center;
+						@apply space-x-2 flex;
 
 						.Box {
-							@apply bg-primary rounded w-4 lg:w-5 xl:w-6 h-4 lg:h-5 xl:h-6
+							@apply bg-primary rounded w-4 lg:w-6 xl:w-8 h-4 lg:h-6 xl:h-8
 						}
 
 						>div {
-							@apply space-y-2 md:space-y-0 md:space-x-2 md:flex items-center;
+							@apply space-y-2;
 
 							.BusName {
-								@apply text-xs lg:text-base xl:text-lg leading-[150%] lg:leading-[133.33%] font-medium;
+								@apply text-xs lg:text-base xl:text-lg leading-[150%] lg:leading-[133.33%] font-medium block;
 							}
 
 							.PlateNumber {
-								@apply bg-[#F7F7F7] rounded-full py-2 xl:py-2.5 px-3 xl:px-4;
+								@apply bg-[#F7F7F7] rounded-full py-2 xl:py-2.5 px-3 xl:px-4 w-fit;
 
 								span {
 									@apply text-[#0A0A0A] block text-[8px] xl:text-[10px] leading-[125%] xl:leading-[100%] font-bold
@@ -213,122 +192,40 @@ export default {
 						}
 					}
 				}
-
-				.Right {
-					.TripType {
-						@apply bg-[#DFF6E4] rounded-full py-2 xl:py-2.5 px-3 xl:px-4;
-
-						span {
-							@apply text-primary block text-[8px] xl:text-[10px] leading-[125%] xl:leading-[100%] font-bold
-						}
-					}
-				}
 			}
 
 			.Bottom {
-				@apply max-w-[95%] lg:max-w-[90%] flex justify-between space-x-2;
+				@apply flex justify-between space-x-2 pl-6 xl:pl-11;
 
 				.From,
 				.To {
 					@apply space-y-3;
 
-					p {
-						@apply text-[10px] xl:text-sm font-bold text-secondary !leading-[100%]
-					}
-
 					.Place {
-						@apply block font-bold text-sm md:text-base lg:text-lg xl:text-2xl text-secondary md:text-[#0A0A0A] leading-[100%] md:leading-[150%] lg:leading-[150%]
+						@apply block font-medium text-xs md:text-base lg:text-base text-secondary leading-[100%] md:leading-[150%] lg:leading-[150%]
 					}
 
 					.TimeStop {
 						@apply space-y-2 xl:space-y-3;
 
 						span {
-							@apply block text-[#0A0A0A] font-bold text-xs lg:text-xl xl:text-2xl leading-[100%] xl:leading-[150%]
+							@apply block text-[#0A0A0A] font-bold text-xs lg:text-lg leading-[100%]
 						}
 					}
 				}
 
 				.Mid {
-					@apply shrink-0 mt-6 xl:mt-8;
+					@apply shrink-0 space-y-1;
 
 					img {
 						@apply w-14 md:w-auto
 					}
-				}
-			}
-		}
-	}
 
-	.TicketDetails {
-		@apply w-full p-6 lg:px-8 bg-white rounded-[10px] mx-auto border-t border-dashed border-[#EBEBEB];
-		/* @apply w-full max-w-[342px] md:max-w-[440px] lg:max-w-[500px] xl:max-w-[612px] space-y-2 md:space-y-4 lg:space-y-[18px] p-6 lg:px-8 bg-white rounded-[10px] mx-auto; */
-		box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
-
-		.Top {
-			@apply space-y-1 lg:space-y-2 xl:space-y-3;
-
-			p {
-				@apply font-bold text-secondary text-[8px] lg:text-xs xl:text-sm
-			}
-
-			span {
-				@apply text-xs md:text-base lg:text-xl xl:text-2xl font-bold text-primary-black leading-[100%] xl:leading-[150%]
-			}
-		}
-
-		.Mid {
-			@apply space-x-6 lg:space-x-10 xl:space-x-14 my-4 lg:my-5 xl:mt-6 xl:mb-8;
-
-			.Deat {
-				@apply space-y-1 lg:space-y-2 xl:space-y-3;
-
-				p {
-					@apply font-bold text-secondary text-[8px] lg:text-xs xl:text-sm
-				}
-
-				span {
-					@apply text-xs lg:text-base xl:text-lg text-primary-black font-bold !leading-[100%]
-				}
-
-				&:last-child {
-					p {
-						@apply text-right
+					span {
+						@apply block text-[8px] leading-[125%] font-bold text-secondary text-center
 					}
 				}
 			}
-		}
-
-		.Bottom {
-			@apply border-t border-dashed border-border pt-3 xl:pt-4;
-
-			.Qr {
-				@apply space-y-1;
-
-				img {
-					@apply w-8 lg:w-12 xl:w-auto
-				}
-
-				span {
-					@apply text-center text-[8px] xl:text-[10px] font-bold
-				}
-			}
-
-			.TF {
-				@apply text-right space-y-1 xl:space-y-2;
-
-				p {
-					@apply font-bold text-secondary text-[8px] lg:text-xs xl:text-sm
-				}
-
-				span {
-					@apply text-xs md:text-base lg:text-xl xl:text-2xl font-bold text-primary-black leading-[100%] xl:leading-[150%]
-				}
-			}
-		}
-
-		span {
-			@apply block
 		}
 	}
 }

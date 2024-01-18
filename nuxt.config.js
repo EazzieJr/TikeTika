@@ -26,6 +26,7 @@ export default {
   plugins: [
     '~/plugins/vue-html-secure.client',
     '~/plugins/cookie',
+    '~/plugins/moment.js',
     { src: '~/plugins/clickaway.js', mode: 'client' },
   ],
 

@@ -150,6 +150,68 @@
 			</form>
 		</header>
 
+		<section class="ResultsAndFilter">
+			<div class="Container">
+				<div class="Top hidden md:end">
+					<span>
+						Sort
+					</span>
+
+					<div class="Sorts start">
+						<button :class="{ 'active': sort == sortBy }" v-for="sort in sorts" :key="sort" @click="sortBy = sort">
+							{{ sort }}
+						</button>
+					</div>
+				</div>
+
+				<div class="Bottom">
+					<div class="DesktopFilter">
+						<div class="Header between">
+							<span>
+								Filters
+							</span>
+	
+							<button class="reset">
+								Reset
+							</button>
+						</div>
+	
+						<div class="Filters">
+							<div class="Category" v-for="filter in filters" :key="filter.title">
+								<div class="Top between" @click="filter.toggled = !filter.toggled">
+									<span>
+										{{ filter.title }}
+									</span>
+	
+									<svg :class="{ 'rotate-180': filter.toggled }" width="16" height="16" viewBox="0 0 16 16" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path d="M13.2788 5.9668L8.93208 10.3135C8.41875 10.8268 7.57875 10.8268 7.06542 10.3135L2.71875 5.9668"
+											stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</div>
+	
+								<div class="FilterValues" v-if="filter.toggled">
+									<div class="Value start" v-for="value in filter.values" :key="value.title"
+										@click="value.selected = !value.selected">
+										<div class="CheckBox" :class="{ 'selected': value.selected }"></div>
+	
+										<span>
+											{{ value.title }}
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="Results">
+						<BusResult v-for="(data, index) in result" :key="index" :data="data" />
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<div class="MobileFilterModal" v-if="filterModal" @click.self="filterModal = false">
 			<div class="MobileFilter">
 				<span>
@@ -482,7 +544,110 @@ export default {
 		}
 	}
 
-	.MobileFilterModal, .MobileSortModal {
+	section {
+		.Container {
+			@apply max-w-[1126px] mx-auto md:pt-10 lg:pt-16 space-y-7 px-5;
+
+			>.Top {
+				@apply space-x-3;
+				
+				>span {
+					@apply text-sm text-secondary font-medium;
+				}
+				
+				.Sorts {
+					@apply space-x-5 xl:space-x-4;
+
+					button {
+						@apply text-secondary font-bold xl:text-lg !leading-[100%] relative;
+
+						&.active {
+							@apply text-primary;
+
+							&::after {
+								@apply absolute -bottom-2 left-[50%] -translate-x-1/2 rounded-full w-1 h-1 bg-primary;
+								content: '';
+							}
+						}
+					}
+				}
+			}
+
+			.Bottom {
+				@apply md:flex md:space-x-5 xl:space-x-6;
+				
+				.DesktopFilter {
+					@apply hidden md:block bg-white rounded-lg py-4 px-6 space-y-6 mb-5 w-[190px] lg:w-[240px] xl:w-[294px] h-fit;
+
+					.Header {
+						@apply border-b border-dashed border-border pb-5;
+
+						span {
+							@apply text-lg font-bold text-secondary w-full block
+						}
+
+						button {
+							@apply text-sm font-bold text-primary
+						}
+					}
+
+					.Filters {
+						@apply space-y-6;
+
+						.Category {
+							@apply space-y-[18px];
+
+							.Top {
+								span {
+									@apply font-bold text-primary-black leading-[133%];
+								}
+							}
+
+							.FilterValues {
+								@apply space-y-4;
+
+								.Value {
+									@apply space-x-2;
+
+									input,
+									span {
+										@apply block
+									}
+
+									.CheckBox {
+										@apply w-[18px] h-[18px] border border-[#C7C7C7] rounded;
+
+										&.selected {
+											@apply bg-primary
+										}
+									}
+
+									input {
+										@apply w-[18px] h-[18px] border border-border rounded
+									}
+
+									span {
+										@apply text-[10px] font-bold text-primary-black
+									}
+								}
+							}
+
+							>span {
+								@apply font-bold text-lg text-primary-black leading-[133%];
+							}
+						}
+					}
+				}
+
+				.Results {
+					@apply grow space-y-6 lg:space-y-8;
+				}
+			}
+		}
+	}
+
+	.MobileFilterModal,
+	.MobileSortModal {
 		@apply fixed top-0 left-0 bottom-0 right-0 w-full h-full bg-black bg-opacity-30 z-50 flex flex-col justify-end;
 
 		.MobileFilter,
@@ -545,4 +710,5 @@ export default {
 
 .inDev {
 	@apply fixed top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center text-center text-[#484848] text-3xl font-bold bg-white;
-}</style>
+}
+</style>
