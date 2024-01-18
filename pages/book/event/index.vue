@@ -50,7 +50,7 @@
 			</form>
 		</header>
 
-	<section class="constraint">
+		<section class="constraint">
 			<div class="Results">
 				<EventResult />
 				<EventResult />
@@ -69,7 +69,7 @@
 
 <script>
 export default {
-	async asyncData({$axios}) {
+	async asyncData({ $axios }) {
 		try {
 			const response = await $axios.$post('search/?type=event', {
 				// region: "10"
@@ -79,7 +79,7 @@ export default {
 			console.log(error.message)
 		}
 	},
-	
+
 	data() {
 		return {
 			trip: {
@@ -93,7 +93,7 @@ export default {
 
 	// async mounted() {
 	// 	console.log(this.$axios)
-		
+
 	// 	try {
 	// 		const response = await this.$axios.post('search/?type=event', {
 	// 			region: "2"
@@ -109,7 +109,7 @@ export default {
 <style lang="postcss" scoped>
 .Events {
 	@apply pb-12 lg:pb-24 bg-[#FAFAFA];
-	
+
 	header {
 		@apply md:py-8 bg-[#0A0A0A] px-5;
 
@@ -195,7 +195,7 @@ export default {
 
 	section {
 		.Results {
-			@apply py-12 lg:py-14 xl:py-16 grid md:grid-cols-2 gap-6 lg:gap-y-8;	
+			@apply py-12 lg:py-14 xl:py-16 grid md:grid-cols-2 gap-6 lg:gap-y-8;
 		}
 
 		.More {

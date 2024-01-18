@@ -205,10 +205,9 @@
           </button>
 
           <div class="Routes start">
-            <div v-for="(route, index) in routes" :key="index" class="Route Carousel-cell"
-              @click="fetchEvent(route, 'bus')">
+            <div v-for="(route, index) in routes" :key="index" class="Route Carousel-cell">
               <div class="Image">
-                <img :src="route.background" alt="">
+                <img :src="route.image" alt="">
               </div>
 
               <div class="Content">
@@ -252,7 +251,7 @@
                   </div>
 
                   <div class="Right">
-                    <button>Book Now</button>
+                    <button @click="fetchEvent(route, 'bus')">Book Now</button>
                   </div>
                 </div>
               </div>
@@ -314,21 +313,21 @@
           </button>
 
           <div class="Routes start">
-            <div v-for="(route, index) in entertainments" :key="index" class="Route Carousel-cell">
+            <div v-for="(ent, index) in entertainments" :key="index" class="Route Carousel-cell">
               <div class="Image">
-                <img src="/images/route.png" alt="">
+                <img :src="ent.image" alt="">
               </div>
 
               <div class="Content">
                 <div class="Top between">
                   <div class="Left">
                     <span>
-                      {{ route.location }}
+                      {{ ent.title }}
                     </span>
 
-                    <p>
+                    <!-- <p>
                       {{ route.amount }} Entertainments
-                    </p>
+                    </p> -->
                   </div>
 
                   <div class="Right">
@@ -350,12 +349,12 @@
                     </span>
 
                     <p>
-                      Tsz {{ route.price }}
+                      Tsz {{ ent.price }}
                     </p>
                   </div>
 
                   <div class="Right">
-                    <button>See all</button>
+                    <button @click="fetchEvent(ent, 'entertainment')">See</button>
                   </div>
                 </div>
               </div>
@@ -417,21 +416,21 @@
           </button>
 
           <div class="Routes start">
-            <div v-for="(route, index) in events" :key="index" class="Route Carousel-cell">
+            <div v-for="(event, index) in events" :key="index" class="Route Carousel-cell">
               <div class="Image">
-                <img src="/images/route.png" alt="">
+                <img :src="event.image" alt="">
               </div>
 
               <div class="Content">
                 <div class="Top between">
                   <div class="Left">
                     <span>
-                      {{ route.location }}
+                      {{ event.title }}
                     </span>
 
-                    <p>
+                    <!-- <p>
                       {{ route.amount }} Events
-                    </p>
+                    </p> -->
                   </div>
 
                   <div class="Right">
@@ -457,12 +456,12 @@
                     </span>
 
                     <p>
-                      Tsz {{ route.price }}
+                      Tsz {{ event.price }}
                     </p>
                   </div>
 
                   <div class="Right">
-                    <button>See all</button>
+                    <button @click="fetchEvent(event, 'event')">See all</button>
                   </div>
                 </div>
               </div>
@@ -585,10 +584,15 @@ export default {
 
   async asyncData({ $axios }) {
     try {
-      const data = await $axios.$get('/popular/?type=routes')
+      const { routes } = await $axios.$get('/popular/?type=routes')
+      const { entertainment } = await $axios.$get('/popular/?type=entertainment')
+      const { events } = await $axios.$get('/popular/?type=events')
 
+      console.log(events)
       return {
-        routes: data.routes
+        routes,
+        entertainments: entertainment,
+        events
       }
     } catch (error) {
       console.log(error)
@@ -599,83 +603,9 @@ export default {
     return {
       routes: [],
 
-      entertainments: [
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Arusha",
-          amount: 20,
-          price: 700
-        },
-      ],
+      entertainments: [],
 
-      events: [
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-        {
-          image: '',
-          location: "Kilimanjaro",
-          amount: 20,
-          price: 700
-        },
-      ],
+      events: [],
 
       search: {
         origin: '',
@@ -809,22 +739,27 @@ export default {
       }
     },
 
-    async fetchEvent(data, type) {
+    fetchEvent(data, type) {
       const { origin, destination } = data
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
 
-      try {
-        const response = await this.$axios.post(`/search/?type=${type}`, {
-          origin,
-          destination,
-          date: formattedDate
-        })
-
-        console.log(response)
-      } catch (error) {
-        console.log(error)
+      if (type == 'bus') {
+        console.log(origin, destination)
+        this.$router.push(`/book/bus?origin=${origin}&destination=${destination}`)
       }
+
+      // try {
+      //   const response = await this.$axios.post(`/search/?type=${type}`, {
+      //     origin,
+      //     destination,
+      //     date: formattedDate
+      //   })
+
+      //   console.log(response)
+      // } catch (error) {
+      //   console.log(error)
+      // }
     }
   },
 
