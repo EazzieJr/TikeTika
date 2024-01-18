@@ -9,7 +9,7 @@
 								Leaving on.
 							</h2>
 
-							<span>Oct 31,2023</span>
+							<span>{{ $moment(data?.date).format("MMM Do YYYY") }}</span>
 						</div>
 
 						<div class="bottom">
@@ -17,11 +17,11 @@
 
 							<div>
 								<span class="BusName">
-									Tahmeed express
+									{{ data?.name }}
 								</span>
 
 								<div class="PlateNumber">
-									<span>Plate np: 231345455</span>
+									<span>Plate no: {{ data?.plate }}</span>
 								</div>
 							</div>
 						</div>
@@ -31,12 +31,12 @@
 				<div class="Bottom">
 					<div class="From">
 						<span class="Place">
-							Kaskazini Pemba
+							{{ data?.origin }}
 						</span>
 
 						<div class="TimeStop">
 							<span>
-								09:00am
+								{{ data?.startTime }}
 							</span>
 						</div>
 					</div>
@@ -45,7 +45,8 @@
 						<img src="/svg/ticket-mid.svg" alt="">
 
 						<span>
-							2hr55min
+							{{ calculateTimeDifference(data?.startTime, data?.endTime).hours }}hrs
+							{{ calculateTimeDifference(data?.startTime, data?.endTime).minutes }}min
 						</span>
 					</div>
 
@@ -56,7 +57,7 @@
 
 						<div class="TimeStop">
 							<span>
-								09:00am
+								{{ data?.endTime }}
 							</span>
 						</div>
 					</div>
@@ -83,7 +84,7 @@
 								</span>
 
 								<div class="PlateNumber">
-									<span>Plate np: 231345455</span>
+									<span>Plate no: 231345455</span>
 								</div>
 							</div>
 						</div>
@@ -134,6 +135,20 @@ export default {
 		data: {
 			type: Object,
 			default: () => {}
+		}
+	},
+
+	methods: {
+		calculateTimeDifference(startTime, endTime) {
+			const startMoment = this.$moment(startTime, 'hh:mm A');
+			const endMoment = this.$moment(endTime, 'hh:mm A');
+
+			const duration = this.$moment.duration(endMoment.diff(startMoment));
+
+			const hours = duration.hours();
+			const minutes = duration.minutes();
+
+			return { hours, minutes };
 		}
 	}
 }
