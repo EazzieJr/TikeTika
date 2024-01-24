@@ -1,7 +1,7 @@
 <template>
-	<div class="BusResult" @click="ticketOpened = !ticketOpened">
+	<div class="BusResult">
 		<div class="Details">
-			<div class="Main">
+			<div class="Main pr-8 lg:border-r">
 				<div class="Top">
 					<div class="Left">
 						<div class="top start">
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="Main">
+			<div class="Main pl-8" v-if="data?.tripType !== 'go'">
 				<div class="Top">
 					<div class="Left">
 						<div class="top start">
@@ -126,6 +126,24 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="Proceed between">
+			<div class="Left">
+				<p>
+					{{ data?.cabin }}
+				</p>
+
+				<span>
+					Tzs {{ data?.normalPrice }}
+				</span>
+			</div>
+
+			<div class="Right">
+				<button class="Book" @click="bookBus">
+					Book now
+				</button>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -134,7 +152,7 @@ export default {
 	props: {
 		data: {
 			type: Object,
-			default: () => {}
+			default: () => { }
 		}
 	},
 
@@ -149,6 +167,22 @@ export default {
 			const minutes = duration.minutes();
 
 			return { hours, minutes };
+		},
+
+		async bookBus() {
+			try {
+				const data = await this.$axios.post('/bus', {
+					plate: this.data?.plate,
+				}, {
+					headers: {
+						"Access-Control-Allow-Origin": "*"
+					}
+				});
+
+				console.log(data);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	}
 }
@@ -160,10 +194,10 @@ export default {
 	border: 0.5px solid #EBEBEB;
 
 	.Details {
-		@apply space-y-8 lg:space-y-0 lg:flex lg:divide-x divide-dashed lg:divide-border lg:border-b border-dashed border-border;
+		@apply space-y-8 lg:space-y-0 lg:flex lg:divide-x divide-dashed lg:divide-border border-b border-dashed border-border;
 
 		.Main {
-			@apply w-full lg:w-1/2 space-y-2 md:space-y-4 lg:space-y-6 lg:first:pr-8 lg:last:pl-8 border-b border-dashed border-border lg:border-none pb-6;
+			@apply w-full lg:w-1/2 space-y-2 md:space-y-4 lg:space-y-6 border-dashed border-border pb-6;
 
 			.Top {
 				@apply flex justify-between;
@@ -240,6 +274,30 @@ export default {
 						@apply block text-[8px] leading-[125%] font-bold text-secondary text-center
 					}
 				}
+			}
+		}
+	}
+
+	.Proceed {
+		@apply pt-4 lg:pt-6 pb-2;
+
+		.Left {
+			@apply space-y-2;
+
+			p {
+				@apply text-[8px] lg:text-[10px] font-bold text-secondary;
+			}
+
+			span {
+				@apply block text-sm lg:text-lg font-bold text-primary-black
+			}
+		}
+
+		.Right {
+			@apply flex justify-end items-center;
+
+			.Book {
+				@apply text-primary bg-[#DFF6E4] rounded px-4 py-2 lg:px-8 lg:py-4 text-xs lg:text-base font-bold
 			}
 		}
 	}
