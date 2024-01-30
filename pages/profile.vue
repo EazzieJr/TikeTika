@@ -13,7 +13,7 @@
 				</div>
 
 				<div class="Data">
-					<InputField type="text" value="Bamigboye Salami" readonly />
+					<InputField type="email" value="Jane@email.doe" readonly />
 
 					<div class="Display">
 						<span>
@@ -27,10 +27,10 @@
 
 					<div class="Display">
 						<span>
-							Bamigboyedee@gmail.com
+							Jane Doe
 						</span>
 
-						<button @click="dispatchEmailChange">
+						<button @click="dispatchNameChange">
 							Change
 						</button>
 					</div>
@@ -148,9 +148,9 @@
 		</div>
 
 		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
-			<form @submit.prevent="submitForm" class="Form" v-if="change == 'phone'">
+			<form @submit.prevent="updatePhone" class="Form" v-if="change == 'phone'">
 				<div class="Inputs">
-					<InputField type="numeric" placeholder="Phone Number" />
+					<InputField type="numeric" placeholder="Phone Number" v-model="user.phone" />
 				</div>
 
 				<button>
@@ -158,21 +158,21 @@
 				</button>
 			</form>
 
-			<form @submit.prevent="submitForm" class="Form" v-else-if="change == 'email'">
+			<form @submit.prevent="updateName" class="Form" v-else-if="change == 'name'">
 				<div class="Inputs">
-					<InputField type="email" placeholder="Email Address" />
+					<InputField type="text" placeholder="Full Name" />
 				</div>
 
 				<button>
-					Verify Email Address
+					Update name
 				</button>
 			</form>
 
-			<form @submit.prevent="submitForm" class="Form" v-else>
+			<form @submit.prevent="updatePassword" class="Form" v-else>
 				<div class="Inputs">
-					<InputField type="password" placeholder="Enter Old Password" />
-					<InputField type="password" placeholder="Enter New Password" />
-					<InputField type="password" placeholder="Confirm New Password" />
+					<InputField type="password" placeholder="Enter Old Password" v-model="user.oldPassword" />
+					<InputField type="password" placeholder="Enter New Password" v-model="user.newPassword" />
+					<InputField type="password" placeholder="Confirm New Password" v-model="user.confirmPassword" />
 				</div>
 
 				<button>
@@ -189,7 +189,14 @@ export default {
 		return {
 			modalOpened: false,
 			modalType: 'form',
-			change: null
+			change: null,
+			user: {
+				phone: "",
+				name: "",
+				oldPassword: "",
+				newPassword: "",
+				confirmPassword: ""
+			}
 		}
 	},
 
@@ -208,13 +215,54 @@ export default {
 			this.change = "phone"
 			this.modalOpened = true
 		},
-		dispatchEmailChange() {
-			this.change = "email"
+
+		dispatchNameChange() {
+			this.change = "name"
 			this.modalOpened = true
 		},
+
 		dispatchPassChange() {
 			this.change = "password"
 			this.modalOpened = true
+		},
+
+		async updatePhone() {
+			try {
+				const { data } = await this.$axios.post("/authenticate/update", {
+					phone: this.user.phone
+				})
+				// this.$store.commit("user/update", data)
+				this.modalType = 'success'
+				console.log(data)
+			} catch (error) {
+				console.log(error)
+			}
+		},
+
+		async updateName() {
+			try {
+				const { data } = await this.$axios.post("/authenticate/update", {
+					name: this.user.name
+				})
+				// this.$store.commit("user/update", data)
+				this.modalType = 'success'
+				console.log(data)
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		
+		async updatePassword() {
+			try {
+				const { data } = await this.$axios.post("/authenticate/update", {
+					password: this.user.newPassword
+				})
+				// this.$store.commit("user/update", data)
+				this.modalType = 'success'
+				console.log(data)
+			} catch (error) {
+				console.log(error)
+			}
 		},
 
 		submitForm() {
