@@ -8,37 +8,40 @@
 					</h2>
 
 					<div class="Placements">
-						<div class="Sofas start">
-							<button class="Sofa center" :class="{ 'selected': sofa.selected, 'reserved': sofa.reserved }"
-								v-for="(sofa, index) in seats.sofas" :key="index" @click="sofa.selected = !sofa.selected"
-								:disabled="sofa.reserved">
-								<img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt="" class="Class">
+						<div class="Seats">
+							<div class="LeftCols start">
+								<div class="Col" v-for="(col, index) in seats.slice(0, 2)" :key="index">
+									<button class="Seat center" v-for="seat in col" :key="seat">
+										<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
+											class="Class"> -->
 
-								<span>
-									{{ sofa.seat }}
-								</span>
-							</button>
-						</div>
+										<span>
+											{{ seat }}
+										</span>
+									</button>
+								</div>
+							</div>
 
-						<div class="Tables start">
-							<button class="Table center" :class="{ 'selected': table.selected, 'reserved': table.reserved }"
-								v-for="(table, index) in seats.tables" :key="index" @click="table.selected = !table.selected"
-								:disabled="table.reserved">
-								<img :src="`/svg/classes/${table.selected ? table.class + '-white' : table.class}.svg`" alt=""
-									class="Class">
+							<div class="RightCols start">
+								<div class="Col" v-for="(col, index) in seats.slice(2, 4)" :key="index">
+									<button class="Seat center" v-for="seat in col" :key="seat">
+										<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
+											class="Class"> -->
 
-								<span>
-									{{ table.seat }}
-								</span>
-							</button>
+										<span>
+											{{ seat }}
+										</span>
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<div class="Guide start">
-						<div class="Sofa col-center">
+						<!-- <div class="Sofa col-center">
 							<div class="Box center">
 								<img src="/svg/classes/sofa.svg" alt="">
-
+								
 								<span>
 									S*
 								</span>
@@ -47,19 +50,19 @@
 							<p>
 								Sofa
 							</p>
-						</div>
+						</div> -->
 
 						<div class="Table col-center">
 							<div class="Box center">
 								<img src="/svg/classes/table.svg" alt="">
 
 								<span>
-									T*
+									00
 								</span>
 							</div>
 
 							<p>
-								Table
+								Normal
 							</p>
 						</div>
 
@@ -78,17 +81,17 @@
 						<div class="Reserved col-center">
 							<div class="Box reserved center">
 								<span>
-									ST*
+									00
 								</span>
 							</div>
 
 							<p>
-								Reserved
+								Occupied
 							</p>
 						</div>
 					</div>
 				</div>
-
+				<!-- 
 				<div class="ReservationsFare" v-if="filteredSofaSeats.length > 0 || filteredTableSeats.length > 0">
 					<h2>
 						Booked Seat(s)
@@ -159,75 +162,136 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="BottomRight">
 				<div class="Description">
 					<h2>
-						Description
+						Bus Details
 					</h2>
 
-					<p>
-						Lorem ipsum dolor sit amet consectetur. Volutpat proin lorem lorem eget nec nec lacus sed. Orci faucibus augue
-						sit
-						vel ac pellentesque diam nibh odio. Sed elementum pretium augue risus libero nisl id. In gravida diam id purus
-						eget erat purus dolor. Porttitor suspendisse lorem phasellus sodales aenean integer in malesuada iaculis.
-						Neque
-						sagittis aliquet risus a massa vel cursus elementum. Id molestie neque vulputate.
-					</p>
+					<div class="Details">
+						<div class="Main">
+							<div class="Top">
+								<div class="Left">
+									<div class="top start">
+										<h2>
+											Leaving on.
+										</h2>
 
-					<div class="Bottom between">
-						<button class="SeatMap" @click="seatMap = true">
-							View Seat Map
-						</button>
+										<span>{{ $moment(data?.date).format("MMM Do YYYY") }}</span>
+									</div>
 
-						<div class="Follow">
-							<span>
-								Follow
-							</span>
+									<div class="bottom">
+										<div>
+											<span class="BusName">
+												{{ data?.company }}
+											</span>
 
-							<div class="Socials start">
-								<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<g clip-path="url(#clip0_247_10436)">
-										<path
-											d="M16.0049 0C9.32548 0 7.37174 0.006875 6.99174 0.038125C5.62111 0.1525 4.76799 0.368125 3.83861 0.83125C3.12236 1.18687 2.55736 1.59937 2.00049 2.1775C0.984861 3.23125 0.369861 4.52812 0.147361 6.06937C0.0392361 6.8175 0.00736111 6.97062 0.00111111 10.7931C-0.00138889 12.0675 0.00111111 13.7444 0.00111111 15.9937C0.00111111 22.67 0.00861111 24.6219 0.0404861 25.0012C0.151111 26.3356 0.360486 27.175 0.803611 28.0931C1.65049 29.8506 3.26736 31.17 5.17174 31.6625C5.83111 31.8325 6.55986 31.9256 7.49486 31.97C7.89111 31.9875 11.9299 31.9994 15.9711 31.9994C20.0124 31.9994 24.053 31.9944 24.4399 31.975C25.523 31.9237 26.1517 31.8394 26.8467 31.66C28.7636 31.165 30.3511 29.8656 31.2149 28.0831C31.6492 27.1869 31.8692 26.3156 31.9692 25.0512C31.9911 24.7756 31.9999 20.3794 31.9999 15.9894C31.9999 11.5987 31.9899 7.21062 31.9686 6.935C31.868 5.65 31.6474 4.78562 31.1992 3.8725C30.8311 3.125 30.423 2.56625 29.8299 1.99562C28.7711 0.984375 27.4767 0.36875 25.9342 0.14625C25.1861 0.03875 25.0374 0.006875 21.213 0H16.0049Z"
-											fill="#484848" />
-										<path
-											d="M16.0049 0C9.32548 0 7.37174 0.006875 6.99174 0.038125C5.62111 0.1525 4.76799 0.368125 3.83861 0.83125C3.12236 1.18687 2.55736 1.59937 2.00049 2.1775C0.984861 3.23125 0.369861 4.52812 0.147361 6.06937C0.0392361 6.8175 0.00736111 6.97062 0.00111111 10.7931C-0.00138889 12.0675 0.00111111 13.7444 0.00111111 15.9937C0.00111111 22.67 0.00861111 24.6219 0.0404861 25.0012C0.151111 26.3356 0.360486 27.175 0.803611 28.0931C1.65049 29.8506 3.26736 31.17 5.17174 31.6625C5.83111 31.8325 6.55986 31.9256 7.49486 31.97C7.89111 31.9875 11.9299 31.9994 15.9711 31.9994C20.0124 31.9994 24.053 31.9944 24.4399 31.975C25.523 31.9237 26.1517 31.8394 26.8467 31.66C28.7636 31.165 30.3511 29.8656 31.2149 28.0831C31.6492 27.1869 31.8692 26.3156 31.9692 25.0512C31.9911 24.7756 31.9999 20.3794 31.9999 15.9894C31.9999 11.5987 31.9899 7.21062 31.9686 6.935C31.868 5.65 31.6474 4.78562 31.1992 3.8725C30.8311 3.125 30.423 2.56625 29.8299 1.99562C28.7711 0.984375 27.4767 0.36875 25.9342 0.14625C25.1861 0.03875 25.0374 0.006875 21.213 0H16.0049Z"
-											fill="#484848" />
-										<path
-											d="M16.0049 0C9.32548 0 7.37174 0.006875 6.99174 0.038125C5.62111 0.1525 4.76799 0.368125 3.83861 0.83125C3.12236 1.18687 2.55736 1.59937 2.00049 2.1775C0.984861 3.23125 0.369861 4.52812 0.147361 6.06937C0.0392361 6.8175 0.00736111 6.97062 0.00111111 10.7931C-0.00138889 12.0675 0.00111111 13.7444 0.00111111 15.9937C0.00111111 22.67 0.00861111 24.6219 0.0404861 25.0012C0.151111 26.3356 0.360486 27.175 0.803611 28.0931C1.65049 29.8506 3.26736 31.17 5.17174 31.6625C5.83111 31.8325 6.55986 31.9256 7.49486 31.97C7.89111 31.9875 11.9299 31.9994 15.9711 31.9994C20.0124 31.9994 24.053 31.9944 24.4399 31.975C25.523 31.9237 26.1517 31.8394 26.8467 31.66C28.7636 31.165 30.3511 29.8656 31.2149 28.0831C31.6492 27.1869 31.8692 26.3156 31.9692 25.0512C31.9911 24.7756 31.9999 20.3794 31.9999 15.9894C31.9999 11.5987 31.9899 7.21062 31.9686 6.935C31.868 5.65 31.6474 4.78562 31.1992 3.8725C30.8311 3.125 30.423 2.56625 29.8299 1.99562C28.7711 0.984375 27.4767 0.36875 25.9342 0.14625C25.1861 0.03875 25.0374 0.006875 21.213 0H16.0049Z"
-											fill="#484848" />
-										<path
-											d="M16.0049 0C9.32548 0 7.37174 0.006875 6.99174 0.038125C5.62111 0.1525 4.76799 0.368125 3.83861 0.83125C3.12236 1.18687 2.55736 1.59937 2.00049 2.1775C0.984861 3.23125 0.369861 4.52812 0.147361 6.06937C0.0392361 6.8175 0.00736111 6.97062 0.00111111 10.7931C-0.00138889 12.0675 0.00111111 13.7444 0.00111111 15.9937C0.00111111 22.67 0.00861111 24.6219 0.0404861 25.0012C0.151111 26.3356 0.360486 27.175 0.803611 28.0931C1.65049 29.8506 3.26736 31.17 5.17174 31.6625C5.83111 31.8325 6.55986 31.9256 7.49486 31.97C7.89111 31.9875 11.9299 31.9994 15.9711 31.9994C20.0124 31.9994 24.053 31.9944 24.4399 31.975C25.523 31.9237 26.1517 31.8394 26.8467 31.66C28.7636 31.165 30.3511 29.8656 31.2149 28.0831C31.6492 27.1869 31.8692 26.3156 31.9692 25.0512C31.9911 24.7756 31.9999 20.3794 31.9999 15.9894C31.9999 11.5987 31.9899 7.21062 31.9686 6.935C31.868 5.65 31.6474 4.78562 31.1992 3.8725C30.8311 3.125 30.423 2.56625 29.8299 1.99562C28.7711 0.984375 27.4767 0.36875 25.9342 0.14625C25.1861 0.03875 25.0374 0.006875 21.213 0H16.0049Z"
-											fill="#484848" />
-										<path
-											d="M16.0075 4.10889C12.7762 4.10889 12.3706 4.12326 11.1019 4.18076C9.835 4.23889 8.97062 4.43889 8.21438 4.73326C7.43187 5.03701 6.76813 5.44326 6.10687 6.10389C5.445 6.76451 5.03875 7.42826 4.73375 8.20951C4.43875 8.96576 4.23812 9.83014 4.18125 11.0951C4.12437 12.3633 4.10938 12.7689 4.10938 15.9976C4.10938 19.2264 4.12375 19.6308 4.18125 20.8989C4.23937 22.1645 4.44 23.0283 4.73375 23.7845C5.03812 24.5664 5.44437 25.2295 6.10625 25.8908C6.7675 26.552 7.43125 26.9595 8.21312 27.2633C8.97 27.557 9.835 27.7576 11.1013 27.8158C12.3706 27.8733 12.7756 27.8876 16.0069 27.8876C19.2381 27.8876 19.6425 27.8733 20.9119 27.8158C22.1787 27.7576 23.0444 27.5576 23.8012 27.2633C24.5837 26.9595 25.2463 26.5526 25.9075 25.8914C26.5694 25.2308 26.9756 24.567 27.2806 23.7858C27.5731 23.0295 27.7737 22.1651 27.8331 20.9001C27.89 19.632 27.905 19.2276 27.905 15.9989C27.905 12.7701 27.89 12.3645 27.8331 11.0964C27.7737 9.83076 27.5731 8.96701 27.2806 8.21076C26.9756 7.42889 26.5694 6.76576 25.9075 6.10451C25.2456 5.44326 24.5837 5.03701 23.8006 4.73326C23.0419 4.43951 22.1769 4.23889 20.9106 4.18076C19.6412 4.12326 19.2375 4.10889 16.005 4.10889H16.0075ZM14.9406 6.25139C15.2575 6.25076 15.6106 6.25139 16.0081 6.25139C19.185 6.25139 19.5612 6.26264 20.8156 6.31951C21.9756 6.37264 22.605 6.56639 23.0244 6.72889C23.5794 6.94451 23.9756 7.20201 24.3919 7.61826C24.8081 8.03451 25.0662 8.43076 25.2825 8.98576C25.4456 9.40451 25.6394 10.0333 25.6925 11.1926C25.7494 12.4458 25.7619 12.8226 25.7619 15.9951C25.7619 19.1683 25.7494 19.5445 25.6925 20.7976C25.6394 21.957 25.4456 22.5858 25.2825 23.0045C25.0669 23.5595 24.8088 23.9545 24.3919 24.3701C23.9756 24.7864 23.58 25.0439 23.0244 25.2595C22.6056 25.4233 21.9756 25.6164 20.8156 25.6689C19.5612 25.7258 19.1844 25.7383 16.0081 25.7383C12.8312 25.7383 12.4544 25.7258 11.2006 25.6689C10.0406 25.6151 9.41125 25.422 8.99125 25.2589C8.43625 25.0433 8.03937 24.7858 7.62312 24.3695C7.20687 23.9533 6.94875 23.5583 6.7325 23.0033C6.56937 22.5845 6.37562 21.9558 6.3225 20.7964C6.26562 19.5433 6.25437 19.1664 6.25437 15.992C6.25437 12.817 6.26562 12.4426 6.3225 11.1895C6.37562 10.0301 6.56937 9.40139 6.7325 8.98201C6.94812 8.42701 7.20625 8.03076 7.62312 7.61451C8.03937 7.19826 8.43625 6.94076 8.99125 6.72451C9.41062 6.56076 10.0406 6.36764 11.2006 6.31451C12.2981 6.26514 12.7238 6.25014 14.9412 6.24764L14.9406 6.25139ZM22.3587 8.22576C21.5706 8.22576 20.9312 8.86389 20.9312 9.65201C20.9312 10.4395 21.5706 11.0789 22.3587 11.0789C23.1469 11.0789 23.7862 10.4401 23.7862 9.65201C23.7862 8.86389 23.1469 8.22514 22.3587 8.22576ZM16.0075 9.89264C12.6331 9.89264 9.8975 12.6264 9.8975 15.9983C9.8975 19.3701 12.6331 22.1026 16.0075 22.1026C19.3819 22.1026 22.1162 19.3701 22.1162 15.9983C22.1162 12.6264 19.3819 9.89264 16.0075 9.89264ZM16.0075 12.0351C18.1975 12.0351 19.9737 13.8095 19.9737 15.9983C19.9737 18.187 18.1981 19.9614 16.0075 19.9614C13.8169 19.9614 12.0412 18.187 12.0412 15.9983C12.0419 13.8089 13.8175 12.0351 16.0075 12.0351Z"
-											fill="white" />
-									</g>
-									<defs>
-										<clipPath id="clip0_247_10436">
-											<rect width="32" height="32" fill="white" />
-										</clipPath>
-									</defs>
-								</svg>
+											<div class="PlateNumber">
+												<span>Plate no: {{ data?.plate }}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-								<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<g clip-path="url(#clip0_247_10443)">
-										<path
-											d="M27.2 0H4.8C2.14903 0 0 2.14903 0 4.8V27.2C0 29.851 2.14903 32 4.8 32H27.2C29.851 32 32 29.851 32 27.2V4.8C32 2.14903 29.851 0 27.2 0Z"
-											fill="#484848" />
-										<path
-											d="M27.3125 9.49985C26.5625 9.87485 25.6875 10.1248 24.8125 10.2498C25.75 9.68735 26.4375 8.81235 26.8125 7.74985C25.9375 8.24985 25 8.62485 24 8.81235C23.3199 8.11575 22.4321 7.65851 21.4701 7.50925C20.508 7.36 19.5235 7.52678 18.6642 7.98457C17.805 8.44236 17.1174 9.16646 16.7047 10.0482C16.2919 10.93 16.1762 11.9218 16.375 12.8748C12.875 12.6873 9.5 11.0624 7.3125 8.24985C7.01485 8.72526 6.81425 9.25489 6.72226 9.80819C6.63027 10.3615 6.64872 10.9275 6.77654 11.4737C6.90436 12.0198 7.13903 12.5353 7.46701 12.9903C7.79498 13.4453 8.20979 13.8309 8.6875 14.1249C8 14.1249 7.3125 13.9999 6.6875 13.6874C6.75 15.7499 8.1875 17.5624 10.1875 17.9999C9.5625 18.1874 8.875 18.1874 8.1875 18.0624C8.8125 19.8749 10.5 21.1249 12.375 21.1874C10.5625 22.6874 8.125 23.3749 5.8125 22.9999C7.74495 24.2893 9.99993 25.0118 12.3219 25.0854C14.644 25.1591 16.9402 24.5808 18.9504 23.4163C20.9606 22.2518 22.6046 20.5476 23.6959 18.4967C24.7872 16.4458 25.2822 14.1302 25.125 11.8123C26 11.1873 26.75 10.4373 27.3125 9.49985Z"
-											fill="white" />
-									</g>
-									<defs>
-										<clipPath id="clip0_247_10443">
-											<rect width="32" height="32" fill="white" />
-										</clipPath>
-									</defs>
-								</svg>
+							<div class="Bottom">
+								<div class="From">
+									<span class="Place">
+										{{ data?.origin }}
+									</span>
+
+									<div class="TimeStop">
+										<span>
+											{{ data?.time }}
+										</span>
+									</div>
+								</div>
+
+								<div class="Mid ">
+									<img src="/svg/ticket-mid.svg" alt="">
+
+									<span>
+										{{ calculateTimeDifference(data?.departureTime, data?.arrivalTime).hours }}hrs
+										{{ calculateTimeDifference(data?.departureTime, data?.arrivalTime).minutes }}min
+									</span>
+								</div>
+
+								<div class="To">
+									<span class="Place">
+										Dar es Salaam
+									</span>
+
+									<div class="TimeStop">
+										<span>
+											{{ data?.arrivalTime }}
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="Main" v-if="data?.type !== 'ONE-WAY'">
+							<div class="Top">
+								<div class="Left">
+									<div class="top start">
+										<h2>
+											Returning on.
+										</h2>
+
+										<span>Oct 31,2023</span>
+									</div>
+
+									<div class="bottom">
+										<div class="Box"></div>
+
+										<div>
+											<span class="BusName">
+												Tahmeed express
+											</span>
+
+											<div class="PlateNumber">
+												<span>Plate no: 231345455</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="Bottom">
+								<div class="From">
+									<span class="Place">
+										Kaskazini Pemba
+									</span>
+
+									<div class="TimeStop">
+										<span>
+											09:00am
+										</span>
+									</div>
+								</div>
+
+								<div class="Mid ">
+									<img src="/svg/ticket-mid.svg" alt="">
+
+									<span>
+										2hr55min
+									</span>
+								</div>
+
+								<div class="To">
+									<span class="Place">
+										Dar es Salaam
+									</span>
+
+									<div class="TimeStop">
+										<span>
+											09:00am
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -299,7 +363,7 @@
 			</div>
 		</section>
 
-		<div class="Footer" v-if="totalPrice > 0">
+		<!-- <div class="Footer" v-if="totalPrice > 0">
 			<div class="Container constraint between">
 				<div class="Left">
 					<p>Total fare</p>
@@ -315,7 +379,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
 			<form @submit.prevent="submitForm" class="Form">
@@ -407,108 +471,78 @@ export default {
 				},
 			],
 
-			seats: {
-				sofas: [
-					{
-						class: "sofa",
-						seat: "S1",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S2",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S3",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S4",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S5",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S6",
-						selected: false,
-						reserved: true
-					},
-
-					{
-						class: "sofa",
-						seat: "S7",
-						selected: false
-					},
-
-					{
-						class: "sofa",
-						seat: "S8",
-						selected: false
-					},
+			seats: [
+				[
+					"1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A",
 				],
-
-				tables: [
-					{
-						class: "table",
-						seat: "T1",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T2",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T3",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T4",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T5",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T6",
-						selected: false
-					},
-
-					{
-						class: "table",
-						seat: "T7",
-						selected: false,
-						reserved: true
-					},
-
-					{
-						class: "table",
-						seat: "T8",
-						selected: false
-					},
+				[
+					"1B", "2B", "3B", "4B", "5B", "6B", "7B", "8B", "9B", "10B", "11B",
+				],
+				[
+					"1C", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "11C",
+				],
+				[
+					"1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D"
 				]
+			],
+
+			data: {
+				plate: "T759DRT",
+				date: "2024-01-30",
+				time: "07:00 AM",
+				departureTime: "07:00 AM",
+				arrivalTime: "05:00 PM",
+				operatorID: "OP002",
+				company: "Shabiby",
+				origin: "Mwanza",
+				destination: "Dar es Salaam",
+				price: "30000",
+				type: "ONE-WAY",
+				tripLocations: [
+					{
+						locationID: "29",
+						location: "Kituoni"
+					},
+					{
+						locationID: "1",
+						location: "Magufuli Bus Terminal"
+					}
+				],
+				availableSeats: [
+					"1A",
+					"1B",
+					"1C",
+					"1D",
+					"2C",
+					"2D",
+					"3A",
+					"3B",
+					"3C",
+					"3D",
+					"4A",
+					"4B",
+					"4C",
+					"4D",
+					"7A",
+					"7B",
+					"7C",
+					"7D",
+					"9D",
+					"10A",
+					"10B",
+					"10C",
+					"10D",
+					"11A",
+					"11B",
+					"11C",
+					"11D"
+				],
+				bookedSeats: [],
+				reservedSeats: [],
+				normalSeats: "44",
+				normalColumns: "4",
+				restaurants: [],
+				hotels: []
 			},
 
 			modalOpened: false,
@@ -518,46 +552,86 @@ export default {
 	},
 
 	computed: {
-		filteredSofaSeats() {
-			const data = this.seats.sofas.filter(sofa => {
-				return sofa.selected > 0
-			})
+		groupedItems() {
+			const sequence = [
+				"1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A",
+				"1B", "2B", "3B", "4B", "5B", "6B", "7B", "8B", "9B", "10B", "11B",
+				"1C", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "11C",
+				"1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D"
+			];
 
-			return data;
-		},
+			const groupedItems = [];
 
-		filteredTableSeats() {
-			const data = this.seats.tables.filter(table => {
-				return table.selected > 0
-			})
+			// Group items by their suffixes
+			sequence.forEach(item => {
+				const key = item.charAt(item.length - 1); // Get the last character (suffix)
+				if (!groupedItems[key]) {
+					groupedItems[key] = [];
+				}
+				groupedItems[key].push(item);
+			});
 
-			return data;
-		},
+			return groupedItems;
+		}
 
-		filteredTickets() {
-			const data = this.tickets.filter(tk => {
-				return tk.count > 0
-			})
+		// groupedSequence() {
+		// 	const sequence = [
+		// 		"1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A",
+		// 		"1B", "2B", "3B", "4B", "5B", "6B", "7B", "8B", "9B", "10B", "11B",
+		// 		"1C", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "11C",
+		// 		"1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D"
+		// 	];
 
-			return data;
-		},
+		// 	const grouped = [[], [], [], []]; // Array of arrays for groups 1, 2, 3, and 4
 
-		totalPrice() {
-			let price = 0
-			this.filteredTickets.forEach(tk => {
-				price += tk.price * tk.count
-			})
+		// 	sequence.forEach(item => {
+		// 		const groupIndex = parseInt(item.charAt(0)) - 1; // Get the numeric part and adjust index
+		// 		grouped[groupIndex].push(item);
+		// 	});
 
-			return price;
-		},
+		// 	return grouped;
+		// },
 
-		title() {
-			return this.modalType == 'form' ? "Checkout" : "Congratulations"
-		},
+		// filteredSofaSeats() {
+		// 	const data = this.seats.sofas.filter(sofa => {
+		// 		return sofa.selected > 0
+		// 	})
 
-		hint() {
-			return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
-		},
+		// 	return data;
+		// },
+
+		// filteredTableSeats() {
+		// 	const data = this.seats.tables.filter(table => {
+		// 		return table.selected > 0
+		// 	})
+
+		// 	return data;
+		// },
+
+		// filteredTickets() {
+		// 	const data = this.tickets.filter(tk => {
+		// 		return tk.count > 0
+		// 	})
+
+		// 	return data;
+		// },
+
+		// totalPrice() {
+		// 	let price = 0
+		// 	this.filteredTickets.forEach(tk => {
+		// 		price += tk.price * tk.count
+		// 	})
+
+		// 	return price;
+		// },
+
+		// title() {
+		// 	return this.modalType == 'form' ? "Checkout" : "Congratulations"
+		// },
+
+		// hint() {
+		// 	return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
+		// },
 
 		// calculateHeight() {
 		// 	const mobile = window.matchMedia('(max-width: 1023px)')
@@ -567,6 +641,18 @@ export default {
 	},
 
 	methods: {
+		calculateTimeDifference(startTime, endTime) {
+			const startMoment = this.$moment(startTime, 'hh:mm A');
+			const endMoment = this.$moment(endTime, 'hh:mm A');
+
+			const duration = this.$moment.duration(endMoment.diff(startMoment));
+
+			const hours = duration.hours();
+			const minutes = duration.minutes();
+
+			return { hours, minutes };
+		},
+
 		submitForm() {
 			this.modalType = 'success'
 		},
@@ -582,6 +668,8 @@ export default {
 		const footer = document.querySelector('footer')
 
 		footer.style.display = "none"
+
+		console.log(this.groupedItems)
 	}
 }
 </script>
@@ -606,35 +694,42 @@ export default {
 				.Placements {
 					@apply space-y-6 lg:space-y-8 mt-8 pb-12 lg:pb-16 border-b border-dashed border-[#C2C2C2];
 
-					.Sofas,
-					.Tables {
-						@apply flex-wrap gap-4;
+					.Seats {
+						@apply flex justify-between;
 
-						button {
-							@apply w-10 lg:w-16 h-10 md:h-16 rounded relative;
-							border: 0.5px solid #EBEBEB;
+						>div {
+							@apply grid grid-cols-2 gap-3;
 
-							img {
-								@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2 lg:w-auto;
-							}
+							>div {
+								@apply space-y-3;
 
-							span {
-								@apply block text-[#0A0A0A] font-bold text-lg lg:text-2xl
-							}
+								button {
+									@apply w-12 lg:w-16 h-12 lg:h-16 rounded relative;
+									border: 0.5px solid #EBEBEB;
 
-							&.selected {
-								@apply bg-primary border border-primary;
+									img {
+										@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2 lg:w-auto;
+									}
 
-								span {
-									@apply text-white
-								}
-							}
+									span {
+										@apply block text-[#0A0A0A] font-bold text-lg lg:text-2xl
+									}
 
-							&.reserved {
-								@apply bg-[#EBEBEB];
+									&.selected {
+										@apply bg-primary border border-primary;
 
-								span {
-									@apply text-white
+										span {
+											@apply text-white
+										}
+									}
+
+									&.reserved {
+										@apply bg-[#EBEBEB];
+
+										span {
+											@apply text-white
+										}
+									}
 								}
 							}
 						}
@@ -760,33 +855,94 @@ export default {
 			@apply space-y-8 grow;
 
 			.Description {
-				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 h-fit bg-white;
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 h-fit bg-white space-y-4 lg:space-y-8;
 				box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
 
-				h2 {
+				>h2 {
 					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-secondary !leading-[150%] font-bold
 				}
 
-				p {
-					@apply mt-4 md:mt-6 lg:mt-9 xl:mt-11 text-sm lg:text-base xl:text-xl text-[#0A0A0A] font-medium !leading-[150%];
-				}
+				.Details {
+					@apply space-y-8 lg:space-y-0 lg:flex;
 
-				.Bottom {
-					@apply mt-6 !items-end;
+					.Main {
+						@apply w-full lg:w-1/2 xl:w-[45%] space-y-2 md:space-y-4 lg:space-y-6 pb-6;
 
-					button.SeatMap {
-						@apply bg-primary rounded py-3 xl:py-4 px-8 xl:px-12 text-white font-bold text-sm xl:text-lg
-					}
+						.Top {
+							@apply flex justify-between;
 
-					.Follow {
-						@apply space-y-3;
+							.Left {
+								@apply space-y-3;
 
-						span {
-							@apply block text-xs lg:text-sm font-medium leading-[126%] text-[#0A0A0A];
+								.top {
+									@apply space-x-1 lg:space-x-2;
+
+									h2 {
+										@apply font-bold text-[#0A0A0A] md:text-lg lg:text-xl xl:text-2xl md:leading-[150%] lg:leading-[150%]
+									}
+
+									span {
+										@apply text-secondary text-[8px] lg:text-base font-bold;
+									}
+								}
+
+								.bottom {
+									@apply space-x-2 flex;
+
+									.Box {
+										@apply bg-primary rounded w-4 lg:w-6 xl:w-8 h-4 lg:h-6 xl:h-8
+									}
+
+									>div {
+										@apply space-y-4;
+
+										.BusName {
+											@apply text-xs lg:text-base xl:text-lg leading-[150%] lg:leading-[133.33%] font-medium block;
+										}
+
+										.PlateNumber {
+											@apply bg-[#F7F7F7] rounded-full py-2 xl:py-2.5 px-3 xl:px-4 w-fit;
+
+											span {
+												@apply text-[#0A0A0A] block text-[8px] xl:text-[10px] leading-[125%] xl:leading-[100%] font-bold
+											}
+										}
+									}
+								}
+							}
 						}
 
-						.Socials {
-							@apply space-x-4
+						.Bottom {
+							@apply flex justify-between space-x-2;
+
+							.From,
+							.To {
+								@apply space-y-3;
+
+								.Place {
+									@apply block font-medium text-xs md:text-base lg:text-base text-secondary leading-[100%] md:leading-[150%] lg:leading-[150%]
+								}
+
+								.TimeStop {
+									@apply space-y-2 xl:space-y-3;
+
+									span {
+										@apply block text-[#0A0A0A] font-bold text-xs lg:text-lg leading-[100%]
+									}
+								}
+							}
+
+							.Mid {
+								@apply shrink-0 space-y-1;
+
+								img {
+									@apply w-14 md:w-auto
+								}
+
+								span {
+									@apply block text-[8px] leading-[125%] font-bold text-secondary text-center
+								}
+							}
 						}
 					}
 				}

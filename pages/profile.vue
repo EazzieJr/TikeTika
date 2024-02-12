@@ -8,7 +8,7 @@
 					</h1>
 
 					<p>
-						Complete Your Profile for a Personalized Experience! Insert Your <br> Details to Get Started.
+						Complete Your Profile for a Personalized Experience! Insert Your <br class="hidden md:block"> Details to Get Started.
 					</p>
 				</div>
 
