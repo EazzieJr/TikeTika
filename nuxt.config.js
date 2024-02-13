@@ -41,12 +41,36 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'nuxt-route-meta'
+    'nuxt-route-meta',
+    '@nuxtjs/i18n',
   ],
 
   axios: {
     // Axios options
     baseURL: 'https://tiketika.co.tz/api/',
+  },
+
+  i18n: {
+    detectBrowserLanguage: {
+      useCookie: true,
+      fallbackLocale: "en",
+    },
+    strategy: "no_prefix",
+    locales: [
+      {
+        code: "en",
+        name: "English",
+        file: "en.json",
+      },
+      {
+        code: "sw-SW",
+        name: "Swahili",
+        file: "sw-SW.json",
+      }
+    ],
+    lazy: true,
+    langDir: "internationalization",
+    defaultLocale: "en",
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

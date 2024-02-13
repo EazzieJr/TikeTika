@@ -299,65 +299,35 @@
 
 				<div class="TicketInfo">
 					<h2>
-						Food and Drinks
+						Takeoff & Dropoff Point
 					</h2>
 
-					<div class="Foods">
-						<div class="Container" data-lenis-prevent>
-							<div class="Food between" v-for="ticket of tickets" :key="ticket.title">
-								<div class="Left">
-									<span class="Title">
-										{{ ticket.title }}
-									</span>
+					<div class="Points">
+						<div class="Leaving">
+							<h5>
+								Leaving
+							</h5>
 
-									<p>
-										Tsh {{ ticket.price }}
-									</p>
-								</div>
+							<div>
+								<span>
+									Takeoff
+								</span>
 
-								<div class="Right">
-									<div class="Counter start">
-										<button class="Reduce" @click="ticket.count--" :disabled="ticket.count == 0">
-											-
-										</button>
+								<p>
+									{{ data?.tripLocations[0].location }}
+								</p>
+							</div>
 
-										<div class="Count center">
-											<span>
-												{{ ticket.count }}
-											</span>
-										</div>
+							<div>
+								<span>
+									Dropoff
+								</span>
 
-										<button class="Add" @click="ticket.count++">
-											+
-										</button>
-									</div>
-								</div>
+								<p>
+									{{ data?.tripLocations[1].location }}
+								</p>
 							</div>
 						</div>
-					</div>
-
-					<div class="Fare" v-if="totalPrice > 0">
-						<div class="FakeElement"></div>
-
-						<div class="Spans">
-							<span class="HS">
-								Foods & Drinks Fare
-							</span>
-
-							<span v-for="ticket in filteredTickets" :key="ticket.title">
-								{{ ticket.title }} X {{ ticket.count }}
-							</span>
-						</div>
-					</div>
-
-					<div class="TotalFare col-end" v-if="totalPrice > 0">
-						<p>
-							Total Fare
-						</p>
-
-						<span>
-							Tsh {{ totalPrice }}
-						</span>
 					</div>
 				</div>
 			</div>
@@ -955,74 +925,8 @@ export default {
 					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
 				}
 
-				.Foods {
-					@apply mt-4 md:mt-5 lg:mt-6;
-
-					.Container {
-						@apply grid lg:grid-cols-2 gap-6 overflow-auto h-[500px] xl:max-h-[566px];
-
-						.Food {
-							@apply pb-4 lg:pb-6 border-b border-dashed border-[#C2C2C2];
-
-							.Left {
-								@apply space-y-2;
-
-								span {
-									@apply text-lg xl:text-xl text-[#0A0A0A] !leading-[150%] font-bold line-clamp-1
-								}
-
-								p {
-									@apply text-[10px] font-bold !leading-[125%] text-secondary
-								}
-							}
-
-							.Right {
-								.Counter {
-									@apply space-x-6 lg:space-x-4 py-2 px-3 lg:px-4 rounded-sm border border-[#EBEBEB];
-
-									button {
-										@apply text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
-									}
-
-									.Count {
-										@apply w-6 md:w-7 lg:w-8 h-6 md:h-7 lg:h-8 rounded-sm bg-primary;
-
-										span {
-											@apply text-white text-sm md:text-base lg:text-lg font-medium
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-
-				.Fare {
-					@apply pt-6 mt-6 lg:mt-8 grid lg:grid-cols-2 gap-x-6;
-
-					.Spans {
-						@apply space-y-4 border-b border-dotted border-[#C2C2C2] pb-6 lg:pb-8;
-
-						.HS {
-							@apply pb-3 lg:pb-4 border-b border-dotted border-[#C2C2C2];
-						}
-
-						span {
-							@apply text-secondary block text-sm lg:text-base !leading-[100%] font-bold
-						}
-					}
-				}
-
-				.TotalFare {
-					@apply space-y-2 pt-6;
-
-					p {
-						@apply text-xs lg:text-sm font-bold
-					}
-
-					span {
-						@apply block text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
-					}
+				.Points {
+					/* @apply */
 				}
 			}
 		}
