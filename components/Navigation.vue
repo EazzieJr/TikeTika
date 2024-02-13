@@ -11,7 +11,7 @@
 				<div class="Bookings hidden lg:start">
 					<button :class="{ 'active': booking == selectedBooking }" v-for="booking in bookings" :key="booking"
 						@click="changeSelectedBooking(booking)">
-						{{ booking }}
+						{{ $t(booking) }}
 					</button>
 				</div>
 			</div>
@@ -48,11 +48,11 @@
 
 				<div class="Actions start">
 					<button class="Signin" @click="$router.push('/user/signup')">
-						Sign up
+						{{ $t('Sign up') }}
 					</button>
 
 					<button class="Login" @click="$router.push('/user/login')">
-						Log in
+						{{ $t('Log in') }}
 					</button>
 
 					<div class="MenuBurger" @click="toggleMenu">

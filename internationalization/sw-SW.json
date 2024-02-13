@@ -1,6 +1,12 @@
 {
   "Journey with ease, tickets in a breeze": "Safari kwa urahisi, tiketi chapchap",
   "Buses": "Mabasi",
+  "Flights": "Ndege",
+  "Hotels": "Hoteli",
+  "Events": "Matukio",
+  "Entertainment": "Entertainment",
+  "Log in": "Ingia",
+  "Sign up": "Jisajili",
   "One way trip": "Safari ya kwenda tu",
   "Select Origin": "Kutoka",
   "Select Destination": "Kwenda",
@@ -20,7 +26,6 @@
   "Trusted transaction": "Miamala inayoaminika",
   "Your security. Our priority for peace of mind": "Usalama wako. Kipaumbele chetu kwa utulivu wa akili",
   "Subscribe to get amazing offers from us": "Jisajili kwetu upate ofa kabambe",
-  "Hotels": "Hoteli",
   "Discover top-notch hotels with TikeTika": "Zigundue hotel kali kupitia Tiketika",
   "Unforgettable moments, one ticket away": "Kumbukumbu zisizosahaulika, tiketi moja tu mbali"
 }

@@ -12,7 +12,7 @@
             <img :src="`/svg/${booking.toLowerCase()}-icon.svg`" alt="">
 
             <span>
-              {{ booking }}
+              {{ $t(booking) }}
             </span>
           </button>
         </div>
