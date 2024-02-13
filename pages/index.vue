@@ -18,7 +18,7 @@
         </div>
 
         <h1 v-if="selectedBooking == 'Buses'">
-          Journey with ease, tickets in a <br> breeze
+          {{ $t('Journey with ease, tickets in a breeze') }}
         </h1>
 
         <h1 v-else-if="selectedBooking == 'Entertainments'">
@@ -155,7 +155,7 @@
 
             <div class="Search md:end">
               <button submit>
-                Search
+                {{ $t('Search') }}
               </button>
             </div>
           </form>
@@ -165,7 +165,7 @@
 
     <div class="Partners">
       <span>
-        Our Partners
+        {{ $t('Our Partners') }}
       </span>
 
       <div class="Lists center">
@@ -177,12 +177,12 @@
       <div class="Container constraint">
         <div class="Top">
           <h2>
-            Popular Routes
+            {{ $t('Popular Routes') }}
           </h2>
 
-          <p>
+          <!-- <p>
             Search for Bus routes, Hotels, Restaurant, Search for Bus routes, Hotels, Restaurant
-          </p>
+          </p> -->
         </div>
 
         <div class="Bottom">
@@ -285,12 +285,12 @@
       <div class="Container constraint">
         <div class="Top">
           <h2>
-            Popular Entertainment Locations
+            {{ $t('Popular Entertainment Spots') }}
           </h2>
 
-          <p>
+          <!-- <p>
             Search for Bus routes, Hotels, Restaurant, Search for Bus routes, Hotels, Restaurant
-          </p>
+          </p> -->
         </div>
 
         <div class="Bottom">
@@ -388,12 +388,12 @@
       <div class="Container constraint">
         <div class="Top">
           <h2>
-            Popular Events Locations
+            {{ $t('Popular Events Spots') }}
           </h2>
 
-          <p>
+          <!-- <p>
             Search for Bus routes, Hotels, Restaurant, Search for Bus routes, Hotels, Restaurant
-          </p>
+          </p> -->
         </div>
 
         <div class="Bottom">
@@ -491,11 +491,11 @@
           </div>
 
           <span>
-            Our vision
+            {{ $t('Seamless Booking') }}
           </span>
 
           <p>
-            A reshaped more connected and transformed Africa.
+            {{ $t('Your gateway to effortless travel & Entertainment') }}
           </p>
         </div>
 
@@ -517,11 +517,11 @@
           </div>
 
           <span>
-            Our Mission
+            {{ $t('Extensive Choices') }}
           </span>
 
           <p>
-            Is unequivocal: to empower, to connect and to usher Atrica's rise into limitless opportunities.
+            {{ $t('Explore diverse options. All under one roof') }}
           </p>
         </div>
 
@@ -543,12 +543,11 @@
           </div>
 
           <span>
-            Our Guarantee
+            {{ $t('Trusted transaction') }}
           </span>
 
           <p>
-            We are not just an advisory firm; we architects of growth, creators of opportunities and champions of
-            progress.
+            {{ $t('Your security. Our priority for peace of mind') }}
           </p>
         </div>
       </div>
@@ -557,7 +556,7 @@
     <div class="NewsLetter">
       <div class="Container constraint md:col-center">
         <h5>
-          Subscribe to get amazing offers <br> from us
+          {{ $t('Subscribe to get amazing offers from us') }}
         </h5>
 
         <form action="" class="between">
