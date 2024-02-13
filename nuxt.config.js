@@ -63,14 +63,14 @@ export default {
         file: "en.json",
       },
       {
-        code: "sw-SW",
+        code: "sw",
         name: "Swahili",
         file: "sw-SW.json",
       }
     ],
     lazy: true,
     langDir: "internationalization",
-    defaultLocale: "en",
+    defaultLocale: "sw",
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
