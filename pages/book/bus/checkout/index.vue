@@ -93,30 +93,20 @@
 						</div>
 					</div>
 				</div>
-				<!-- 
-				<div class="ReservationsFare" v-if="filteredSofaSeats.length > 0 || filteredTableSeats.length > 0">
+				
+				<div class="ReservationsFare" v-if="selectedSeats.length > 0 ">
 					<h2>
 						Booked Seat(s)
 					</h2>
 
 					<div class="Fares">
-						<div class="Fare start" v-for="fare in filteredSofaSeats" :key="fare.seat">
+						<div class="Fare start" v-for="seat in selectedSeats" :key="seat">
 							<div>
-								{{ fare.seat }}
+								{{ seat }}
 							</div>
 
 							<div>
-								Tsh 26, 000
-							</div>
-						</div>
-
-						<div class="Fare start" v-for="fare in filteredTableSeats" :key="fare.seat">
-							<div>
-								{{ fare.seat }}
-							</div>
-
-							<div>
-								Tsh 26, 000
+								Tsh {{ data.price }}
 							</div>
 						</div>
 					</div>
@@ -127,12 +117,12 @@
 						</p>
 
 						<span>
-							Tsh {{ 26000 * (filteredTableSeats.length + filteredSofaSeats.length) }}
+							Tsh {{ data.price * selectedSeats.length }}
 						</span>
 					</div>
 				</div>
 
-				<div class="ReservationsDare">
+				<!-- <div class="ReservationsDare">
 					<h2>
 						Reservation Date
 					</h2>
@@ -361,7 +351,7 @@
 			</div>
 		</section>
 
-		<!-- <div class="Footer" v-if="totalPrice > 0">
+		<div class="Footer" v-if="totalPrice > 0">
 			<div class="Container constraint between">
 				<div class="Left">
 					<p>Total fare</p>
@@ -377,7 +367,7 @@
 					</button>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
 			<form @submit.prevent="submitForm" class="Form">
@@ -526,7 +516,16 @@ export default {
 			});
 
 			return unavailableSeats;
-		}
+		},
+
+		totalPrice() {
+			let price = 0
+			this.selectedSeats.forEach((tk) => {
+				price = this.data.price * this.selectedSeats.length
+			})
+
+			return price;
+		},
 	},
 
 	methods: {
