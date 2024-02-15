@@ -11,7 +11,8 @@
 						<div class="Seats">
 							<div class="LeftCols start">
 								<div class="Col" v-for="(col, index) in seats.slice(0, 2)" :key="index">
-									<button class="Seat center" v-for="seat in col" :key="seat">
+									<button class="Seat center" v-for="seat in col" :key="seat" :disabled="occupied(seat)"
+										:class="{ 'occupied': occupied(seat), 'selected': selected(seat) }" @click="decideSeat(seat)">
 										<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
 											class="Class"> -->
 
@@ -23,10 +24,11 @@
 							</div>
 
 							<div class="RightCols start">
-								<div class="Col" v-for="(col, index) in seats.slice(2, 4)" :key="index">
-									<button class="Seat center" v-for="seat in col" :key="seat">
-										<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
-											class="Class"> -->
+								<div class="Col" v-for="(col, index) in  seats.slice(2, 4) " :key="index">
+									<button class="Seat center" v-for="seat in  col " :key="seat" :disabled="occupied(seat)"
+										:class="{ 'occupied': occupied(seat), 'selected': selected(seat) }" @click="decideSeat(seat)">
+										<!-- < img : src =" `/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
+										class="Class"> -->
 
 										<span>
 											{{ seat }}
@@ -302,11 +304,37 @@
 						Takeoff & Dropoff Point
 					</h2>
 
-					<div class="Points">
+					<div class="Points lg:between">
 						<div class="Leaving">
-							<h5>
+							<span>
 								Leaving
-							</h5>
+							</span>
+
+							<div>
+								<span>
+									Takeoff
+								</span>
+
+								<p>
+									{{ data?.tripLocations[0].location }}
+								</p>
+							</div>
+
+							<div>
+								<span>
+									Dropoff
+								</span>
+
+								<p>
+									{{ data?.tripLocations[1].location }}
+								</p>
+							</div>
+						</div>
+
+						<div class="Returning">
+							<span>
+								Returning
+							</span>
 
 							<div>
 								<span>
@@ -378,69 +406,6 @@
 export default {
 	data() {
 		return {
-			tickets: [
-				{
-					title: "Chicken & Chips",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Amala and Ewedu",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Noodles and egg",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Well well well",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Fish and eggs",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Beans",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Beans & yam",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Yam",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Efo riro",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-				{
-					title: "Humans",
-					hint: "With a side of brussel sprout",
-					price: 28000,
-					count: 0
-				},
-			],
-
 			seats: [
 				[
 					"1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A",
@@ -455,6 +420,9 @@ export default {
 					"1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D"
 				]
 			],
+			selectedSeats: [],
+			occupiedSeats: [],
+
 
 			data: {
 				plate: "T759DRT",
@@ -542,72 +510,23 @@ export default {
 			});
 
 			return groupedItems;
+		},
+
+		getUnoccupiedSeats() {
+			const unavailableSeats = [];
+			this.seats.forEach(rows => {
+				rows.forEach(seat => {
+					const found = this.data.availableSeats.includes(seat);
+					if (!found) {
+						unavailableSeats.push(seat);
+						// console.log(seat);
+					}
+					// console.log(found);
+				});
+			});
+
+			return unavailableSeats;
 		}
-
-		// groupedSequence() {
-		// 	const sequence = [
-		// 		"1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A",
-		// 		"1B", "2B", "3B", "4B", "5B", "6B", "7B", "8B", "9B", "10B", "11B",
-		// 		"1C", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "11C",
-		// 		"1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D"
-		// 	];
-
-		// 	const grouped = [[], [], [], []]; // Array of arrays for groups 1, 2, 3, and 4
-
-		// 	sequence.forEach(item => {
-		// 		const groupIndex = parseInt(item.charAt(0)) - 1; // Get the numeric part and adjust index
-		// 		grouped[groupIndex].push(item);
-		// 	});
-
-		// 	return grouped;
-		// },
-
-		// filteredSofaSeats() {
-		// 	const data = this.seats.sofas.filter(sofa => {
-		// 		return sofa.selected > 0
-		// 	})
-
-		// 	return data;
-		// },
-
-		// filteredTableSeats() {
-		// 	const data = this.seats.tables.filter(table => {
-		// 		return table.selected > 0
-		// 	})
-
-		// 	return data;
-		// },
-
-		// filteredTickets() {
-		// 	const data = this.tickets.filter(tk => {
-		// 		return tk.count > 0
-		// 	})
-
-		// 	return data;
-		// },
-
-		// totalPrice() {
-		// 	let price = 0
-		// 	this.filteredTickets.forEach(tk => {
-		// 		price += tk.price * tk.count
-		// 	})
-
-		// 	return price;
-		// },
-
-		// title() {
-		// 	return this.modalType == 'form' ? "Checkout" : "Congratulations"
-		// },
-
-		// hint() {
-		// 	return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
-		// },
-
-		// calculateHeight() {
-		// 	const mobile = window.matchMedia('(max-width: 1023px)')
-
-		// 	return (this.tickets.length + 1) * mobile.matches ? 14 : 16 + 16 * this.tickets.length;
-		// }
 	},
 
 	methods: {
@@ -629,6 +548,64 @@ export default {
 
 		toggleModal() {
 			this.modalOpened = !this.modalOpened
+		},
+
+		findUnavailableSeats(seats, availableSeats) {
+			const unavailableSeats = [];
+
+			availableSeats.forEach(seat => {
+				let found = false;
+				for (let i = 0; i < seats.length; i++) {
+					if (seats[i].includes(seat)) {
+						found = true;
+						// console.log(seat);
+						break;
+					}
+					if (!found) {
+						console.log("unavailable", seat);
+						unavailableSeats.push(seat);
+					}
+				}
+			});
+
+			return unavailableSeats;
+		},
+
+		// getUnoccupiedSeats() {
+		// 	const unavailableSeats = [];
+		// 	this.seats.forEach(rows => {
+		// 		rows.forEach(seat => {
+		// 			const found = this.data.availableSeats.includes(seat);
+		// 			if (!found) {
+		// 				unavailableSeats.push(seat);
+		// 				// console.log(seat);
+		// 			}
+		// 			// console.log(found);
+		// 		});
+		// 	});
+
+		// 	return unavailableSeats;
+		// },
+
+		occupied(seat) {
+			if (this.getUnoccupiedSeats) {
+				// console.log(this.getUnoccupiedSeats?.includes(seat));
+				return this.getUnoccupiedSeats?.includes(seat);
+			}
+		},
+
+		selected(seat) {
+			return this.selectedSeats.includes(seat);
+		},
+
+		decideSeat(seat) {
+			if (this.selectedSeats.includes(seat)) {
+				console.log("unselecting", seat);
+				this.selectedSeats = this.selectedSeats.filter(selectedSeat => selectedSeat !== seat);
+			} else {
+				console.log("selecting", seat);
+				this.selectedSeats.push(seat);
+			}
 		}
 	},
 
@@ -639,7 +616,10 @@ export default {
 
 		footer.style.display = "none"
 
-		console.log(this.groupedItems)
+		// console.log(this.getUnoccupiedSeats);
+
+		// const unavailableSeats = this.findUnavailableSeats(this.seats, this.data.availableSeats);
+		// console.log(unavailableSeats);
 	}
 }
 </script>
@@ -693,7 +673,7 @@ export default {
 										}
 									}
 
-									&.reserved {
+									&.occupied {
 										@apply bg-[#EBEBEB];
 
 										span {
@@ -919,14 +899,42 @@ export default {
 			}
 
 			.TicketInfo {
-				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 shrink-0 w-full bg-white;
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 pb-8 lg:pb-12 shrink-0 w-full bg-white;
 
 				h2 {
 					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-[#0A0A0A] !leading-[150%] font-bold
 				}
 
 				.Points {
-					/* @apply */
+					@apply mt-4 lg:mt-5 space-y-8 lg:space-y-0 lg:divide-x divide-dashed divide-[#C7C7C7];
+
+					>div {
+						@apply space-y-4 lg:w-1/2;
+
+						>span {
+							@apply block text-secondary font-bold text-sm lg:text-lg leading-[100%] lg:leading-[150%]
+						}
+
+						>div {
+							@apply space-y-2 border border-[#EBEBEB] rounded-sm py-2 px-3;
+
+							span {
+								@apply text-[8px] lg:text-[10px] !leading-[120%] text-secondary font-bold block
+							}
+
+							p {
+								@apply text-[#0A0A0A] font-medium text-lg lg:text-base !leading-[130%]
+							}
+						}
+
+						&.Leaving {
+							@apply lg:pr-11;
+						}
+
+						&.Returning {
+							@apply lg:pl-11;
+						}
+					}
 				}
 			}
 		}
