@@ -9,6 +9,7 @@ export const state = () => ({
 
 	user: null,
 	
+	tempBusBooking: {},
 	selectedBooking: "Buses",
 	menuOpened: false,
 	token: null,
@@ -26,6 +27,10 @@ export const mutations = {
 	setToken(state, token) {
 		state.token = token;
 	},
+
+	setTempBusBooking(state, payload) {
+		state.tempBusBooking = payload
+	}
 }
 
 export const actions = {

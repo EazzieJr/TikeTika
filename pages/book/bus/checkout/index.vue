@@ -393,6 +393,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
 	data() {
 		return {
@@ -529,6 +531,8 @@ export default {
 	},
 
 	methods: {
+		...mapMutations(['setTempBusBooking']),
+		
 		calculateTimeDifference(startTime, endTime) {
 			const startMoment = this.$moment(startTime, 'hh:mm A');
 			const endMoment = this.$moment(endTime, 'hh:mm A');
