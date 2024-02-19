@@ -163,8 +163,8 @@ export default {
 			servicesToggled: false,
 			supportToggled: false,
 			selectedLanguage: {
-				name: "english",
-				code: "en"
+				name: "swahili",
+				code: "sw"
 			},
 
 			languages: [
