@@ -21,12 +21,12 @@
           {{ $t('Journey with ease, tickets in a breeze') }}
         </h1>
 
-        <h1 v-else-if="selectedBooking == 'Entertainments'">
-          Unveil the finest entertainment <br> spots and delightful Moments
+        <h1 v-else-if="selectedBooking == 'Entertainment'">
+          {{ $t('Unveil the finest entertainment spots and delightful Moments') }}
         </h1>
 
         <h1 v-else>
-          Events Unfold, Moments <br> Untold
+          {{ $t('Events unfold,moments untold') }}
         </h1>
 
         <div class="Forms" :class="{ 'Pad': selectedBooking != 'Buses' }">
@@ -813,7 +813,7 @@ export default {
       }
 
       h1 {
-        @apply text-xl md:text-3xl lg:text-[40px] font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8;
+        @apply text-xl md:text-3xl lg:text-[40px] font-bold text-white !leading-[140%] mt-4 mb-8 lg:mt-8 max-w-[628px];
       }
 
       .Forms {
