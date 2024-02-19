@@ -94,21 +94,20 @@ export default {
 					title: "Popular Routes",
 					links: [
 						"Dar es Salaam to Kilimanjaro",
-						"Iringa to Kaskazini Pemba",
-						"Kilimanjaro to Mjini Magharabi",
-						"Mbeya to Kilimanjaro",
-						"Mbeya to Kusini Unguja",
+						"Iringa to Dar es Salaam",
+						"Kilimanjaro to Dodoma",
+						"Mbeya to Dodoma",
+						"Mbeya to Mwanza",
 					]
 				},
 
 				{
 					title: "Popular Entertainment Spots",
 					links: [
-						"Dae es Salaam to Kilimanjaro",
-						"Iringa to Kaskazini Pemba",
-						"Kilimanjaro to Mjini Magharabi",
-						"Mbeya to Kilimanjaro",
-						"Mbeya to Kusini Unguja",
+						"Tips Coco",
+						"Tips Lounge Mikocheni",
+						"Kidimbwi Beach",
+						"Tips Tegeta",
 					]
 				},
 
