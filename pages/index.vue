@@ -560,10 +560,10 @@
         </h5>
 
         <form action="" class="between">
-          <input type="text" placeholder="Your Email address">
+          <input type="text" :placeholder="$t('Your email address')">
 
           <button>
-            Subscribe
+            {{ $t('Subscribe') }}
           </button>
         </form>
       </div>
