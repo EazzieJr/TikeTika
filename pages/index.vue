@@ -86,7 +86,7 @@
             <div class="Destination">
               <div class="Input">
                 <span>
-                  From?
+                  {{ $t('From') }}?
                 </span>
 
                 <input type="text" placeholder="Jo' Burg" v-model="search.origin">
@@ -108,7 +108,7 @@
 
               <div class="Input" v-if="selectedBooking == 'Buses'">
                 <span>
-                  To?
+                  {{ $t('To') }}?
                 </span>
 
                 <input type="text" placeholder="Jo' Burg" v-model="search.destination">
@@ -136,7 +136,7 @@
 
                   <div class="Cont">
                     <span>
-                      {{ selectedBooking == 'Buses' ? 'Leaving on' : 'Check Date' }}
+                      {{ selectedBooking == 'Buses' ? $t('Leaving on') : 'Check Date' }}
                     </span>
 
                     <input type="date" v-model="search.date">
@@ -145,7 +145,7 @@
 
                 <div class="Input" v-if="selectedBooking == 'Buses' && selectedTripType === 'Round Trip'">
                   <span>
-                    Returning on
+                    {{ $t('Returning on') }}
                   </span>
 
                   <input type="date" v-model="search.returnDate">
