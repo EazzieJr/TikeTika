@@ -16,7 +16,7 @@
   "Our Partners": "Washirika wetu",
   "Popular Routes": "Njia Za Kawaida",
   "Popular Entertainment Spots": "Kumbi Za Starehe",
-  "Popular Events Spots": "Kumbi Za Starehe",
+  "Popular Event Spots": "Matukio Maarufu",
   "Looking for a hot spot, lounge or restaurant": "Je, unatafuta sehemu kali, sehemu ya kupoa au mgahawa",
   "Select a region": "Chagua Mkoa",
   "Date": "Tarehe",
@@ -33,5 +33,9 @@
   "To": "kwenda",
   "From": "kutoka",
   "Leaving on": "Tarehe Ya Safari",
-  "Returning on": "Kurudi"
+  "Returning on": "Kurudi",
+  "Trip type": "Aina Ya Safari",
+  "Class": "Daraja",
+  "One Way": "Kwenda",
+  "Round Trip": "Kwenda na Kurudi"
 }

@@ -35,7 +35,7 @@
               <template #toggler>
                 <div class="DropdownToggler between">
                   <span>
-                    Trip type
+                    {{ $t('Trip type') }}
                   </span>
 
                   <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
                 <div class="Item" v-for="tp in tripTypes" :key="tp" :class="{ 'active': selectedTripType === tp }"
                   @click="selectedTripType = tp">
                   <span>
-                    {{ tp }}
+                    {{ $t(tp) }}
                   </span>
                 </div>
               </DropdownContent>
@@ -60,7 +60,7 @@
               <template #toggler>
                 <div class="DropdownToggler between">
                   <span>
-                    Class
+                    {{ $t('Class') }}
                   </span>
 
                   <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -835,7 +835,7 @@ export default {
           @apply space-x-3;
 
           .DropdownToggler {
-            @apply bg-white bg-opacity-30 w-[84px] md:w-[118px] p-2 lg:px-4 lg:py-3 rounded;
+            @apply bg-white bg-opacity-30 w-[84px] md:w-[130px] p-2 lg:px-4 lg:py-3 rounded;
 
             span {
               @apply text-white font-bold !leading-[125%] text-[8px] lg:text-xs
