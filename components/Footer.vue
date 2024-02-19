@@ -47,7 +47,7 @@
 
 				<div class="BottomRight">
 					<div v-for="(linkBlock, index) in linkBlocks" :key="index" class="LinkBlock">
-						<h6 class="Title">{{ linkBlock.title }}</h6>
+						<h6 class="Title">{{ $t(linkBlock.title) }}</h6>
 
 						<div class="Links">
 							<a v-for="link in linkBlock.links" :key="link" href="/">{{ link }}</a>
@@ -102,7 +102,7 @@ export default {
 				},
 
 				{
-					title: "Popular Entertainment Locations",
+					title: "Popular Entertainment Spots",
 					links: [
 						"Dae es Salaam to Kilimanjaro",
 						"Iringa to Kaskazini Pemba",
@@ -113,7 +113,7 @@ export default {
 				},
 
 				{
-					title: "Popular Event Locations",
+					title: "Popular Event Spots",
 					links: [
 						"Tips Coco Beach",
 						"Kidimbwi Beach",
