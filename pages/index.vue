@@ -136,7 +136,7 @@
 
                   <div class="Cont">
                     <span>
-                      {{ selectedBooking == 'Buses' ? $t('Leaving on') : 'Check Date' }}
+                      {{ selectedBooking == 'Buses' ? $t('Leaving on') : $t('Check Date') }}
                     </span>
 
                     <input type="date" v-model="search.date">
