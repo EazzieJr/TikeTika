@@ -45,13 +45,20 @@ export default {
 				const { response } = await this.$store.dispatch("signin", this.user);
 
 				// console.log(data);
+				const user = {
+					name: response.name,
+					email: response.email,
+				};
+
+				this.$cookies.set("user", response.name, { expires: 3 });
+
 				this.$router.push("/");
 
 				this.$store.commit("updateUser", {
 					name: response.name,
 					email: response.email,
 				});
-				
+
 			} catch (error) {
 				console.log(error);
 			}

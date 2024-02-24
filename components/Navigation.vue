@@ -47,11 +47,27 @@
 				</div>
 
 				<div class="Actions start">
-					<button class="Signin" @click="$router.push('/user/signup')">
+					<div class="SignedIn start" v-if="getUserSignInStatus">
+						<span>
+							{{ userData?.name || $cookies.get("user")}}
+						</span>
+
+						<button class="start !space-x-1 lg:!space-x-2 xl:!space-x-3" @click="toggleMiscDropdown">
+							<img src="/svg/avatar.svg">
+
+							<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M11.6189 5.2207L7.81557 9.02404C7.36641 9.4732 6.63141 9.4732 6.18224 9.02404L2.37891 5.2207"
+									stroke="#0A0A0A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+									stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+
+					<button class="Signin" @click="$router.push('/user/signup')" v-if="!getUserSignInStatus">
 						{{ $t('Sign up') }}
 					</button>
 
-					<button class="Login" @click="$router.push('/user/login')">
+					<button class="Login" @click="$router.push('/user/login')" v-if="!getUserSignInStatus">
 						{{ $t('Log in') }}
 					</button>
 
@@ -181,7 +197,14 @@ export default {
 	},
 
 	computed: {
-		...mapState(["menuOpened", "bookings", "selectedBooking"])
+		...mapState(["menuOpened", "bookings", "selectedBooking", "userData"]),
+
+		getUserSignInStatus() {
+			const storedUser = this.$cookies.get("user")
+			// const parsedUser = JSON.parse(storedUser)
+
+			return this.userData?.name || storedUser
+		}
 	},
 
 	methods: {
@@ -195,7 +218,7 @@ export default {
 			this.selectedLanguage = language
 			this.$i18n.locale = language.code
 			// this.$router.push(this.switchLocalePath(language.code))
-			console.log(this.$i18n.locale)
+			// console.log(this.$i18n.locale)
 		}
 	}
 }
@@ -268,6 +291,26 @@ nav {
 
 			.Actions {
 				@apply space-x-4;
+
+				.SignedIn {
+					@apply space-x-6 pl-4;
+
+					span {
+						@apply hidden md:block font-bold text-sm xl:text-lg;
+					}
+
+					button {
+						@aply space-x-1 lg:space-x-2 xl:space-x-3;
+						
+						img {
+							@apply w-6 lg:w-8 xl:w-10;
+						}
+					}
+
+					svg {
+						@apply block
+					}
+				}
 
 				.Signin,
 				.Login {
