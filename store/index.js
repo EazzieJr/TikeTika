@@ -7,7 +7,7 @@ export const state = () => ({
 		"Events",
 	],
 
-	user: null,
+	userData: {},
 	
 	tempBusBooking: {},
 	selectedBooking: "Buses",
@@ -30,6 +30,10 @@ export const mutations = {
 
 	setTempBusBooking(state, payload) {
 		state.tempBusBooking = payload
+	},
+
+	updateUser(state, user) {
+		state.userData = user;
 	}
 }
 
@@ -68,7 +72,6 @@ export const actions = {
 			// Extract user and token from the response (adjust based on your API structure)
 			const { token } = response.data;
 
-			console.log(data)
 			Cookies.set('token', token, { expires: 3 });
 			// commit('setCode', data);
 			// console.log(state.code)

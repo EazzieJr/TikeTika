@@ -2,7 +2,7 @@
 	<div class="Login">
 		<form @submit.prevent="signin">
 			<div class="Inputs">
-				<InputField type="email" placeholder="Email Address"  v-model="user.email"/>
+				<InputField type="email" placeholder="Email Address" v-model="user.email" />
 				<InputField type="password" placeholder="Password" v-model="user.password" />
 				<NuxtLink to="/user/forgot-password/email">Forgot Password</NuxtLink>
 			</div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 	layout: "onboarding",
 	title: "Log in to your Account",
@@ -32,16 +34,24 @@ export default {
 			}
 		}
 	},
-	
+
+	computed: {
+		...mapState(["userData"]),
+	},
+
 	methods: {
 		async signin() {
 			try {
-				const { data } = await this.$store.dispatch("signin", this.user);
+				const { response } = await this.$store.dispatch("signin", this.user);
 
-				console.log(data);
+				// console.log(data);
 				this.$router.push("/");
-				// this.$store.commit("user/setUser", data);
-				// this.$router.push("/user/profile/");
+
+				this.$store.commit("updateUser", {
+					name: response.name,
+					email: response.email,
+				});
+				
 			} catch (error) {
 				console.log(error);
 			}
