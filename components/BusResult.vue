@@ -170,19 +170,20 @@ export default {
 		},
 
 		async bookBus() {
-			try {
-				const data = await this.$axios.post('/bus', {
-					plate: this.data?.plate,
-				}, {
-					headers: {
-						"Access-Control-Allow-Origin": "*"
-					}
-				});
+			this.$router.push(`/book/bus/checkout?plate=${this.data?.plate}`);
+			// try {
+			// 	const data = await this.$axios.post('/bus', {
+			// 		plate: this.data?.plate,
+			// 	}, {
+			// 		headers: {
+			// 			"Access-Control-Allow-Origin": "*"
+			// 		}
+			// 	});
 
-				console.log(data);
-			} catch (error) {
-				console.log(error);
-			}
+			// 	console.log(data);
+			// } catch (error) {
+			// 	console.log(error);
+			// }
 		}
 	}
 }

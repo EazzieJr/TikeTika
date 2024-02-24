@@ -93,8 +93,8 @@
 						</div>
 					</div>
 				</div>
-				
-				<div class="ReservationsFare" v-if="selectedSeats.length > 0 ">
+
+				<div class="ReservationsFare" v-if="selectedSeats.length > 0">
 					<h2>
 						Booked Seat(s)
 					</h2>
@@ -396,6 +396,22 @@
 import { mapMutations } from 'vuex'
 
 export default {
+	async asyncData({ route, $axios }) {
+		try {
+			const data = await $axios.$post('/bus', {
+				plate: route.query.plate,
+			}, {
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			});
+
+			// return { data };
+		} catch (error) {
+			console.log(error);
+		}
+	},
+
 	data() {
 		return {
 			seats: [
@@ -532,7 +548,7 @@ export default {
 
 	methods: {
 		...mapMutations(['setTempBusBooking']),
-		
+
 		calculateTimeDifference(startTime, endTime) {
 			const startMoment = this.$moment(startTime, 'hh:mm A');
 			const endMoment = this.$moment(endTime, 'hh:mm A');

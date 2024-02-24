@@ -170,32 +170,33 @@
 							<span>
 								Filters
 							</span>
-	
+
 							<button class="reset">
 								Reset
 							</button>
 						</div>
-	
+
 						<div class="Filters">
 							<div class="Category" v-for="filter in filters" :key="filter.title">
 								<div class="Top between" @click="filter.toggled = !filter.toggled">
 									<span>
 										{{ filter.title }}
 									</span>
-	
+
 									<svg :class="{ 'rotate-180': filter.toggled }" width="16" height="16" viewBox="0 0 16 16" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
-										<path d="M13.2788 5.9668L8.93208 10.3135C8.41875 10.8268 7.57875 10.8268 7.06542 10.3135L2.71875 5.9668"
+										<path
+											d="M13.2788 5.9668L8.93208 10.3135C8.41875 10.8268 7.57875 10.8268 7.06542 10.3135L2.71875 5.9668"
 											stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
 											stroke-linejoin="round" />
 									</svg>
 								</div>
-	
+
 								<div class="FilterValues" v-if="filter.toggled">
 									<div class="Value start" v-for="value in filter.values" :key="value.title"
 										@click="value.selected = !value.selected">
 										<div class="CheckBox" :class="{ 'selected': value.selected }"></div>
-	
+
 										<span>
 											{{ value.title }}
 										</span>
@@ -205,8 +206,14 @@
 						</div>
 					</div>
 
-					<div class="Results">
+					<div class="Results" v-if="result?.lenth > 0">
 						<BusResult v-for="(data, index) in result" :key="index" :data="data" />
+					</div>
+
+					<div class="Empty" v-else>
+						<h2>
+							No Buses Found
+						</h2>
 					</div>
 				</div>
 			</div>
@@ -281,6 +288,8 @@ export default {
 		const today = new Date();
 		const formattedDate = today.toISOString().split('T')[0];
 
+		console.log(origin, destination, formattedDate)
+
 		try {
 			const response = await $axios.post(`/search/?type=bus`, {
 				origin,
@@ -289,6 +298,13 @@ export default {
 			})
 
 			console.log(response)
+
+			if(response.data.buses.length === 0) {
+				return {
+					result: []
+				}
+			}
+
 			return {
 				result: response.data.buses
 			}
@@ -550,11 +566,11 @@ export default {
 
 			>.Top {
 				@apply space-x-3;
-				
+
 				>span {
 					@apply text-sm text-secondary font-medium;
 				}
-				
+
 				.Sorts {
 					@apply space-x-5 xl:space-x-4;
 
@@ -575,7 +591,7 @@ export default {
 
 			.Bottom {
 				@apply md:flex md:space-x-5 xl:space-x-6;
-				
+
 				.DesktopFilter {
 					@apply hidden md:block bg-white rounded-lg py-4 px-6 space-y-6 mb-5 w-[190px] lg:w-[240px] xl:w-[294px] h-fit;
 
