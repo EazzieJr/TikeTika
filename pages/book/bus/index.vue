@@ -206,7 +206,7 @@
 						</div>
 					</div>
 
-					<div class="Results" v-if="result?.lenth > 0">
+					<div class="Results" v-if="result?.length > 0">
 						<BusResult v-for="(data, index) in result" :key="index" :data="data" />
 					</div>
 
@@ -294,10 +294,11 @@ export default {
 			const response = await $axios.post(`/search/?type=bus`, {
 				origin,
 				destination,
-				date: formattedDate
+				date: "2024-02-27"
+				//date: formattedDate
 			})
 
-			console.log(response)
+			console.log("Response:", response.data.buses)
 
 			if(response.data.buses.length === 0) {
 				return {

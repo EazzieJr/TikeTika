@@ -170,6 +170,7 @@ export default {
 		},
 
 		async bookBus() {
+			console.log("plate", this.data?.plate.split(' ').join(''));
 			this.$router.push(`/book/bus/checkout?plate=${this.data?.plate}`);
 			// try {
 			// 	const data = await this.$axios.post('/bus', {
