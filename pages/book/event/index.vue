@@ -98,18 +98,9 @@ export default {
 		}
 	},
 
-	// async mounted() {
-	// 	console.log(this.$axios)
-
-	// 	try {
-	// 		const response = await this.$axios.post('search/?type=event', {
-	// 			region: "2"
-	// 		})
-	// 		console.log(response)
-	// 	} catch (error) {
-
-	// 	}
-	// }
+	mounted() {
+		console.log(this.events)
+	}
 }
 </script>
 
