@@ -52,12 +52,7 @@
 
 		<section class="constraint">
 			<div class="Results">
-				<EventResult />
-				<EventResult />
-				<EventResult />
-				<EventResult />
-				<EventResult />
-				<EventResult />
+				<EventResult v-for="(data, index) in events" :key="index" :data="data" />
 			</div>
 
 			<button class="More">
@@ -69,12 +64,24 @@
 
 <script>
 export default {
-	async asyncData({ $axios }) {
+	async asyncData({ $axios, route }) {
+		const { region } = route.query
+
 		try {
 			const response = await $axios.$post('search/?type=event', {
-				// region: "10"
+				region
 			})
-			console.log(response.message)
+			console.log(response)
+
+			if (response.events.length === 0) {
+				return {
+					events: []
+				}
+			}
+			
+			return {
+				events: response.events
+			}
 		} catch (error) {
 			console.log(error.message)
 		}

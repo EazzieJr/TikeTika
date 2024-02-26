@@ -739,12 +739,13 @@ export default {
     },
 
     fetchEvent(data, type) {
-      const { origin, destination } = data
+      console.log(data)
+      const { origin, destination, regionID } = data
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
 
-      console.log(origin, destination)
-      this.$router.push(`/book/${type}?origin=${origin}&destination=${destination}`)
+      console.log(origin, destination, regionID)
+      this.$router.push(`/book/${type + '?' + (type === 'bus' ? 'origin=' + origin +'&destination=' + destination : type == 'event' ? 'region=' + regionID : 'region=' + regionID + '&date=' + formattedDate)}`)
 
       // try {
       //   const response = await this.$axios.post(`/search/?type=${type}`, {

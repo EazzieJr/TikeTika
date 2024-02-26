@@ -1,11 +1,13 @@
 <template>
 	<div class="Result">
-		<div class="Image"></div>
+		<div class="Image">
+			<img :src="`https://tiketika.co.tz/img/events/${data?.squarePath}`" alt="">
+		</div>
 
 		<div class="Info">
 			<div class="Top">
 				<span class="Title">
-					Serengeti Concert
+					{{ data?.event }}
 				</span>
 
 				<div class="Misc">
@@ -21,7 +23,7 @@
 						</svg>
 
 						<span>
-							22 Concert avenue, Serengeti, 22 Concert avenue, Serengeti
+							{{ data?.address }}
 						</span>
 					</div>
 
@@ -44,7 +46,7 @@
 							</svg>
 
 							<span>
-								22 Nov,2023
+								{{ $moment(data?.start.split('/').reverse().join('-')).format('ll') }}
 							</span>
 						</div>
 
@@ -57,7 +59,7 @@
 							</svg>
 
 							<span>
-								12:30PM
+								{{ data?.startTime }}
 							</span>
 						</div>
 					</div>
@@ -71,12 +73,12 @@
 					</p>
 
 					<span>
-						Tzs 26,000
+						Tzs {{ data?.startingPrice }}
 					</span>
 				</div>
 
 				<div class="Right">
-					<button @click="$router.push('/book/event/checkout')">
+					<button @click="$router.push(`/book/event/checkout?id=${data?.eventID}`)">
 						Book Now
 					</button>
 				</div>
@@ -87,7 +89,12 @@
 
 <script>
 export default {
-
+	props: {
+		data: {
+			type: Object,
+			required: true
+		}
+	}
 }
 </script>
 
@@ -97,7 +104,11 @@ export default {
 	box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
 
 	.Image {
-		@apply w-full h-[200px] xl:h-[248px] bg-[#484848]
+		@apply w-full h-[200px] xl:h-[248px] bg-[#484848];
+
+		img {
+			@apply w-full h-full object-cover object-top
+		}
 	}
 
 	.Info {

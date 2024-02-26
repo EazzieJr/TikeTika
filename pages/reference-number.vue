@@ -13,7 +13,7 @@
 				</div>
 
 				<form @submit.prevent="search" action="">
-					<InputField type="numeric" placeholder="Enter your Reference number" />
+					<InputField type="numeric" placeholder="Enter your Reference number" v-model="referenceNumber" />
 
 					<button>
 						Search
@@ -202,13 +202,17 @@
 export default {
 	data() {
 		return {
-			searched: false
+			searched: false,
+			referenceNumber: null
 		}
 	},
 
 	methods: {
-		search() {
-			this.searched = !this.searched
+		async search() {
+			const { data } = await this.$axios.post(`reference/`, {reference: this.referenceNumber})
+
+			console.log(data)
+			// this.searched = !this.searched
 		}
 	}
 }
@@ -263,7 +267,7 @@ export default {
 						@apply space-x-1 lg:space-x-2;
 
 						h2 {
-							@apply font-bold text-[#0A0A0A] md:text-lg lg:text-xl xl:text-2xl md:!leading-[150%]
+							@apply font-bold text-[#0A0A0A] md:text-lg lg:text-xl xl:text-2xl !leading-[150%]
 						}
 
 						span {
@@ -310,15 +314,16 @@ export default {
 			.Bottom {
 				@apply max-w-[95%] lg:max-w-[90%] flex justify-between space-x-2;
 
-				.From, .To {
+				.From,
+				.To {
 					@apply space-y-3;
 
 					p {
 						@apply text-[10px] xl:text-sm font-bold text-secondary !leading-[100%]
 					}
-					
+
 					.Place {
-						@apply block font-bold text-sm md:text-base lg:text-lg xl:text-2xl text-secondary md:text-[#0A0A0A] leading-[100%] md:!leading-[150%]
+						@apply block font-bold text-sm md:text-base lg:text-lg xl:text-2xl text-secondary md:text-[#0A0A0A] !leading-[150%]
 					}
 
 					.TimeStop {
