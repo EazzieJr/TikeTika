@@ -41,26 +41,23 @@ export default {
 
 	methods: {
 		async signin() {
-			try {
-				const { response } = await this.$store.dispatch("signin", this.user);
+			const { response } = await this.$store.dispatch("signin", this.user);
 
-				// console.log(data);
-				const user = {
-					name: response.name,
-					email: response.email,
-				};
+			// console.log(data);
+			const user = {
+				name: response.name,
+				email: response.email,
+			};
 
-				this.$cookies.set("user", response.name, { expires: 3 });
+			this.$cookies.set("user", response.name, { expires: 3 });
 
+			if (response.status == '00') {
 				this.$router.push("/");
 
 				this.$store.commit("updateUser", {
 					name: response.name,
 					email: response.email,
 				});
-
-			} catch (error) {
-				console.log(error);
 			}
 		}
 	}
