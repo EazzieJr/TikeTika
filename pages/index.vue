@@ -745,8 +745,14 @@ export default {
       const formattedDate = today.toISOString().split('T')[0];
 
       console.log(origin, destination, regionID)
-      this.$router.push(`/book/${type + '?' + (type === 'bus' ? 'origin=' + origin +'&destination=' + destination : type == 'event' ? 'region=' + regionID : 'region=' + regionID + '&date=' + formattedDate)}`)
-
+      // this.$router.push(`/book/${type + '?' + (type === 'bus' ? 'origin=' + origin +'&destination=' + destination : type == 'event' ? 'region=' + regionID : 'region=' + regionID + '&date=' + formattedDate)}`)
+      if (type === 'bus') {
+        this.$router.push(`/book/bus/?origin=${origin}&destination=${destination}`)
+      } else if (type === 'entertainment') {
+        this.$router.push(`/book/entertainment/?region=${regionID}`)
+      } else if (type === 'event') {
+        this.$router.push(`/book/event/checkout?id=${data?.eventID}`)
+      }
       // try {
       //   const response = await this.$axios.post(`/search/?type=${type}`, {
       //     origin,
