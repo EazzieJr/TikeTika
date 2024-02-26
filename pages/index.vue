@@ -743,10 +743,8 @@ export default {
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
 
-      if (type == 'bus') {
-        console.log(origin, destination)
-        this.$router.push(`/book/bus?origin=${origin}&destination=${destination}`)
-      }
+      console.log(origin, destination)
+      this.$router.push(`/book/${type}?origin=${origin}&destination=${destination}`)
 
       // try {
       //   const response = await this.$axios.post(`/search/?type=${type}`, {
