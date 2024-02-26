@@ -210,8 +210,8 @@
 						<BusResult v-for="(data, index) in result" :key="index" :data="data" />
 					</div>
 
-					<div class="Empty" v-else>
-						<h2>
+					<div class="Empty center w-full" v-else>
+						<h2 class="text-3xl font-bold grow text-center">
 							No Buses Found
 						</h2>
 					</div>
