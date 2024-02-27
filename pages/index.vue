@@ -105,12 +105,12 @@
                   </template>
 
                   <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
-                    <div class="Item py-2 px-3 text-sm font-bold text-[#313131]" v-for="origin in regions" :key="origin.regionID" :class="{ 'active': search.origin === origin.regionID }"
+                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left" v-for="origin in regions" :key="origin.regionID" :class="{ 'bg-primary !text-white': search.origin === origin.regionID }"
                       @click="search.origin = origin.regionID">
                       <span>
                         {{ origin.region }}
                       </span>
-                    </div>
+                    </button>
                   </DropdownContent>
                 </Dropdown>
                 <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
