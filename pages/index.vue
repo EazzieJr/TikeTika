@@ -89,9 +89,33 @@
                   {{ $t('From') }}?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg" v-model="search.origin">
-              </div>
+                <Dropdown>
+                  <template #toggler>
+                    <div class="DropdownToggler between">
+                      <span class="!text-2xl !font-medium">
+                        {{ regions[0]?.region }}
+                      </span>
 
+                      <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                          fill="white" />
+                      </svg>
+                    </div>
+                  </template>
+
+                  <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
+                    <div class="Item py-2 px-3 text-sm font-bold text-[#313131]" v-for="origin in regions" :key="origin.regionID" :class="{ 'active': search.origin === origin.regionID }"
+                      @click="search.origin = origin.regionID">
+                      <span>
+                        {{ origin.region }}
+                      </span>
+                    </div>
+                  </DropdownContent>
+                </Dropdown>
+                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
+              </div>
+<!-- 
               <div class="Swap" v-if="selectedBooking == 'Buses'">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="24" cy="24" r="24" fill="#2FA048" />
@@ -104,7 +128,7 @@
                   <path d="M32.5 21.0098H15.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-              </div>
+              </div> -->
 
               <div class="Input" v-if="selectedBooking == 'Buses'">
                 <span>
@@ -135,7 +159,7 @@
                   </svg>
 
                   <div class="Cont">
-                    <span>
+                    <span class="Span">
                       {{ selectedBooking == 'Buses' ? $t('Leaving on') : $t('Check Date') }}
                     </span>
 
@@ -627,6 +651,8 @@ export default {
       selectedClassType: "VIP",
 
       flkty: [],
+      regions: [],
+
       partners: 6
     }
   },
@@ -769,6 +795,10 @@ export default {
 
   async mounted() {
     this.initFlkty();
+
+    const { data } = await this.$axios.get('/region/?type=bus')
+
+    this.regions = data.regions
     // try {
     //   const { data } = await this.$axios.get('/popular/?type=routes')
     //   console.log(data)
@@ -872,20 +902,28 @@ export default {
           .Destination,
           .Date {
             .Input {
-              @apply space-y-2 bg-white rounded overflow-hidden;
+              @apply space-y-2 bg-white rounded;
 
-              span {
+              > span, .Span {
                 @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
               }
 
               input {
                 @apply text-[#1D1D1D] font-bold lg:font-medium text-lg !leading-[133.33%] pb-1 md:pb-0
               }
+
+              &:nth-child(1) {
+                @apply relative z-50
+              }
             }
           }
 
+          .Date {
+            @apply relative z-0;
+          }
+
           .Destination {
-            @apply relative grid md:grid-cols-2 gap-4;
+            @apply relative grid md:grid-cols-2 gap-4 z-[100];
 
             .Input {
               @apply py-2 lg:py-3 px-4 lg:px-6;

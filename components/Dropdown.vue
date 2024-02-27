@@ -1,6 +1,6 @@
 <template>
 	<div class="Dropdown" v-clickaway="away" :class="customAnchor ? '' : 'relative'">
-		<button class="w-full" @click.stop="toggle">
+		<button class="w-full" @click.stop="toggle" type="button">
 			<slot name="toggler"></slot>
 		</button>
 
