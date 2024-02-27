@@ -92,8 +92,8 @@
                 <Dropdown>
                   <template #toggler>
                     <div class="DropdownToggler between">
-                      <span class="!text-2xl !font-medium">
-                        {{ regions[0]?.region }}
+                      <span class="!text-lg !font-medium">
+                        {{ search.origin ? regions[search.origin - 1]?.region : regions[0]?.region }}
                       </span>
 
                       <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">

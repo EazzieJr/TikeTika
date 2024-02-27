@@ -112,7 +112,7 @@ export default {
 				},
 
 				{
-					title: "Popular Event Spots",
+					title: "Popular Events Spots",
 					links: [
 						"Tips Coco Beach",
 						"Kidimbwi Beach",
