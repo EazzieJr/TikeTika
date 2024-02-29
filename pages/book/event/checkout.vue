@@ -262,7 +262,7 @@ export default {
 	methods: {
 		async submitForm() {
 			const { name, phone, email, payPhone, } = this
-			
+
 			const response = await this.$axios.post('/event', {
 				name, phone, email, payPhone,
 				items: this.compiledTierItems,
@@ -292,12 +292,16 @@ export default {
 		}
 	},
 
-	mounted() {
+	async mounted() {
 		const mobile = window.matchMedia('(max-width: 1023px)')
 		const spans = document.querySelector(".Spans")
 		const footer = document.querySelector('footer')
 
 		footer.style.display = "none"
+
+		const response = await $axios.get(`/event/?id=${id}`)
+
+		console.log("Response from mounted hook", response)
 	}
 }
 </script>

@@ -99,13 +99,6 @@ export default {
 	},
 
 	async mounted() {
-		const { region } = this.$route.query
-
-		const response = await $axios.$post('search/?type=event', {
-			region
-		})
-		console.log(response)
-
 		// if (response.events.length === 0) {
 		// 	return {
 		// 		events: []
