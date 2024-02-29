@@ -209,6 +209,9 @@ export default {
 			phone: '',
 			email: '',
 			payPhone: '',
+			tickets: [],
+			event: null,
+			tiers: []
 		}
 	},
 
@@ -299,11 +302,28 @@ export default {
 
 		footer.style.display = "none"
 
-		const { id } = this.$route.query
-		const response = await this.$axios.get(`/event/?id=${id}`)
+		if(this.event == null || this.tiers?.length == 0) {
+			const { id } = this.$route.query
+			const response = await this.$axios.get(`/event/?id=${id}`)
+			
+			this.event = response.data.event
+			this.tiers = response.data.tiers
+			const tiersLength = this.tiers?.length
 
-		console.log("Response from mounted hook", response)
-		console.log("Event from mounted hook", this.event)
+			const event = response.data.event
+
+			for (let i = 0; i < tiersLength; i++) {
+				this.tickets.push({
+					title: tiers[i].tier,
+					tierID: tiers[i].id,
+					count: 0,
+					price: tiers[i].price
+				})
+			}
+		}
+
+		// console.log("Response from mounted hook", response)
+		// console.log("Event from mounted hook", this.event)
 	}
 }
 </script>
