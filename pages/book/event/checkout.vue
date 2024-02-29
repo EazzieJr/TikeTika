@@ -299,6 +299,7 @@ export default {
 
 		footer.style.display = "none"
 
+		const { id } = this.$route.query
 		const response = await this.$axios.get(`/event/?id=${id}`)
 
 		console.log("Response from mounted hook", response)
