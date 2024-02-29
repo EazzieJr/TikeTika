@@ -168,7 +168,7 @@ export default {
 
 		console.log("Response:", response)
 
-		if (response.data.status == '00') {
+		if (response.data.event.length > 0) {
 			const tiers = response.data.tiers
 			const tiersLength = tiers.length
 			const tickets = []
@@ -303,6 +303,7 @@ export default {
 		const response = await this.$axios.get(`/event/?id=${id}`)
 
 		console.log("Response from mounted hook", response)
+		console.log("Event from mounted hook", this.event)
 	}
 }
 </script>
