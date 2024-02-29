@@ -168,7 +168,7 @@ export default {
 
 		console.log("Response:", response)
 
-		if (response.data.event.length > 0) {
+		if (response.data.event) {
 			const tiers = response.data.tiers
 			const tiersLength = tiers.length
 			const tickets = []
@@ -190,7 +190,7 @@ export default {
 			}
 		} else {
 			return {
-				event: [],
+				event: null,
 				tiers: [],
 				tickets: []
 			}
