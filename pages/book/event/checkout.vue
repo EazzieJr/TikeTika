@@ -320,6 +320,8 @@ export default {
 					price: tiers[i].price
 				})
 			}
+
+			console.log("Response from mounted hook", this.event)
 		}
 
 		// console.log("Response from mounted hook", response)

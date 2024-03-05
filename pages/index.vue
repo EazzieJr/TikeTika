@@ -766,7 +766,7 @@ export default {
 
     fetchEvent(data, type) {
       console.log(data)
-      const { origin, destination, regionID } = data
+      const { origin, destination, regionID, entertainmentID } = data
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
 
@@ -775,7 +775,7 @@ export default {
       if (type === 'bus') {
         this.$router.push(`/book/bus/?origin=${origin}&destination=${destination}`)
       } else if (type === 'entertainment') {
-        this.$router.push(`/book/entertainment/?region=${regionID}`)
+        this.$router.push(`/book/entertainment/checkout?id=${entertainmentID}`)
       } else if (type === 'event') {
         this.$router.push(`/book/event/checkout?id=${data?.eventID}`)
       }

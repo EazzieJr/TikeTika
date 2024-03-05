@@ -1,0 +1,47 @@
+{
+  "place": {
+    "entertainmentID": "4",
+    "entertainment": "Tips Mikocheni",
+    "squarePath": "tips-mikocheni/tips-mikocheni-1.jpg",
+    "portraitPath": null,
+    "landscapePath": null,
+    "description": "Welcome to Tips,\r\n<br /><br />\r\nLocated in Mikocheni, Dar Es Salaam, this bar is popular among artists and the young crowd. \r\n<br />\r\nIt offers a delightful experience in a great setting, making it an excellent choice before heading to the clubs. Open daily from noon until midnight, it prides itself on providing a pleasant atmosphere for visitors looking to relax during the day or party at night. A flavorful menu featuring barbecue and seafood is available at all hours.",
+    "maelezo": "Karibu Tips,\r\n<br /><br />\r\nIko Mikocheni, Dar Es Salaam, baa hii ni maarufu kwa wasanii na kundi la vijana. Inatoa uzoefu wa kuburudika na mazingira mazuri, ikiwa ni chaguo bora kabla ya kuelekea vilabuni. \r\n<br />\r\nHufunguliwa kila siku kutoka saa sita mchana hadi usiku wa manane na inajivunia kutoa mazingira ya kufurahisha kwa wageni wanaotaka kupumzika wakati wa mchana au kucheza usiku. Menyu yenye ladha ya nyama choma na vyakula vya baharini inapatikana saa zote.",
+    "address": "Mikocheni, Dar es Salaam",
+    "mapLocation": null,
+    "instagram": "https://www.instagram.com/tips_mikocheni/?utm_source=tiketika",
+    "start": "12:00PM",
+    "end": "05:30AM"
+  },
+  "packages": [
+    {
+      "entertainmentID": "4",
+      "entertainment": "Tips Mikocheni",
+      "packageID": "2",
+      "package": "VIP Tables",
+      "description": "Table that can seat 8 people. Comes with 2 mixers",
+      "maelezo": "Meza ya watu nane, inakuja na soda mbili",
+      "items": "[S1,S2,S3,S4,S5,S6,S7,S8,S9]",
+      "price": "1000",
+      "packageTypeID": "1",
+      "packageType": "Bundle",
+      "ainaYaBurudani": "Bando",
+      "id": 1
+    },
+    {
+      "entertainmentID": "4",
+      "entertainment": "Tips Mikocheni",
+      "packageID": "6",
+      "package": "Regular Tables",
+      "description": "Table that can seat 4 people. Comes with 2 mixers",
+      "maelezo": "Meza ya watu wanne, inakuja na soda mbili",
+      "items": "[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]",
+      "price": "1000",
+      "packageTypeID": "1",
+      "packageType": "Bundle",
+      "ainaYaBurudani": "Bando",
+      "id": 2
+    }
+  ],
+  "status": "00"
+}
