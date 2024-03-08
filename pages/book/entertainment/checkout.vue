@@ -1,9 +1,5 @@
 <template>
 	<div class="Checkout">
-		<!-- <div class="inDev">
-			Currently In Development
-		</div> -->
-
 		<section class="constraint">
 			<div class="TopLeft">
 				<div class="Reservations">
@@ -13,27 +9,27 @@
 
 					<div class="Placements">
 						<div class="Sofas start">
-							<button class="Sofa center" :class="{ 'selected': sofa.selected, 'reserved': sofa.reserved }"
-								v-for="(sofa, index) in seats.sofas" :key="index" @click="sofa.selected = !sofa.selected"
-								:disabled="sofa.reserved">
+							<button class="Sofa center"
+								v-for="(sofa, index) in packages[0].items.substring(1, packages[0].items.length - 1).split(',')"
+								:key="index" @click="decideSeat(sofa)" :class="{ 'selected': selected(sofa) }">
 								<img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
 									class="Class">
 
 								<span>
-									{{ sofa.seat }}
+									{{ sofa }}
 								</span>
 							</button>
 						</div>
 
 						<div class="Tables start">
-							<button class="Table center" :class="{ 'selected': table.selected, 'reserved': table.reserved }"
-								v-for="(table, index) in seats.tables" :key="index" @click="table.selected = !table.selected"
-								:disabled="table.reserved">
+							<button class="Table center"
+								v-for="(table, index) in packages[1].items.substring(1, packages[1].items.length - 1).split(',') "
+								:key="index" @click="decideSeat(table)" :class="{ 'selected': selected(table) }">
 								<img :src="`/svg/classes/${table.selected ? table.class + '-white' : table.class}.svg`" alt=""
 									class="Class">
 
 								<span>
-									{{ table.seat }}
+									{{ table }}
 								</span>
 							</button>
 						</div>
@@ -94,29 +90,19 @@
 					</div>
 				</div>
 
-				<div class="ReservationsFare" v-if="filteredSofaSeats.length > 0 || filteredTableSeats.length > 0">
+				<div class="ReservationsFare" v-if="selectedSeats.length > 0">
 					<h2>
 						Reservations Fare
 					</h2>
 
 					<div class="Fares">
-						<div class="Fare start" v-for="fare in filteredSofaSeats" :key="fare.seat">
+						<div class="Fare start" v-for="fare in selectedSeats" :key="fare.seat">
 							<div>
-								{{ fare.seat }}
+								{{ fare }}
 							</div>
 
 							<div>
-								Tsh 26, 000
-							</div>
-						</div>
-
-						<div class="Fare start" v-for="fare in filteredTableSeats" :key="fare.seat">
-							<div>
-								{{ fare.seat }}
-							</div>
-
-							<div>
-								Tsh 26, 000
+								Tsh {{ packages[0].price }}
 							</div>
 						</div>
 					</div>
@@ -127,7 +113,7 @@
 						</p>
 
 						<span>
-							Tsh {{ 26000 * (filteredTableSeats.length + filteredSofaSeats.length) }}
+							Tsh {{ packages[0].price * (selectedSeats.length) }}
 						</span>
 					</div>
 				</div>
@@ -160,7 +146,7 @@
 									Date
 								</span>
 
-								<input type="date">
+								<input type="date" v-model="reservationDate" readonly>
 							</div>
 						</div>
 					</div>
@@ -345,19 +331,19 @@
 
 <script>
 export default {
-	async asyncData({route, $axios}) {
+	async asyncData({ route, $axios }) {
 		const { id } = route.query
 		console.log("ID:", id)
 		const response = await $axios.$get(`/entertainment/?id=${id}`)
 
 		console.log(response)
-		
+
 		return {
 			data: response.place,
 			packages: response.packages,
 		}
 	},
-	
+
 	data() {
 		return {
 			tickets: [
@@ -527,6 +513,9 @@ export default {
 				]
 			},
 
+			selectedSeats: [],
+
+			reservationDate: this.$route.query.date || this.getFormatted(),
 			modalOpened: false,
 			seatMap: false,
 			modalType: 'form'
@@ -534,13 +523,13 @@ export default {
 	},
 
 	computed: {
-		filteredSofaSeats() {
-			const data = this.seats.sofas.filter(sofa => {
-				return sofa.selected > 0
-			})
+		// filteredSofaSeats() {
+		// 	const data = this.selectedSeats.filter(seat => {
+		// 		return seat
+		// 	})
 
-			return data;
-		},
+		// 	return data;
+		// },
 
 		filteredTableSeats() {
 			const data = this.seats.tables.filter(table => {
@@ -560,8 +549,8 @@ export default {
 
 		totalPrice() {
 			let price = 0
-			this.filteredTickets.forEach(tk => {
-				price += tk.price * tk.count
+			this.selectedSeats?.forEach(seat => {
+				price += parseInt(this.packages[0].price, 10)
 			})
 
 			return price;
@@ -589,7 +578,50 @@ export default {
 
 		toggleModal() {
 			this.modalOpened = !this.modalOpened
-		}
+		},
+
+		selected(seat) {
+			return this.selectedSeats.includes(seat);
+		},
+
+		decideSeat(seat) {
+			if (this.selectedSeats.includes(seat)) {
+				console.log("unselecting", seat);
+				this.selectedSeats = this.selectedSeats.filter(selectedSeat => selectedSeat !== seat);
+			} else {
+				console.log("selecting", seat);
+				this.selectedSeats.push(seat);
+			}
+		},
+
+		getFormatted() {
+			const currentDate = new Date();
+
+			const year = currentDate.getFullYear();
+			const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+			const day = String(currentDate.getDate()).padStart(2, '0');
+
+			const formattedDate = `${year}-${month}-${day}`;
+
+			return formattedDate;
+		},
+
+		async submitForm() {
+			const { name, phone, email, payPhone, } = this
+
+			const response = await this.$axios.post('/event', {
+				name, phone, email, payPhone,
+				items: this.compiledTierItems,
+				amount: this.totalPrice
+			})
+
+			console.log(response)
+
+			if (response.data.status == 200) {
+				this.modalType = 'success'
+			}
+			// this.modalType = 'success'
+		},
 	},
 
 	mounted() {
@@ -598,6 +630,7 @@ export default {
 		const footer = document.querySelector('footer')
 
 		footer.style.display = "none"
+
 	}
 }
 </script>
@@ -744,7 +777,7 @@ export default {
 
 				.Date {
 					@apply py-3 px-6 bg-white rounded border border-border mt-4;
-					
+
 					.Input {
 						@apply rounded-none flex justify-start items-start !space-x-3;
 
@@ -756,11 +789,11 @@ export default {
 							@apply space-y-2 !m-0;
 
 							span {
-                @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
-              }
+								@apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
+							}
 
 							input {
-                @apply text-[#1D1D1D] font-bold lg:font-medium text-lg !leading-[133.33%] pb-1 md:pb-0 !w-fit;
+								@apply text-[#1D1D1D] font-bold lg:font-medium text-lg !leading-[133.33%] pb-1 md:pb-0 !w-fit;
 
 								&::-webkit-calendar-picker-indicator {
 									@apply hidden
@@ -928,8 +961,8 @@ export default {
 		@apply fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-25 z-50 px-5 lg:px-0;
 
 		.Image {
-				@apply lg:w-4/5 max-w-[1200px];
-			
+			@apply lg:w-4/5 max-w-[1200px];
+
 			img {
 				@apply w-full
 			}

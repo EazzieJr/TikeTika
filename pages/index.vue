@@ -605,8 +605,9 @@ import { mapState, mapMutations } from "vuex"
 export default {
   name: 'IndexPage',
 
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, route }) {
     try {
+      const { date } = route.query
       const { routes } = await $axios.$get('/popular/?type=routes')
       const { entertainment } = await $axios.$get('/popular/?type=entertainment')
       const { events } = await $axios.$get('/popular/?type=events')
@@ -615,7 +616,8 @@ export default {
       return {
         routes,
         entertainments: entertainment,
-        events
+        events,
+        date
       }
     } catch (error) {
       console.log(error)
@@ -790,6 +792,10 @@ export default {
       // } catch (error) {
       //   console.log(error)
       // }
+    },
+
+    getFormatted(date) {
+      return new Date(date).toLocaleDateString()
     }
   },
 
