@@ -308,10 +308,10 @@
 		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
 			<form @submit.prevent="submitForm" class="Form">
 				<div class="Inputs">
-					<InputField type="text" placeholder="Name" />
-					<InputField type="numeric" placeholder="Phone Number" />
-					<InputField type="email" placeholder="Email Address" />
-					<InputField type="numeric" placeholder="Mobile money number" />
+					<InputField type="text" placeholder="Name" v-model="name" />
+					<InputField type="numeric" placeholder="Phone Number" v-model="phone" />
+					<InputField type="email" placeholder="Email Address" v-model="email" />
+					<InputField type="numeric" placeholder="Mobile money number" v-model="payPhone" />
 				</div>
 
 				<button>
@@ -513,6 +513,12 @@ export default {
 				]
 			},
 
+			name: "Juma Saidi",
+			phone: "0715676737",
+			email: "kvnimrm@gmail.com",
+			payPhone: "0715676737",
+			// date: "2024-03-26",
+
 			selectedSeats: [],
 
 			reservationDate: this.$route.query.date || this.getFormatted(),
@@ -563,12 +569,6 @@ export default {
 		hint() {
 			return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
 		},
-
-		// calculateHeight() {
-		// 	const mobile = window.matchMedia('(max-width: 1023px)')
-
-		// 	return (this.tickets.length + 1) * mobile.matches ? 14 : 16 + 16 * this.tickets.length;
-		// }
 	},
 
 	methods: {
@@ -607,11 +607,20 @@ export default {
 		},
 
 		async submitForm() {
-			const { name, phone, email, payPhone, } = this
+			const { name, phone, email, payPhone, data } = this
 
-			const response = await this.$axios.post('/event', {
+			const response = await this.$axios.post('/entertainment', {
 				name, phone, email, payPhone,
 				items: this.compiledTierItems,
+				date: this.reservationDate,
+				items: [
+					{
+						entertainment: {
+							entertainmentID: data.entertainmentID,
+							items: this.selectedSeats
+						}
+					}
+				],
 				amount: this.totalPrice
 			})
 
@@ -630,7 +639,6 @@ export default {
 		const footer = document.querySelector('footer')
 
 		footer.style.display = "none"
-
 	}
 }
 </script>
