@@ -284,34 +284,54 @@ import { mapState, mapMutations } from "vuex"
 
 export default {
 	async asyncData({ $axios, params, route }) {
-		const { origin, destination } = route.query
-		const today = new Date();
-		const formattedDate = today.toISOString().split('T')[0];
+		const { origin, destination, date, returnDate } = route.query
+		const search = {
+			origin, destination, date, returnDate
+		}
+		// const today = new Date();
+		// const formattedDate = today.toISOString().split('T')[0];
 
-		console.log(origin, destination, formattedDate)
+		// console.log(origin, destination, formattedDate)
 
 		try {
-			const response = await $axios.post(`/search/?type=bus`, {
-				origin,
-				destination,
-				date: "2024-02-27"
-				//date: formattedDate
-			})
+			const data = await $axios.$post(`/search/?type=bus`, search)
+			console.log(data)
 
-			console.log("Response:", response.data.buses)
-
-			if(response.data.buses.length === 0) {
+			if(data.dount === 0) {
 				return {
 					result: []
 				}
 			}
 
 			return {
-				result: response.data.buses
+				result: data.buses
 			}
 		} catch (error) {
-			console.log(error)
+			console.log(error, error.code)
 		}
+		
+		// try {
+		// 	const response = await $axios.post(`/search/?type=bus`, {
+		// 		origin,
+		// 		destination,
+		// 		date: "2024-02-27"
+		// 		//date: formattedDate
+		// 	})
+
+		// 	console.log("Response:", response.data.buses)
+
+		// 	if(response.data.buses.length === 0) {
+		// 		return {
+		// 			result: []
+		// 		}
+		// 	}
+
+		// 	return {
+		// 		result: response.data.buses
+		// 	}
+		// } catch (error) {
+		// 	console.log(error)
+		// }
 	},
 
 	data() {

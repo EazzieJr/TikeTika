@@ -30,7 +30,7 @@
         </h1>
 
         <div class="Forms" :class="{ 'Pad': selectedBooking != 'Buses' }">
-          <div class="Dropdowns start relative z-10" v-if="selectedBooking == 'Buses'">
+          <div class="Dropdowns start relative !z-[100]" v-if="selectedBooking == 'Buses'">
             <Dropdown class="Dropdown">
               <template #toggler>
                 <div class="DropdownToggler between">
@@ -82,7 +82,7 @@
             </Dropdown>
           </div>
 
-          <form @submit.prevent="submit" action="">
+          <form @submit.prevent="runSearch" action="">
             <div class="Destination">
               <div class="Input">
                 <span>
@@ -93,7 +93,7 @@
                   <template #toggler>
                     <div class="DropdownToggler between">
                       <span class="!text-lg !font-medium">
-                        {{ search.origin ? regions[search.origin - 1]?.region : regions[0]?.region }}
+                        {{ search.origin ? regions[search.origin - 1]?.region : "Please select" }}
                       </span>
 
                       <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,9 @@
                   </template>
 
                   <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
-                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left" v-for="origin in regions" :key="origin.regionID" :class="{ 'bg-primary !text-white': search.origin === origin.regionID }"
+                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left"
+                      v-for="origin in regions" :key="origin.regionID"
+                      :class="{ 'bg-primary !text-white': search.origin === origin.regionID }"
                       @click="search.origin = origin.regionID">
                       <span>
                         {{ origin.region }}
@@ -115,8 +117,8 @@
                 </Dropdown>
                 <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
               </div>
-<!-- 
-              <div class="Swap" v-if="selectedBooking == 'Buses'">
+
+              <div class="Swap hidden md:block !z-[100]" v-if="selectedBooking == 'Buses'">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="24" cy="24" r="24" fill="#2FA048" />
                   <path d="M32.5002 26.9902L27.4902 32.0102" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
@@ -128,14 +130,40 @@
                   <path d="M32.5 21.0098H15.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-              </div> -->
+              </div>
 
               <div class="Input" v-if="selectedBooking == 'Buses'">
                 <span>
                   {{ $t('To') }}?
                 </span>
 
-                <input type="text" placeholder="Jo' Burg" v-model="search.destination">
+                <Dropdown>
+                  <template #toggler>
+                    <div class="DropdownToggler between">
+                      <span class="!text-lg !font-medium">
+                        {{ search.destination ? regions[search.destination - 1]?.region : "Please select" }}
+                      </span>
+
+                      <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                          fill="white" />
+                      </svg>
+                    </div>
+                  </template>
+
+                  <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
+                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left"
+                      v-for="destination in regions" :key="destination.regionID"
+                      :class="{ 'bg-primary !text-white': search.destination === destination.regionID }"
+                      @click="search.destination = destination.regionID">
+                      <span>
+                        {{ destination.region }}
+                      </span>
+                    </button>
+                  </DropdownContent>
+                </Dropdown>
+                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
               </div>
             </div>
 
@@ -146,10 +174,11 @@
                     <path
                       d="M29.2399 9.01318L24.7465 27.0532C24.4265 28.3999 23.2265 29.3332 21.8399 29.3332H4.31985C2.30651 29.3332 0.866535 27.3598 1.46653 25.4264L7.07986 7.3999C7.46652 6.14657 8.62654 5.27979 9.93321 5.27979H26.3332C27.5999 5.27979 28.6532 6.05312 29.0932 7.11979C29.3465 7.69312 29.3999 8.34652 29.2399 9.01318Z"
                       stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" />
-                    <path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8" stroke="#4F4F4F"
-                      stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
-                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8"
+                      stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5"
+                      stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M21.8398 8.52002L23.0932 2.7334" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
                       stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M10.2666 16H20.9333" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
@@ -740,20 +769,14 @@ export default {
       }
     },
 
-    async submit() {
+    async runSearch() {
+      const { date, destination, origin, returnDate } = this.search
       const type = this.selectedBooking.toLowerCase()
       const filteredType = type == 'buses' ? 'bus' : type == 'entertainment' ? 'entertainment' : 'event'
 
       console.log(this.search)
-      try {
-        const data = await this.$axios.post(`/search/?type=${filteredType}`, this.search)
-        console.log(data)
-        // this.routes = data.data
-      } catch (error) {
-        console.log(error, error.code)
-      }
 
-      // this.selectedBooking == 'Buses' ? this.$router.push('/book/bus') : this.selectedBooking == 'Entertainment' ? this.$router.push('/book/entertainment') : this.$router.push('/book/event')
+      this.selectedBooking == 'Buses' ? this.$router.push(`/book/bus?origin=${origin}&destination=${destination}&date=${date}&returnDate=${returnDate}`) : this.selectedBooking == 'Entertainment' ? this.$router.push(`/book/entertainment`) : this.$router.push(`/book/event`)
     },
 
     async loadData() {
@@ -873,7 +896,7 @@ export default {
         }
 
         .Dropdowns {
-          @apply space-x-3;
+          @apply space-x-3 z-50;
 
           .DropdownToggler {
             @apply bg-white bg-opacity-30 w-[84px] md:w-[130px] p-2 lg:px-4 lg:py-3 rounded;
@@ -919,7 +942,7 @@ export default {
               }
 
               &:nth-child(1) {
-                @apply relative z-50
+                @apply relative z-40
               }
             }
           }
@@ -929,7 +952,7 @@ export default {
           }
 
           .Destination {
-            @apply relative grid md:grid-cols-2 gap-4 z-[100];
+            @apply relative grid md:grid-cols-2 gap-4 z-40;
 
             .Input {
               @apply py-2 lg:py-3 px-4 lg:px-6;

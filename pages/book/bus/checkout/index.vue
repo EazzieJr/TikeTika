@@ -398,8 +398,9 @@ import { mapMutations } from 'vuex'
 export default {
 	async asyncData({ route, $axios }) {
 		try {
-			const data = await $axios.$post('/bus', {
+			const data = await $axios.$post('/ticket/uts-seats/', {
 				plate: route.query.plate,
+				tripID: route.query.tripID
 			}, {
 				headers: {
 					"Access-Control-Allow-Origin": "*"
