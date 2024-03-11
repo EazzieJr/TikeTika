@@ -9,7 +9,7 @@
 								Leaving on.
 							</h2>
 
-							<span>{{ $moment(data?.date).format("MMM Do YYYY") }}</span>
+							<span>{{ $moment(date).format("MMM Do YYYY") }}</span>
 						</div>
 
 						<div class="bottom">
@@ -153,6 +153,9 @@ export default {
 		data: {
 			type: Object,
 			default: () => { }
+		},
+		date: {
+			type: String
 		}
 	},
 
@@ -170,8 +173,9 @@ export default {
 		},
 
 		async bookBus() {
-			console.log("plate", this.data?.plate.split(' ').join(''));
-			this.$router.push(`/book/bus/checkout?plate=${this.data?.plate}&tripID=${this.data?.tripID}`);
+			// console.log(this.date)
+			// console.log("plate", this.data?.plate.split(' ').join(''));
+			this.$router.push(`/book/bus/checkout?routeID=${this.data?.routeID}&tripID=${this.data?.tripID}&date=${this.date}`);
 			// try {
 			// 	const data = await this.$axios.post('/bus', {
 			// 		plate: this.data?.plate,

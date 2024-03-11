@@ -13,6 +13,8 @@ export const state = () => ({
 	selectedBooking: "Buses",
 	menuOpened: false,
 	token: null,
+
+	bookedBusSeats: []
 })
 
 export const mutations = {
@@ -34,6 +36,10 @@ export const mutations = {
 
 	updateUser(state, user) {
 		state.userData = user;
+	},
+
+	updateBookedSeats(state, payload) {
+		state.bookedBusSeats = payload
 	}
 }
 

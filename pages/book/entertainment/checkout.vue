@@ -513,10 +513,10 @@ export default {
 				]
 			},
 
-			name: "Juma Saidi",
-			phone: "0715676737",
-			email: "kvnimrm@gmail.com",
-			payPhone: "0715676737",
+			name: "",
+			phone: "",
+			email: "",
+			payPhone: "",
 			// date: "2024-03-26",
 
 			selectedSeats: [],

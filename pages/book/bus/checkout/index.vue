@@ -9,33 +9,27 @@
 
 					<div class="Placements">
 						<div class="Seats">
-							<div class="LeftCols start">
-								<div class="Col" v-for="(col, index) in seats.slice(0, 2)" :key="index">
-									<button class="Seat center" v-for="seat in col" :key="seat" :disabled="occupied(seat)"
-										:class="{ 'occupied': occupied(seat), 'selected': selected(seat) }" @click="decideSeat(seat)">
-										<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
+							<!-- <div class="LeftCols start"> -->
+							<div class="Col" v-for="(col, index) in splitSeatsIntoRowsAndColumns" :key="index">
+								<button class="Seat center" v-for="seat in col" :key="seat.position" @click="decideSeat(seat.label)"
+									:disabled="occupied(seat.label)" :class="{ 'occupied': occupied(seat.label), 'selected': selected(seat.label) }">
+									<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
 											class="Class"> -->
 
-										<span>
-											{{ seat }}
-										</span>
-									</button>
-								</div>
-							</div>
-
-							<div class="RightCols start">
-								<div class="Col" v-for="(col, index) in  seats.slice(2, 4) " :key="index">
-									<button class="Seat center" v-for="seat in  col " :key="seat" :disabled="occupied(seat)"
+									<span>
+										{{ seat.label }}
+									</span>
+								</button>
+								<!-- <button class="Seat center" v-for="seat in col" :key="seat" :disabled="occupied(seat)"
 										:class="{ 'occupied': occupied(seat), 'selected': selected(seat) }" @click="decideSeat(seat)">
-										<!-- < img : src =" `/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
-										class="Class"> -->
 
 										<span>
 											{{ seat }}
 										</span>
-									</button>
-								</div>
+									</button> -->
 							</div>
+							<!-- </div> -->
+							<!--  -->
 						</div>
 					</div>
 
@@ -106,7 +100,7 @@
 							</div>
 
 							<div>
-								Tsh {{ data.price }}
+								Tsh {{ data?.price }}
 							</div>
 						</div>
 					</div>
@@ -117,12 +111,12 @@
 						</p>
 
 						<span>
-							Tsh {{ data.price * selectedSeats.length }}
+							Tsh {{ data?.price * selectedSeats.length }}
 						</span>
 					</div>
 				</div>
 
-				<!-- <div class="ReservationsDare">
+				<div class="ReservationsDare">
 					<h2>
 						Reservation Date
 					</h2>
@@ -154,7 +148,7 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div>
 			</div>
 
 			<div class="BottomRight">
@@ -213,7 +207,7 @@
 
 								<div class="To">
 									<span class="Place">
-										Dar es Salaam
+										{{ data?.destination }}
 									</span>
 
 									<div class="TimeStop">
@@ -275,7 +269,7 @@
 
 								<div class="To">
 									<span class="Place">
-										Dar es Salaam
+										{{}}
 									</span>
 
 									<div class="TimeStop">
@@ -316,7 +310,7 @@
 								</span>
 
 								<p>
-									{{ data?.tripLocations[1].location }}
+									{{ data?.tripLocations[0].location }}
 								</p>
 							</div>
 						</div>
@@ -362,7 +356,7 @@
 				</div>
 
 				<div class="Right">
-					<button @click="toggleModal">
+					<button @click="pushFinalCheckout">
 						Proceed to Checkout
 					</button>
 				</div>
@@ -399,7 +393,7 @@ export default {
 	async asyncData({ route, $axios }) {
 		try {
 			const data = await $axios.$post('/ticket/uts-seats/', {
-				plate: route.query.plate,
+				routeID: route.query.routeID,
 				tripID: route.query.tripID
 			}, {
 				headers: {
@@ -407,7 +401,9 @@ export default {
 				}
 			});
 
-			// return { data };
+			console.log(data)
+
+			return { data: data.bus };
 		} catch (error) {
 			console.log(error);
 		}
@@ -433,64 +429,63 @@ export default {
 			occupiedSeats: [],
 
 
-			data: {
-				plate: "T759DRT",
-				date: "2024-01-30",
-				time: "07:00 AM",
-				departureTime: "07:00 AM",
-				arrivalTime: "05:00 PM",
-				operatorID: "OP002",
-				company: "Shabiby",
-				origin: "Mwanza",
-				destination: "Dar es Salaam",
-				price: "30000",
-				type: "ONE-WAY",
-				tripLocations: [
-					{
-						locationID: "29",
-						location: "Kituoni"
-					},
-					{
-						locationID: "1",
-						location: "Magufuli Bus Terminal"
-					}
-				],
-				availableSeats: [
-					"1A",
-					"1B",
-					"1C",
-					"1D",
-					"2C",
-					"2D",
-					"3A",
-					"3B",
-					"3C",
-					"3D",
-					"4A",
-					"4B",
-					"4C",
-					"4D",
-					"7A",
-					"7B",
-					"7C",
-					"7D",
-					"9D",
-					"10A",
-					"10B",
-					"10C",
-					"10D",
-					"11A",
-					"11B",
-					"11C",
-					"11D"
-				],
-				bookedSeats: [],
-				reservedSeats: [],
-				normalSeats: "44",
-				normalColumns: "4",
-				restaurants: [],
-				hotels: []
-			},
+			// data: {
+			// 	plate: "T759DRT",
+			// 	date: "2024-01-30",
+			// 	time: "07:00 AM",
+			// 	departureTime: "07:00 AM",
+			// 	arrivalTime: "05:00 PM",
+			// 	operatorID: "OP002",
+			// 	company: "Shabiby",
+			// 	origin: "Mwanza",
+			// 	price: "30000",
+			// 	type: "ONE-WAY",
+			// 	tripLocations: [
+			// 		{
+			// 			locationID: "29",
+			// 			location: "Kituoni"
+			// 		},
+			// 		{
+			// 			locationID: "1",
+			// 			location: "Magufuli Bus Terminal"
+			// 		}
+			// 	],
+			// 	availableSeats: [
+			// 		"1A",
+			// 		"1B",
+			// 		"1C",
+			// 		"1D",
+			// 		"2C",
+			// 		"2D",
+			// 		"3A",
+			// 		"3B",
+			// 		"3C",
+			// 		"3D",
+			// 		"4A",
+			// 		"4B",
+			// 		"4C",
+			// 		"4D",
+			// 		"7A",
+			// 		"7B",
+			// 		"7C",
+			// 		"7D",
+			// 		"9D",
+			// 		"10A",
+			// 		"10B",
+			// 		"10C",
+			// 		"10D",
+			// 		"11A",
+			// 		"11B",
+			// 		"11C",
+			// 		"11D"
+			// 	],
+			// 	bookedSeats: [],
+			// 	reservedSeats: [],
+			// 	normalSeats: "44",
+			// 	normalColumns: "4",
+			// 	restaurants: [],
+			// 	hotels: []
+			// },
 
 			modalOpened: false,
 			seatMap: false,
@@ -523,17 +518,18 @@ export default {
 
 		getUnoccupiedSeats() {
 			const unavailableSeats = [];
-			this.seats.forEach(rows => {
+			this.splitSeatsIntoRowsAndColumns.forEach(rows => {
 				rows.forEach(seat => {
-					const found = this.data.availableSeats.includes(seat);
+					const found = this.data.availableSeats.includes(seat.label);
 					if (!found) {
-						unavailableSeats.push(seat);
+						unavailableSeats.push(seat.label);
 						// console.log(seat);
 					}
 					// console.log(found);
 				});
 			});
 
+			console.log(unavailableSeats)
 			return unavailableSeats;
 		},
 
@@ -545,10 +541,34 @@ export default {
 
 			return price;
 		},
+
+		splitSeatsIntoRowsAndColumns() {
+			// Find the highest row and column numbers
+			let highestRow = 0;
+			let highestColumn = 0;
+
+			this.data?.seats.forEach(seat => {
+				const [row, column] = seat.position.split('_').map(Number);
+				if (row > highestRow) highestRow = row;
+				if (column > highestColumn) highestColumn = column;
+			});
+
+			// Initialize the 2D array with empty arrays for each column
+			const columns = Array.from({ length: highestColumn }, () => []);
+
+			// Place seats into appropriate columns and rows
+			this.data?.seats.forEach(seat => {
+				const [row, column] = seat.position.split('_').map(Number);
+				columns[column - 1][row - 1] = seat;
+			});
+
+			console.log(columns)
+			return columns;
+		}
 	},
 
 	methods: {
-		...mapMutations(['setTempBusBooking']),
+		...mapMutations(['setTempBusBooking', 'updateBookedSeats']),
 
 		calculateTimeDifference(startTime, endTime) {
 			const startMoment = this.$moment(startTime, 'hh:mm A');
@@ -626,7 +646,37 @@ export default {
 				console.log("selecting", seat);
 				this.selectedSeats.push(seat);
 			}
+		},
+
+		pushFinalCheckout() {
+			const { plate, price, tripLocations  } = this.data
+
+			this.updateBookedSeats(this.selectedSeats)
+			this.$router.push(`/book/bus/checkout/passenger-details?plate=${plate}&price=${price}&pickUp=${tripLocations[0].locationID}&dropOff=${tripLocations[1].locationID}&date=${this.$route.query.date}`)
 		}
+
+		// splitSeatsIntoRowsAndColumns(seatingData) {
+		// 	// Find the highest row and column numbers
+		// 	let highestRow = 0;
+		// 	let highestColumn = 0;
+
+		// 	seatingData.forEach(seat => {
+		// 		const [row, column] = seat.position.split('_').map(Number);
+		// 		if (row > highestRow) highestRow = row;
+		// 		if (column > highestColumn) highestColumn = column;
+		// 	});
+
+		// 	// Initialize the 2D array with empty arrays for each column
+		// 	const columns = Array.from({ length: highestColumn }, () => []);
+
+		// 	// Place seats into appropriate columns and rows
+		// 	seatingData.forEach(seat => {
+		// 		const [row, column] = seat.position.split('_').map(Number);
+		// 		columns[column - 1][row - 1] = seat;
+		// 	});
+
+		// 	return columns;
+		// }
 	},
 
 	mounted() {
@@ -636,6 +686,30 @@ export default {
 
 		footer.style.display = "none"
 
+		// const seatingRows = this.splitSeatsIntoRowsAndColumns(this.data?.seats);
+
+		// console.log(seatingRows);
+		
+		// let highestRow = 0;
+		// let highestColumn = 0;
+
+		// // Iterate through each seat object
+		// this.data?.seats.forEach(seat => {
+		// 	// Split the position string by underscore to get row and column numbers
+		// 	const [row, column] = seat.position.split('_').map(Number);
+
+		// 	// Update highestRow and highestColumn if necessary
+		// 	if (row > highestRow) {
+		// 		highestRow = row;
+		// 	}
+		// 	if (column > highestColumn) {
+		// 		highestColumn = column;
+		// 	}
+		// });
+
+		// console.log("Highest Row:", highestRow);
+		// console.log("Highest Column:", highestColumn);
+		
 		// console.log(this.getUnoccupiedSeats);
 
 		// const unavailableSeats = this.findUnavailableSeats(this.seats, this.data.availableSeats);
@@ -667,8 +741,8 @@ export default {
 					.Seats {
 						@apply flex justify-between;
 
-						>div {
-							@apply grid grid-cols-2 gap-3;
+						/* >div {
+							@apply grid grid-cols-2 gap-3; */
 
 							>div {
 								@apply space-y-3;
@@ -744,7 +818,7 @@ export default {
 						p {
 							@apply text-[#484848] text-[8px] font-bold leading-[125%]
 						}
-					}
+					/* } */
 				}
 			}
 

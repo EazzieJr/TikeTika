@@ -86,12 +86,12 @@
 							<circle cx="24" cy="24" r="24" fill="#2FA048" />
 							<path d="M32.5002 26.9902L27.4902 32.0102" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
 								stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M15.5 26.9902H32.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-								stroke-linejoin="round" />
+							<path d="M15.5 26.9902H32.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+								stroke-linecap="round" stroke-linejoin="round" />
 							<path d="M15.5 21.0102L20.51 15.9902" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
 								stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M32.5 21.0098H15.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-								stroke-linejoin="round" />
+							<path d="M32.5 21.0098H15.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+								stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>
 
@@ -207,7 +207,7 @@
 					</div>
 
 					<div class="Results" v-if="result?.length > 0">
-						<BusResult v-for="(data, index) in result" :key="index" :data="data" />
+						<BusResult v-for="(data, index) in result" :key="index" :data="data" :date="$route.query.date" />
 					</div>
 
 					<div class="Empty center w-full" v-else>
@@ -297,7 +297,7 @@ export default {
 			const data = await $axios.$post(`/search/?type=bus`, search)
 			console.log(data)
 
-			if(data.dount === 0) {
+			if (data.dount === 0) {
 				return {
 					result: []
 				}
@@ -309,7 +309,7 @@ export default {
 		} catch (error) {
 			console.log(error, error.code)
 		}
-		
+
 		// try {
 		// 	const response = await $axios.post(`/search/?type=bus`, {
 		// 		origin,
@@ -432,6 +432,8 @@ export default {
 				}
 			],
 
+			classOrder: { 'vip': 1, 'Luxury': 2, 'Semi Luxury': 3 },
+
 			sorts: [
 				"Cheapest",
 				"Comfortable",
@@ -448,6 +450,18 @@ export default {
 
 	computed: {
 		...mapState(["selectedBooking"])
+	},
+
+	watch: {
+		sortBy(newVal, oldVal) {
+			if (newVal == "Cheapest") {
+				this.result.sort((a, b) => parseInt(a.normalPrice, 10) - parseInt(b.normalPrice, 10))
+			} else if (newVal == "VIP") {
+				this.result.sort((a, b) => {
+					return this.classOrder[a.cabin] - this.classOrder[b.cabin]
+				})
+			}
+		}
 	}
 }
 </script>
