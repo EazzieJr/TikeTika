@@ -790,15 +790,14 @@ export default {
     },
 
     fetchEvent(data, type) {
-      console.log(data)
+      // console.log(data)
+      const date = new Date().toISOString().split('T')[0]
       const { origin, destination, regionID, entertainmentID } = data
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
 
-      // console.log(origin, destination, regionID)
-      // this.$router.push(`/book/${type + '?' + (type === 'bus' ? 'origin=' + origin +'&destination=' + destination : type == 'event' ? 'region=' + regionID : 'region=' + regionID + '&date=' + formattedDate)}`)
       if (type === 'bus') {
-        this.$router.push(`/book/bus/?origin=${origin}&destination=${destination}`)
+        this.$router.push(`/book/bus?origin=${origin}&destination=${destination}&date=${date}`)
       } else if (type === 'entertainment') {
         this.$router.push(`/book/entertainment/checkout?id=${entertainmentID}`)
       } else if (type === 'event') {
@@ -933,7 +932,8 @@ export default {
             .Input {
               @apply space-y-2 bg-white rounded;
 
-              > span, .Span {
+              >span,
+              .Span {
                 @apply block text-[#646464] font-bold text-[8px] lg:text-xs !leading-[125%];
               }
 
