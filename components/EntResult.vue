@@ -1,7 +1,7 @@
 <template>
 	<div class="Result">
 		<div class="Image">
-			<img :src="`https://tiketika.co.tz/img/entertainment/${data?.squarePath}}`" alt="`">
+			<img :src="`https://tiketika.co.tz/img/entertainment/${data?.squarePath}`" alt="`">
 		</div>
 
 		<div class="Info">
@@ -56,8 +56,8 @@
 				</div>
 
 				<div class="Right">
-					<button @click="$router.push(`/book/entertainment/checkout?id=${this.data?.entertainmentID}`)">
-						Make Reservation
+					<button @click="pushRoute">
+						Get tickets
 					</button>
 				</div>
 			</div>
@@ -72,6 +72,13 @@ export default {
 			type: Object,
 			required: true
 		}
+	},
+
+	methods: {
+		pushRoute() {
+			// console.log(this.data?.entertainmentID)
+			this.$router.push(`/book/entertainment/checkout?id=${this.data?.entertainmentID}`)
+		}
 	}
 }
 </script>
@@ -82,7 +89,11 @@ export default {
 	box-shadow: 0px 2px 45px 0px rgba(0, 0, 0, 0.03);
 
 	.Image {
-		@apply w-full h-[200px] xl:h-[248px] bg-[#484848]
+		@apply w-full h-[200px] xl:h-[248px] bg-[#484848] overflow-hidden;
+
+		img {
+			@apply object-cover object-center w-full h-full
+		}
 	}
 
 	.Info {

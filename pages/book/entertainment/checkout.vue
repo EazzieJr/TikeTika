@@ -221,7 +221,7 @@
 					</div>
 				</div>
 
-				<div class="TicketInfo">
+				<!-- <div class="TicketInfo">
 					<h2>
 						Food and Drinks
 					</h2>
@@ -283,7 +283,7 @@
 							Tsh {{ totalPrice }}
 						</span>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</section>
 
@@ -333,7 +333,7 @@
 export default {
 	async asyncData({ route, $axios }) {
 		const { id } = route.query
-		console.log("ID:", id)
+
 		const response = await $axios.$get(`/entertainment/?id=${id}`)
 
 		console.log(response)
