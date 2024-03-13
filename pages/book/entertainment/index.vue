@@ -52,12 +52,7 @@
 
 		<section class="constraint">
 			<div class="Results">
-				<EntResult />
-				<EntResult />
-				<EntResult />
-				<EntResult />
-				<EntResult />
-				<EntResult />
+				<EntResult v-for="(data, index) in result" :key="index" :data="data" />
 			</div>
 
 			<button class="More">
@@ -69,6 +64,34 @@
 
 <script>
 export default {
+	async asyncData({ $axios, params, route }) {
+		const { origin, destination, date, returnDate, region } = route.query
+		const search = {
+			region, date
+		}
+		// const today = new Date();
+		// const formattedDate = today.toISOString().split('T')[0];
+
+		// console.log(origin, destination, formattedDate)
+
+		try {
+			const data = await $axios.$post(`/search/?type=entertainment`, search)
+			console.log(data)
+
+			if (data.dount === 0) {
+				return {
+					result: []
+				}
+			}
+
+			return {
+				result: data.entertainment
+			}
+		} catch (error) {
+			console.log(error, error.code)
+		}
+	},
+
 	data() {
 		return {
 			trip: {

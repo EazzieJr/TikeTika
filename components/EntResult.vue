@@ -1,11 +1,13 @@
 <template>
 	<div class="Result">
-		<div class="Image"></div>
+		<div class="Image">
+			<img :src="`https://tiketika.co.tz/img/entertainment/${data?.squarePath}}`" alt="`">
+		</div>
 
 		<div class="Info">
 			<div class="Top">
 				<span class="Title">
-					Tips Lounge
+					{{ data?.entertainment }}
 				</span>
 
 				<div class="Misc">
@@ -21,7 +23,7 @@
 						</svg>
 
 						<span>
-							22 Concert avenue, Serengeti, 22 Concert avenue, Serengeti
+							{{ data?.address }}
 						</span>
 					</div>
 
@@ -35,7 +37,7 @@
 							</svg>
 
 							<span>
-								08:30PM - 12:00PM 
+								{{ data?.start }} - {{ data?.end }}
 							</span>
 						</div>
 					</div>
@@ -54,7 +56,7 @@
 				</div>
 
 				<div class="Right">
-					<button @click="$router.push('/book/entertainment/checkout')">
+					<button @click="$router.push(`/book/entertainment/checkout?id=${this.data?.entertainmentID}`)">
 						Make Reservation
 					</button>
 				</div>
@@ -65,7 +67,12 @@
 
 <script>
 export default {
-
+	props: {
+		data: {
+			type: Object,
+			required: true
+		}
+	}
 }
 </script>
 

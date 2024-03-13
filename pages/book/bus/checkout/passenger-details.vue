@@ -2,27 +2,119 @@
 	<div class="PassengerDetails">
 		<section class="constraint">
 			<div class="Passengers">
-					<div class="Passenger" v-for="(passenger, index) in passengers" :key="index">
+				<div class="Passenger" v-for="(passenger, index) in passengersDetails" :key="index">
+					<!-- <div class="Passenger"> -->
 					<h2>
 						Details for Passenger {{ index + 1 }}
 					</h2>
 
 					<div class="Inputs">
 						<div class="Input">
-							<input type="text" name="name" id="name" placeholder="Name">
+							<input type="text" name="name" id="name" placeholder="Name" v-model="passengersDetails[index].name">
 						</div>
 
-						<div class="Dropdowns"></div>
+						<div class="Dropdowns">
+							<Dropdown class="z-20">
+								<template #toggler>
+									<div class="DropdownToggler between">
+										<span class="">
+											{{ passengersDetails[index].age ? passengersDetails[index].age : "Select Age" }}
+										</span>
+
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+												stroke="#0A0A0A" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+												stroke-linejoin="round" />
+										</svg>
+									</div>
+								</template>
+
+								<DropdownContent class="Content !h-[280px] overflow-y-auto !mt-4 border-[0.5px] border-[#EBEBEB]"
+									data-lenis-prevent>
+									<button type="button" class="Item py-3 px-3 text-base font-bold text-[#313131] block w-full text-left"
+										v-for="age in ages" :key="age" @click="passengersDetails[index].age = age">
+										<span>
+											<!-- :class="{ 'bg-primary !text-white': search.origin === origin.regionID }" -->
+											{{ age }}
+										</span>
+									</button>
+								</DropdownContent>
+							</Dropdown>
+
+							<Dropdown>
+								<template #toggler>
+									<div class="DropdownToggler between">
+										<span class="">
+											{{ passengersDetails[index].gender ? passengersDetails[index].gender : "Gender" }}
+										</span>
+
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+												stroke="#0A0A0A" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+												stroke-linejoin="round" />
+										</svg>
+									</div>
+								</template>
+
+								<DropdownContent
+									class="Content h-fit !max-h-[280px] overflow-y-auto !mt-4 border-[0.5px] border-[#EBEBEB]"
+									data-lenis-prevent>
+									<button type="button" class="Item py-3 px-3 text-base font-bold text-[#313131] block w-full text-left"
+										v-for="gender in genders" :key="gender" @click="passengersDetails[index].gender = gender">
+										<span>
+											<!-- :class="{ 'bg-primary !text-white': search.origin === origin.regionID }" -->
+											{{ gender }}
+										</span>
+									</button>
+								</DropdownContent>
+							</Dropdown>
+						</div>
 
 						<div class="Input">
-							<input type="number" name="phone" id="phone" placeholder="Phone">
+							<input type="number" name="phone" id="phone" placeholder="Phone" v-model="passengersDetails[index].phone">
 						</div>
 
 						<div class="Input">
-							<input type="email" name="email" id="email" placeholder="Email Address (Optional)">
+							<input type="email" name="email" id="email" placeholder="Email Address (Optional)"
+								v-model="passengersDetails[index].email">
 						</div>
 
-						<div class="Dropdowns"></div>
+						<div class="Dropdowns">
+							<Dropdown class="z-20">
+								<template #toggler>
+									<div class="DropdownToggler between">
+										<span class="">
+											{{ passengersDetails[index].id ? passengersDetails[index].id : "ID Type" }}
+										</span>
+
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+												stroke="#0A0A0A" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+												stroke-linejoin="round" />
+										</svg>
+									</div>
+								</template>
+
+								<DropdownContent class="Content !h-[280px] overflow-y-auto !mt-4 border-[0.5px] border-[#EBEBEB]"
+									data-lenis-prevent>
+									<button type="button" class="Item py-3 px-3 text-base font-bold text-[#313131] block w-full text-left"
+										v-for="id in IDs" :key="id" @click="passengersDetails[index].id = id">
+										<span>
+											<!-- :class="{ 'bg-primary !text-white': search.origin === origin.regionID }" -->
+											{{ id }}
+										</span>
+									</button>
+								</DropdownContent>
+							</Dropdown>
+
+							<div class="Input">
+								<input type="number" name="id" id="id" placeholder="ID Number (Optional)"
+									v-model="passengersDetails[index].idNumber">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -41,7 +133,7 @@
 				</div>
 
 				<div class="Right">
-					<button @click="pushFinalCheckout">
+					<button @click="checkout">
 						Checkout
 					</button>
 				</div>
@@ -57,14 +149,31 @@ export default {
 	data() {
 		return {
 			passengersDetails: [],
+			ages: [
+				"Adult", "Child", "Senior", "Middle aged", "Infant", "Teenager", "Young Adult", "Elderly", "Baby", "Toddler"
+			],
+
+			genders: [
+				"Male", "Female", "Other"
+			],
+
+			IDs: [
+				"National ID", "Passport", "Voter's ID", "Driver's License", "Student ID", "Employee ID", "Other"
+			]
 		}
 	},
-	
+
 	computed: {
 		...mapState(['bookedBusSeats']),
 
 		totalPrice() {
 			return parseInt(this.$route.query.price, 10) * this.bookedBusSeats.length
+		}
+	},
+
+	methods: {
+		checkout() {
+			// this.$router.push({ name: 'bus-checkout' })
 		}
 	},
 
@@ -75,7 +184,7 @@ export default {
 
 		footer.style.display = "none"
 
-		for (let i = 0; i < thisbookedBusSeats.length; i++) {
+		for (let i = 0; i < this.bookedBusSeats.length; i++) {
 			this.passengersDetails.push({
 				name: "",
 				phone: "",
@@ -83,6 +192,7 @@ export default {
 				age: "",
 				gender: "",
 				id: "",
+				idNumber: ""
 			})
 		}
 	}
@@ -100,7 +210,7 @@ export default {
 			@apply grow space-y-6 lg:space-y-12;
 
 			.Passenger {
-				@apply border-[0.5px] border-[#EBEBEB] rounded-lg overflow-hidden p-6 pt-4 lg:p-8 lg:pt-6 lg:pb-16 h-fit bg-white space-y-6 lg:space-y-12;
+				@apply border-[0.5px] border-[#EBEBEB] rounded-lg p-6 pt-4 lg:p-8 lg:pt-6 lg:pb-16 h-fit bg-white space-y-6 lg:space-y-12;
 
 				h2 {
 					@apply pb-3 lg:pb-4 border-b border-dashed border-[#C2C2C2] text-xl lg:text-2xl text-secondary !leading-[150%] font-bold
@@ -109,8 +219,24 @@ export default {
 				.Inputs {
 					@apply grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6;
 
-					.Input {
+					>.Input {
 						@apply border-[0.5px] border-[#EBEBEB] rounded-[2px] md:col-span-2;
+
+						input {
+							@apply w-full p-4 lg:p-6 text-sm lg:text-lg font-medium text-black placeholder:text-secondary leading-[150%] lg:leading-[133%]
+						}
+					}
+				}
+
+				.Dropdowns {
+					@apply md:col-span-2 grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6;
+
+					.DropdownToggler {
+						@apply border-[0.5px] border-[#EBEBEB] rounded-[2px] md:col-span-2 p-4 lg:py-5 text-sm lg:text-lg font-medium text-black;
+					}
+
+					.Input {
+						@apply border-[0.5px] border-[#EBEBEB] rounded-[2px];
 
 						input {
 							@apply w-full p-4 lg:p-6 text-sm lg:text-lg font-medium text-black placeholder:text-secondary leading-[150%] lg:leading-[133%]

@@ -14,7 +14,7 @@ export const state = () => ({
 	menuOpened: false,
 	token: null,
 
-	bookedBusSeats: []
+	bookedBusSeats: ["Hey"]
 })
 
 export const mutations = {
