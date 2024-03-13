@@ -2,8 +2,7 @@
 	<div class="PassengerDetails">
 		<section class="constraint">
 			<div class="Passengers">
-				<div class="Passenger">
-					<!-- <div class="Passenger" v-for="(passenger, index) in passengers" :key="index"> -->
+					<div class="Passenger" v-for="(passenger, index) in passengers" :key="index">
 					<h2>
 						Details for Passenger {{ index + 1 }}
 					</h2>
@@ -55,6 +54,12 @@
 import { mapState } from 'vuex'
 
 export default {
+	data() {
+		return {
+			passengersDetails: [],
+		}
+	},
+	
 	computed: {
 		...mapState(['bookedBusSeats']),
 
@@ -69,6 +74,17 @@ export default {
 		const footer = document.querySelector('footer')
 
 		footer.style.display = "none"
+
+		for (let i = 0; i < thisbookedBusSeats.length; i++) {
+			this.passengersDetails.push({
+				name: "",
+				phone: "",
+				email: "",
+				age: "",
+				gender: "",
+				id: "",
+			})
+		}
 	}
 }
 </script>
