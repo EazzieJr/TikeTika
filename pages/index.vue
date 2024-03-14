@@ -55,31 +55,6 @@
                 </div>
               </DropdownContent>
             </Dropdown>
-
-            <Dropdown class="Dropdown">
-              <template #toggler>
-                <div class="DropdownToggler between">
-                  <span>
-                    {{ $t('Class') }}
-                  </span>
-
-                  <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
-                      fill="white" />
-                  </svg>
-                </div>
-              </template>
-
-              <DropdownContent class="Content">
-                <div class="Item" v-for="cl in classes" :key="cl" :class="{ 'active': selectedClassType === cl }"
-                  @click="selectedClassType = cl">
-                  <span>
-                    {{ cl }}
-                  </span>
-                </div>
-              </DropdownContent>
-            </Dropdown>
           </div>
 
           <form @submit.prevent="runSearch" action="" v-if="selectedBooking == 'Buses'">

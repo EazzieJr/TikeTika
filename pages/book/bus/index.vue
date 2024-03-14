@@ -177,7 +177,7 @@
 						</div>
 
 						<div class="Filters">
-							<div class="Category" v-for="filter in filters" :key="filter.title">
+							<div class="Category" v-for="(filter, parentIndex) in filters" :key="filter.title">
 								<div class="Top between" @click="filter.toggled = !filter.toggled">
 									<span>
 										{{ filter.title }}
@@ -193,8 +193,8 @@
 								</div>
 
 								<div class="FilterValues" v-if="filter.toggled">
-									<div class="Value start" v-for="value in filter.values" :key="value.title"
-										@click="value.selected = !value.selected">
+									<div class="Value start" v-for="(value, index) in filter.values" :key="value.title"
+										@click="toggleValue(parentIndex, index)">
 										<div class="CheckBox" :class="{ 'selected': value.selected }"></div>
 
 										<span>
@@ -207,7 +207,7 @@
 					</div>
 
 					<div class="Results" v-if="result?.length > 0">
-						<BusResult v-for="(data, index) in result" :key="index" :data="data" :date="$route.query.date" />
+						<BusResult v-for="(data, index) in filteredResults" :key="index" :data="data" :date="$route.query.date" />
 					</div>
 
 					<div class="Empty center w-full" v-else>
@@ -263,7 +263,7 @@
 
 				<div class="Filters">
 					<div class="Category" v-for="sort in sorts" :key="sort" @click="sortBy = sort">
-						<span>
+						<span :class="{ 'active': sort == sortBy }">
 							{{ sort }}
 						</span>
 					</div>
@@ -389,7 +389,7 @@ export default {
 							selected: false
 						},
 						{
-							title: "Semi-Luxury",
+							title: "Semi Luxury",
 							selected: false
 						},
 						{
@@ -436,7 +436,6 @@ export default {
 
 			sorts: [
 				"Cheapest",
-				"Comfortable",
 				"VIP"
 			],
 
@@ -449,7 +448,27 @@ export default {
 	},
 
 	computed: {
-		...mapState(["selectedBooking"])
+		...mapState(["selectedBooking"]),
+
+		// Computed property to get filtered results
+		filteredResults() {
+			let filteredData = [...this.result];
+			this.filters.forEach(filter => {
+				filter.values.forEach(value => {
+					if (value.selected) {
+						console.log(value.title);
+						// Filter the data based on the selected filters
+						filteredData = filteredData.filter(item => {
+							// Assuming 'operator', 'cabinType', 'time' are properties in your data
+							return item.operator === value.title || item.cabin === value.title || item.time === value.title;
+						});
+					}
+				});
+			});
+
+			console.log(filteredData);
+			return filteredData;
+		}
 	},
 
 	watch: {
@@ -461,6 +480,20 @@ export default {
 					return this.classOrder[a.cabin] - this.classOrder[b.cabin]
 				})
 			}
+		}
+	},
+
+	methods: {
+		toggleValue(parentIndex, valueIndex) {
+			// Toggle the selected value and update siblings' toggled property
+			this.filters[parentIndex].values.forEach((value, index) => {
+				if (index === valueIndex) {
+					value.selected = !value.selected; // Toggle the selected value
+				} else {
+					console.log(value.title);
+					value.selected = false; // Set other values to false
+				}
+			});
 		}
 	}
 }
@@ -628,7 +661,7 @@ export default {
 				@apply md:flex md:space-x-5 xl:space-x-6;
 
 				.DesktopFilter {
-					@apply hidden md:block bg-white rounded-lg py-4 px-6 space-y-6 mb-5 w-[190px] lg:w-[240px] xl:w-[294px] h-fit;
+					@apply hidden md:block bg-white rounded-lg py-4 px-6 space-y-6 mb-5 w-[190px] lg:w-[240px] xl:w-[294px] h-fit sticky top-[100px];
 
 					.Header {
 						@apply border-b border-dashed border-border pb-5;
@@ -752,6 +785,15 @@ export default {
 
 					>span {
 						@apply font-bold text-lg text-primary-black leading-[133%];
+
+						&.active {
+							@apply text-primary;
+
+							&::after {
+								@apply absolute -bottom-2 left-[50%] -translate-x-1/2 rounded-full w-1 h-1 bg-primary;
+								content: '';
+							}
+						}
 					}
 				}
 			}

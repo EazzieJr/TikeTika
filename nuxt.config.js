@@ -21,6 +21,12 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/tailwind/tailwind.css', '@/assets/main.css'],
 
+  // Customize scroll behavior
+  router: {
+    scrollBehavior() {
+      return { x: 0, y: 0 };
+    }
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
