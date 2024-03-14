@@ -968,14 +968,13 @@ export default {
       const date = new Date().toISOString().split('T')[0]
       const { origin, destination, regionID, entertainmentID } = data
       const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0];
 
       if (type === 'bus') {
         this.$router.push(`/book/bus?origin=${origin}&destination=${destination}&date=${date}`)
       } else if (type === 'entertainment') {
-        this.$router.push(`/book/entertainment/checkout?id=${entertainmentID}`)
+        this.$router.push(`/book/entertainment/checkout?id=${entertainmentID}$date=${date}`)
       } else if (type === 'event') {
-        this.$router.push(`/book/event/checkout?id=${data?.eventID}`)
+        this.$router.push(`/book/event/checkout?id=${data?.eventID}$date=${date}`)
       }
       // try {
       //   const response = await this.$axios.post(`/search/?type=${type}`, {

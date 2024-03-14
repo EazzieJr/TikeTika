@@ -52,7 +52,7 @@
 
 		<section class="constraint">
 			<div class="Results">
-				<EntResult v-for="(data, index) in result" :key="index" :data="data" />
+				<EntResult v-for="(data, index) in result" :key="index" :data="data" :date="$route.query.date" />
 			</div>
 
 			<button class="More">
@@ -100,6 +100,8 @@ export default {
 					end: '2023-12-12',
 				}
 			},
+
+			date: ""
 		}
 	}
 }

@@ -269,14 +269,14 @@
 					</span>
 
 					<div class="Ages space-y-4">
-						<p class="text-sm lg:text-base text-secondary">
-							Adult x 1
+						<p class="text-sm lg:text-base text-secondary" v-if="getAdults > 0">
+							Adults x {{ getAdults }}
 						</p>
-						<p class="text-sm lg:text-base text-secondary">
-							Child x 1
+						<p class="text-sm lg:text-base text-secondary" v-if="getChild > 0">
+							Child x {{ getChild }}
 						</p>
-						<p class="text-sm lg:text-base text-secondary">
-							Senior x 1
+						<p class="text-sm lg:text-base text-secondary" v-if="getMiddleAged > 0">
+							Middle Aged x {{ getMiddleAged }}
 						</p>
 					</div>
 				</div>
@@ -307,7 +307,7 @@
 						3. Malipo ya Serikali <br>
 						4. Ingiza namba x <br>
 						5. Kumbukumbu nambari y <br>
-						6. PIN 
+						6. PIN
 					</p>
 				</div>
 
@@ -376,6 +376,24 @@ export default {
 		hint() {
 			return this.modalType == 'form' ? "Make payment through your mobile money number" : "Payment successfully made"
 		},
+
+		getAdults() {
+			const adults = this.passengersDetails.filter(passenger => passenger.age === "Adult")
+
+			return adults.length
+		},
+
+		getMiddleAged() {
+			const middleAged = this.passengersDetails.filter(passenger => passenger.age === "Middle aged")
+
+			return middleAged.length
+		},
+
+		getChild() {
+			const child = this.passengersDetails.filter(passenger => passenger.age === "Child")
+
+			return child.length
+		}
 	},
 
 	methods: {
@@ -402,7 +420,7 @@ export default {
 
 		async submitForm() {
 			const { plate, date, price, pickUp, dropOff } = this.$route.query
-			
+
 			const response = await this.$axios.post('/booking/?type=bus', {
 				bus: {
 					plate,

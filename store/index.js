@@ -14,9 +14,18 @@ export const state = () => ({
 	menuOpened: false,
 	token: null,
 
-	bookedBusSeats: ["Hey"],
+	bookedBusSeats: ["10", "52"],
 	tripDetails: {
-
+		plate: "T 689 EBD",
+		cabin: "Luxury",
+		company: "Mallesa's",
+		operatorID: 23,
+		time: "05:00:00",
+		departureTime: "05:00:00",
+		arrivalTime: "08:30:00",
+		origin: "Dar es Salaam",
+		destination: "Morogoro",
+		price: "10000.00",
 	}
 })
 

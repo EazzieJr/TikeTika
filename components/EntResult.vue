@@ -71,13 +71,17 @@ export default {
 		data: {
 			type: Object,
 			required: true
+		}, 
+		date: {
+			type: String,
+			required: true
 		}
 	},
 
 	methods: {
 		pushRoute() {
 			// console.log(this.data?.entertainmentID)
-			this.$router.push(`/book/entertainment/checkout?id=${this.data?.entertainmentID}`)
+			this.$router.push(`/book/entertainment/checkout?id=${this.data?.entertainmentID}&date=${this.date}`)
 		}
 	}
 }
