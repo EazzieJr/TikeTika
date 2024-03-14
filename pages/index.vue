@@ -343,55 +343,6 @@
                     </button>
                   </DropdownContent>
                 </Dropdown>
-                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
-              </div>
-
-              <div class="Swap hidden md:block !z-[100]" v-if="selectedBooking == 'Buses'">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="24" cy="24" r="24" fill="#2FA048" />
-                  <path d="M32.5002 26.9902L27.4902 32.0102" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M15.5 26.9902H32.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M15.5 21.0102L20.51 15.9902" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M32.5 21.0098H15.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </div>
-
-              <div class="Input" v-if="selectedBooking == 'Buses'">
-                <span>
-                  {{ $t('To') }}?
-                </span>
-
-                <Dropdown>
-                  <template #toggler>
-                    <div class="DropdownToggler between">
-                      <span class="!text-lg !font-medium">
-                        {{ search.destination ? regions[search.destination - 1]?.region : "Please select" }}
-                      </span>
-
-                      <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
-                          fill="white" />
-                      </svg>
-                    </div>
-                  </template>
-
-                  <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
-                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left"
-                      v-for="destination in regions" :key="destination.regionID"
-                      :class="{ 'bg-primary !text-white': search.destination === destination.regionID }"
-                      @click="search.destination = destination.regionID">
-                      <span>
-                        {{ destination.region }}
-                      </span>
-                    </button>
-                  </DropdownContent>
-                </Dropdown>
-                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
               </div>
             </div>
 
@@ -422,14 +373,6 @@
 
                     <input type="date" v-model="search.date">
                   </div>
-                </div>
-
-                <div class="Input" v-if="selectedBooking == 'Buses' && selectedTripType === 'Round Trip'">
-                  <span>
-                    {{ $t('Returning on') }}
-                  </span>
-
-                  <input type="date" v-model="search.returnDate">
                 </div>
               </div>
             </div>

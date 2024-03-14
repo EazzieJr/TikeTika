@@ -12,7 +12,8 @@
 							<!-- <div class="LeftCols start"> -->
 							<div class="Col" v-for="(col, index) in splitSeatsIntoRowsAndColumns" :key="index">
 								<button class="Seat center" v-for="seat in col" :key="seat.position" @click="decideSeat(seat.label)"
-									:disabled="occupied(seat.label)" :class="{ 'occupied': occupied(seat.label), 'selected': selected(seat.label) }">
+									:disabled="occupied(seat.label)"
+									:class="{ 'occupied': occupied(seat.label), 'selected': selected(seat.label) }">
 									<!-- <img :src="`/svg/classes/${sofa.selected ? sofa.class + '-white' : sofa.class}.svg`" alt=""
 											class="Class"> -->
 
@@ -363,21 +364,6 @@
 			</div>
 		</div>
 
-		<Modal :title="title" :hint="hint" :type="modalType" @close="toggleModal" v-if="modalOpened">
-			<form @submit.prevent="submitForm" class="Form">
-				<div class="Inputs">
-					<InputField type="text" placeholder="Name" />
-					<InputField type="numeric" placeholder="Phone Number" />
-					<InputField type="email" placeholder="Email Address" />
-					<InputField type="numeric" placeholder="Mobile money number" />
-				</div>
-
-				<button>
-					Pay Now
-				</button>
-			</form>
-		</Modal>
-
 		<div class="SeatMap center" v-if="seatMap" @click="seatMap = false">
 			<div class="Image">
 				<img src="/images/seatmap.png" alt="An image showing the sitting positions">
@@ -568,7 +554,7 @@ export default {
 	},
 
 	methods: {
-		...mapMutations(['setTempBusBooking', 'updateBookedSeats']),
+		...mapMutations(['setTempBusBooking', 'updateBookedSeats', 'updateTripDetails']),
 
 		calculateTimeDifference(startTime, endTime) {
 			const startMoment = this.$moment(startTime, 'hh:mm A');
@@ -649,9 +635,11 @@ export default {
 		},
 
 		pushFinalCheckout() {
-			const { plate, price, tripLocations  } = this.data
+			const { plate, price, tripLocations } = this.data
 
 			this.updateBookedSeats(this.selectedSeats)
+			console.log("Data", this.data)
+			this.updateTripDetails(this.data)
 			this.$router.push(`/book/bus/checkout/passenger-details?plate=${plate}&price=${price}&pickUp=${tripLocations[0].locationID}&dropOff=${tripLocations[1].locationID}&date=${this.$route.query.date}`)
 		}
 
@@ -689,7 +677,7 @@ export default {
 		// const seatingRows = this.splitSeatsIntoRowsAndColumns(this.data?.seats);
 
 		// console.log(seatingRows);
-		
+
 		// let highestRow = 0;
 		// let highestColumn = 0;
 
@@ -709,7 +697,7 @@ export default {
 
 		// console.log("Highest Row:", highestRow);
 		// console.log("Highest Column:", highestColumn);
-		
+
 		// console.log(this.getUnoccupiedSeats);
 
 		// const unavailableSeats = this.findUnavailableSeats(this.seats, this.data.availableSeats);
@@ -744,80 +732,81 @@ export default {
 						/* >div {
 							@apply grid grid-cols-2 gap-3; */
 
-							>div {
-								@apply space-y-3;
+						>div {
+							@apply space-y-3;
 
-								button {
-									@apply w-12 lg:w-16 h-12 lg:h-16 rounded relative;
-									border: 0.5px solid #EBEBEB;
+							button {
+								@apply w-12 lg:w-16 h-12 lg:h-16 rounded relative;
+								border: 0.5px solid #EBEBEB;
 
-									img {
-										@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2 lg:w-auto;
-									}
+								img {
+									@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2 lg:w-auto;
+								}
+
+								span {
+									@apply block text-[#0A0A0A] font-bold text-lg lg:text-2xl
+								}
+
+								&.selected {
+									@apply bg-primary border border-primary;
 
 									span {
-										@apply block text-[#0A0A0A] font-bold text-lg lg:text-2xl
+										@apply text-white
 									}
+								}
 
-									&.selected {
-										@apply bg-primary border border-primary;
+								&.occupied {
+									@apply bg-[#EBEBEB];
 
-										span {
-											@apply text-white
-										}
-									}
-
-									&.occupied {
-										@apply bg-[#EBEBEB];
-
-										span {
-											@apply text-white
-										}
+									span {
+										@apply text-white
 									}
 								}
 							}
 						}
 					}
 				}
+			}
 
-				.Guide {
-					@apply space-x-4 mt-4;
+			.Guide {
+				@apply space-x-4 mt-4;
 
-					>div {
-						@apply space-y-1;
+				>div {
+					@apply space-y-1;
 
-						.Box {
-							@apply w-9 h-9 rounded relative;
-							border: 0.5px solid #EBEBEB;
+					.Box {
+						@apply w-9 h-9 rounded relative;
+						border: 0.5px solid #EBEBEB;
 
-							img {
-								@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2;
-							}
+						img {
+							@apply absolute top-0.5 lg:top-1 left-0.5 lg:left-1 w-2;
+						}
+
+						span {
+							@apply block text-[#0A0A0A] font-bold text-sm
+						}
+
+						&.selected {
+							@apply bg-primary border border-primary;
 
 							span {
-								@apply block text-[#0A0A0A] font-bold text-sm
-							}
-
-							&.selected {
-								@apply bg-primary border border-primary;
-
-								span {
-									@apply text-white
-								}
-							}
-
-							&.reserved {
-								@apply bg-[#EBEBEB];
-
-								span {
-									@apply text-white
-								}
+								@apply text-white
 							}
 						}
 
-						p {
-							@apply text-[#484848] text-[8px] font-bold leading-[125%]
+						&.reserved {
+							@apply bg-[#EBEBEB];
+
+							span {
+								@apply text-white
+							}
 						}
+					}
+
+					p {
+						@apply text-[#484848] text-[8px] font-bold leading-[125%]
+					}
+
 					/* } */
 				}
 			}

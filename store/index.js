@@ -14,7 +14,10 @@ export const state = () => ({
 	menuOpened: false,
 	token: null,
 
-	bookedBusSeats: ["Hey"]
+	bookedBusSeats: ["Hey"],
+	tripDetails: {
+
+	}
 })
 
 export const mutations = {
@@ -40,6 +43,10 @@ export const mutations = {
 
 	updateBookedSeats(state, payload) {
 		state.bookedBusSeats = payload
+	},
+
+	updateTripDetails(state, payload) {
+		state.tripDetails = payload
 	}
 }
 
