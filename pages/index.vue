@@ -115,7 +115,6 @@
                     </button>
                   </DropdownContent>
                 </Dropdown>
-                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
               </div>
 
               <div class="Swap hidden md:block !z-[100]" v-if="selectedBooking == 'Buses'">
@@ -321,7 +320,7 @@
                   <template #toggler>
                     <div class="DropdownToggler between">
                       <span class="!text-lg !font-medium">
-                        {{ search.origin ? regions[search.origin - 1]?.region : "Please select" }}
+                        {{ search.region ? eventRegions[search.region - 1]?.region : "Please select" }}
                       </span>
 
                       <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -332,11 +331,11 @@
                     </div>
                   </template>
 
-                  <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
+                  <DropdownContent class="Content h-fit !max-hh-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
                     <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left"
-                      v-for="origin in regions" :key="origin.regionID"
-                      :class="{ 'bg-primary !text-white': search.origin === origin.regionID }"
-                      @click="search.origin = origin.regionID">
+                      v-for="origin in eventRegions" :key="origin.regionID"
+                      :class="{ 'bg-primary !text-white': search.region === origin.regionID }"
+                      @click="search.region = origin.regionID">
                       <span>
                         {{ origin.region }}
                       </span>
@@ -892,41 +891,6 @@ export default {
 
         this.flkty.push(flick);
       });
-
-
-      // let isScrollingHorizontally = false; // Initialize to false
-
-      // elem.addEventListener('wheel', (event) => {
-      //   // Prevent the default behavior of the wheel event, which is scrolling the page
-      //   event.preventDefault();
-
-      //   // Calculate the absolute values of deltaX and deltaY
-      //   const deltaX = Math.abs(event.deltaX);
-      //   const deltaY = Math.abs(event.deltaY);
-
-      //   // Set a threshold value (adjust as needed)
-      //   const threshold = 50;
-
-      //   // Check if the movement is primarily horizontal
-      //   if (deltaX > deltaY && deltaX > threshold) {
-      //     isScrollingHorizontally = true;
-      //   } else {
-      //     isScrollingHorizontally = false;
-      //   }
-
-      //   // Determine the scroll direction and perform actions based on whether it's horizontal or vertical
-      //   if (isScrollingHorizontally) {
-      //     // Horizontal scroll: Handle it as needed
-      //     // For example, navigate between slides horizontally
-      //     if (event.deltaX < 0) {
-      //       // Scroll to the next slide
-      //       this.flkty.next();
-      //     } else {
-      //       // Scroll to the previous slide
-      //       this.flkty.previous();
-      //     }
-      //   }
-      // });
     },
 
     previousSlide(num) {
@@ -950,7 +914,7 @@ export default {
 
       console.log(this.search)
 
-      this.selectedBooking == 'Buses' ? this.$router.push(`/book/bus?origin=${origin}&destination=${destination}&date=${date}&returnDate=${returnDate}`) : this.selectedBooking == 'Entertainment' ? this.$router.push(`/book/entertainment?region=${region}&date=${date}`) : this.$router.push(`/book/event`)
+      this.selectedBooking == 'Buses' ? this.$router.push(`/book/bus?origin=${origin}&destination=${destination}&date=${date}&returnDate=${returnDate}`) : this.selectedBooking == 'Entertainment' ? this.$router.push(`/book/entertainment?region=${region}&date=${date}`) : this.$router.push(`/book/event?region=${region}&date=${date}`)
     },
 
     async loadData() {
@@ -976,17 +940,6 @@ export default {
       } else if (type === 'event') {
         this.$router.push(`/book/event/checkout?id=${data?.eventID}$date=${date}`)
       }
-      // try {
-      //   const response = await this.$axios.post(`/search/?type=${type}`, {
-      //     origin,
-      //     destination,
-      //     date: formattedDate
-      //   })
-
-      //   console.log(response)
-      // } catch (error) {
-      //   console.log(error)
-      // }
     },
 
     getFormatted(date) {
@@ -1019,14 +972,6 @@ export default {
     this.getBusRegions()
     this.getEntertainmentRegions()
     this.getEventsRegions()
-    // try {
-    //   const { data } = await this.$axios.get('/popular/?type=routes')
-    //   console.log(data)
-    //   // this.routes = data.data
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    // this.loadData()
   }
 }
 </script>
