@@ -55,7 +55,7 @@
 				<EntResult v-for="(data, index) in result" :key="index" :data="data" :date="$route.query.date" />
 			</div>
 
-			<button class="More">
+			<button class="More disabled:!bg-opacity-50" disabled>
 				Show more Results
 			</button>
 		</section>

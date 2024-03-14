@@ -55,7 +55,7 @@
 				<EventResult v-for="(data, index) in events" :key="index" :data="data" />
 			</div>
 
-			<button class="More">
+			<button class="More disabled:!bg-opacity-50" disabled>
 				Show more Results
 			</button>
 		</section>
