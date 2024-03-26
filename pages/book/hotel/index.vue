@@ -133,7 +133,7 @@
 					</div>
 
 					<!-- <div class="Results" v-if="result?.length > 0"> -->
-					<div class="Results" >
+					<div class="Results">
 						<HotelResult />
 						<!-- <BusResult v-for="(data, index) in filteredResults" :key="index" :data="data" :date="$route.query.date" /> -->
 					</div>
@@ -618,7 +618,7 @@ export default {
 				}
 
 				.Results {
-					@apply grow space-y-6 lg:space-y-8;
+					@apply grow space-y-6 lg:space-y-12;
 				}
 			}
 		}
