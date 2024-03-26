@@ -5,10 +5,11 @@ export const state = () => ({
 		"Buses",
 		"Entertainment",
 		"Events",
+		"Hotels"
 	],
 
 	userData: {},
-	
+
 	tempBusBooking: {},
 	selectedBooking: "Buses",
 	menuOpened: false,
