@@ -284,6 +284,89 @@
             </div>
           </form>
 
+          <form @submit.prevent="runSearch" action="" v-else-if="selectedBooking == 'Hotels'">
+            <div class=" Destination">
+              <div class="Input">
+                <span>
+                  {{ $t('To') }}?
+                </span>
+
+                <Dropdown>
+                  <template #toggler>
+                    <div class="DropdownToggler between">
+                      <span class="!text-lg !font-medium">
+                        {{ search.destination ? hotelRegions[search.destination - 1]?.region : "Please select" }}
+                      </span>
+
+                      <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7.32733 5.71653C7.13944 5.87924 6.86056 5.87924 6.67267 5.71653L1.08558 0.877964C0.73563 0.574897 0.949966 0 1.41291 0L12.5871 0C13.05 0 13.2644 0.574897 12.9144 0.877964L7.32733 5.71653Z"
+                          fill="white" />
+                      </svg>
+                    </div>
+                  </template>
+
+                  <DropdownContent class="Content !h-[400px] overflow-y-auto !mt-6" data-lenis-prevent>
+                    <button type="button" class="Item py-2 px-3 text-sm font-bold text-[#313131] block w-full text-left"
+                      v-for="destination in hotelRegions" :key="destination.regionID"
+                      :class="{ 'bg-primary !text-white': search.destination === destination.regionID }"
+                      @click="search.destination = destination.regionID">
+                      <span>
+                        {{ destination.region }}
+                      </span>
+                    </button>
+                  </DropdownContent>
+                </Dropdown>
+                <!-- <input type="text" placeholder="Jo' Burg" v-model="search.origin"> -->
+              </div>
+            </div>
+
+            <div class="Date">
+              <div class="Inputs">
+                <div class="Input">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M29.2399 9.01318L24.7465 27.0532C24.4265 28.3999 23.2265 29.3332 21.8399 29.3332H4.31985C2.30651 29.3332 0.866535 27.3598 1.46653 25.4264L7.07986 7.3999C7.46652 6.14657 8.62654 5.27979 9.93321 5.27979H26.3332C27.5999 5.27979 28.6532 6.05312 29.0932 7.11979C29.3465 7.69312 29.3999 8.34652 29.2399 9.01318Z"
+                      stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" />
+                    <path d="M21.333 29.3333H27.7063C29.4263 29.3333 30.773 27.88 30.653 26.16L29.333 8"
+                      stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M12.9062 8.50651L14.2929 2.74658" stroke="#4F4F4F" stroke-width="1.5"
+                      stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21.8398 8.52002L23.0932 2.7334" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10.2666 16H20.9333" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.93359 21.3335H19.6003" stroke="#4F4F4F" stroke-width="1.5" stroke-miterlimit="10"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+
+                  <div class="Cont">
+                    <span class="Span">
+                      {{ $t('Check in Date') }}
+                    </span>
+
+                    <input type="date" v-model="search.date">
+                  </div>
+                </div>
+
+                <div class="Input">
+                  <span>
+                    {{ $t('Check out Date') }}
+                  </span>
+
+                  <input type="date" v-model="search.returnDate">
+                </div>
+              </div>
+            </div>
+
+            <div class="Search md:end">
+              <button submit>
+                {{ $t('Search') }}
+              </button>
+            </div>
+          </form>
+
           <form @submit.prevent="runSearch" action="" v-else>
             <div class="Destination">
               <div class="Input">
@@ -669,6 +752,104 @@
       </div>
     </section>
 
+    <section class="PopularHotels">
+      <div class="Container constraint">
+        <div class="Top">
+          <h2>
+            Popular Hotel Locations
+            <!-- {{ $t('Popular Hotel Locations') }} -->
+          </h2>
+
+          <!-- <p>
+            Search for Bus routes, Hotels, Restaurant, Search for Bus routes, Hotels, Restaurant
+          </p> -->
+        </div>
+
+        <div class="Bottom">
+          <button class="Control Prev" @click="previousSlide(2)">
+            <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="48" cy="48" r="48" fill="#2FA048" />
+              <path
+                d="M29.0349 49.5143C29.0018 49.4294 28.9885 49.3399 28.9687 49.2488C28.9538 49.1881 28.919 49.135 28.9107 49.0698C28.9074 49.0425 28.9223 49.0182 28.9207 48.9909C28.9174 48.959 28.8991 48.9302 28.8991 48.8968C28.8991 48.8695 28.9157 48.8452 28.9174 48.8164C28.9174 48.7861 28.9041 48.7603 28.9074 48.7284C28.9157 48.6556 28.9571 48.5979 28.9736 48.5281C28.9902 48.4477 29.0034 48.3688 29.0332 48.2914C29.0547 48.2383 29.0729 48.1852 29.0994 48.1352C29.1491 48.0411 29.2153 47.9607 29.2782 47.8772C29.3229 47.8181 29.3609 47.7604 29.4139 47.7073C29.452 47.6679 29.4867 47.6299 29.5298 47.5935C29.6142 47.5192 29.7118 47.4661 29.8111 47.4069C29.8774 47.3674 29.9386 47.328 30.0098 47.2961C30.0611 47.2734 30.1091 47.2506 30.1637 47.2309C30.268 47.1945 30.3756 47.1808 30.4865 47.1611C30.551 47.1505 30.6023 47.1156 30.6685 47.111C31.1816 47.0625 43.2412 45.8441 45.5899 35.0763C45.6404 34.845 45.7402 34.6252 45.8834 34.4293C46.0266 34.2334 46.2105 34.0653 46.4246 33.9345C46.6387 33.8038 46.8788 33.713 47.1312 33.6673C47.3836 33.6216 47.6433 33.6219 47.8956 33.6683C48.1478 33.7146 48.3876 33.806 48.6013 33.9373C48.815 34.0686 48.9984 34.2372 49.1411 34.4334C49.2837 34.6297 49.3828 34.8498 49.4326 35.0811C49.4824 35.3125 49.4821 35.5506 49.4316 35.7818C48.2067 41.3971 44.8103 44.9019 41.2666 47.1004H66.1223C66.6421 47.1004 67.1405 47.2897 67.508 47.6266C67.8756 47.9635 68.082 48.4204 68.082 48.8968C68.082 49.3733 67.8756 49.8302 67.508 50.1671C67.1405 50.504 66.6421 50.6932 66.1223 50.6932H41.2666C44.8087 52.8932 48.2067 56.3981 49.4316 62.0134C49.5336 62.4801 49.4292 62.965 49.1413 63.3612C48.8534 63.7574 48.4056 64.0326 47.8964 64.1261C47.3872 64.2197 46.8583 64.124 46.426 63.8601C45.9938 63.5962 45.6936 63.1857 45.5916 62.7189C43.2412 51.951 31.1816 50.7327 30.6751 50.6856C30.5924 50.6781 30.5262 50.6386 30.4467 50.6219C30.3375 50.6007 30.2249 50.5946 30.1223 50.5567C30.0843 50.5415 30.0528 50.5203 30.0164 50.5036C29.922 50.4611 29.8426 50.405 29.7582 50.3503C29.6754 50.2987 29.5894 50.2578 29.5182 50.1941C29.4818 50.1637 29.452 50.1288 29.4189 50.0954C29.3527 50.0272 29.3063 49.9513 29.25 49.8754C29.1971 49.8026 29.1375 49.7374 29.0961 49.6554C29.0729 49.6099 29.0547 49.5629 29.0349 49.5143Z"
+                fill="#DFF6E4" />
+            </svg>
+          </button>
+
+          <button class="Control Next" @click="nextSlide(2)">
+            <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="48" cy="48" r="48" transform="rotate(180 48 48)" fill="#2FA048" />
+              <path
+                d="M66.9651 46.4857C66.9982 46.5706 67.0115 46.6601 67.0313 46.7512C67.0462 46.8119 67.081 46.865 67.0893 46.9302C67.0926 46.9575 67.0777 46.9818 67.0793 47.0091C67.0826 47.041 67.1009 47.0698 67.1009 47.1032C67.1009 47.1305 67.0843 47.1548 67.0826 47.1836C67.0826 47.2139 67.0959 47.2397 67.0926 47.2716C67.0843 47.3444 67.0429 47.4021 67.0264 47.4719C67.0098 47.5523 66.9966 47.6312 66.9668 47.7086C66.9453 47.7617 66.9271 47.8148 66.9006 47.8648C66.8509 47.9589 66.7847 48.0393 66.7218 48.1228C66.6771 48.1819 66.6391 48.2396 66.5861 48.2927C66.548 48.3321 66.5133 48.3701 66.4702 48.4065C66.3858 48.4808 66.2882 48.5339 66.1889 48.5931C66.1226 48.6326 66.0614 48.672 65.9902 48.7039C65.9389 48.7266 65.8909 48.7494 65.8363 48.7691C65.732 48.8055 65.6244 48.8192 65.5135 48.8389C65.449 48.8495 65.3977 48.8844 65.3315 48.889C64.8184 48.9375 52.7588 50.1559 50.4101 60.9237C50.3596 61.155 50.2598 61.3748 50.1166 61.5707C49.9734 61.7666 49.7895 61.9347 49.5754 62.0655C49.3613 62.1962 49.1212 62.287 48.8688 62.3327C48.6164 62.3784 48.3567 62.3781 48.1044 62.3317C47.8522 62.2854 47.6124 62.194 47.3987 62.0627C47.185 61.9314 47.0016 61.7628 46.8589 61.5666C46.7163 61.3703 46.6172 61.1502 46.5674 60.9189C46.5176 60.6875 46.5179 60.4494 46.5684 60.2182C47.7933 54.6029 51.1897 51.0981 54.7334 48.8996H29.8777C29.3579 48.8996 28.8595 48.7103 28.492 48.3734C28.1244 48.0365 27.918 47.5796 27.918 47.1032C27.918 46.6267 28.1244 46.1698 28.492 45.8329C28.8595 45.496 29.3579 45.3068 29.8777 45.3068H54.7334C51.1913 43.1068 47.7933 39.6019 46.5684 33.9866C46.4664 33.5199 46.5708 33.035 46.8587 32.6388C47.1466 32.2426 47.5944 31.9674 48.1036 31.8739C48.6128 31.7803 49.1417 31.876 49.574 32.1399C50.0062 32.4038 50.3064 32.8143 50.4084 33.2811C52.7588 44.049 64.8184 45.2673 65.3249 45.3144C65.4076 45.3219 65.4738 45.3614 65.5533 45.3781C65.6625 45.3993 65.7751 45.4054 65.8777 45.4433C65.9157 45.4585 65.9472 45.4797 65.9836 45.4964C66.078 45.5389 66.1574 45.595 66.2418 45.6497C66.3246 45.7013 66.4106 45.7422 66.4818 45.8059C66.5182 45.8363 66.548 45.8712 66.5811 45.9046C66.6473 45.9728 66.6937 46.0487 66.75 46.1246C66.8029 46.1974 66.8625 46.2626 66.9039 46.3446C66.9271 46.3901 66.9453 46.4371 66.9651 46.4857Z"
+                fill="#DFF6E4" />
+            </svg>
+          </button>
+
+          <div class="Routes start">
+            <div v-for="(hotel, index) in hotels" :key="index" class="Route Carousel-cell">
+              <div class="Image">
+                <img :src="hotel.image" alt="">
+              </div>
+
+              <div class="Content">
+                <div class="Top between">
+                  <div class="Left">
+                    <span>
+                      {{ hotel.title }}
+                    </span>
+
+                    <!-- <p>
+                      {{ route.amount }} hotels
+                    </p> -->
+                  </div>
+
+                  <div class="Right">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2.66663 29.3335H29.3333" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M20.0133 29.3199L4.01335 29.3466L4 9.4266C4 8.53327 4.45335 7.70656 5.18669 7.21322L10.52 3.65325C11.4134 3.05325 12.5866 3.05325 13.48 3.65325L18.8133 7.21322C19.56 7.70656 20 8.53327 20 9.4266L20.0133 29.3199Z"
+                        stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <path d="M26.64 29.3467V24" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M26.6667 16C25.2 16 24 17.2 24 18.6667V21.3333C24 22.8 25.2 24 26.6667 24C28.1333 24 29.3333 22.8 29.3333 21.3333V18.6667C29.3333 17.2 28.1333 16 26.6667 16Z"
+                        stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <path d="M4 18.6665H20" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M12 29.3335V24.3335" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"
+                        stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="Bottom between">
+                  <div class="Left">
+                    <span>
+                      From
+                    </span>
+
+                    <p>
+                      Tsz {{ hotel.price }}
+                    </p>
+                  </div>
+
+                  <div class="Right">
+                    <button @click="fetchEvent(hotel, 'event')">See all</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="Aims">
       <div class="Container constraint md:center md:!items-start">
         <div class="Aim col-center">
@@ -785,12 +966,13 @@ export default {
       const { routes } = await $axios.$get('/popular/?type=routes')
       const { entertainment } = await $axios.$get('/popular/?type=entertainment')
       const { events } = await $axios.$get('/popular/?type=events')
+      const { hotels } = await $axios.$get(`/popular/?type=hotels`)
 
-      console.log(events)
       return {
         routes,
         entertainments: entertainment,
         events,
+        hotels,
         date
       }
     } catch (error) {
@@ -831,6 +1013,7 @@ export default {
       busRegions: [],
       entertainmentRegions: [],
       eventRegions: [],
+      hotelRegions: [],
 
       partners: 6
     }
@@ -937,6 +1120,12 @@ export default {
       const { data } = await this.$axios.get('/region/?type=events')
 
       this.eventRegions = data.regions
+    },
+
+    async getHotelsRegions() {
+      const { data } = await this.$axios.get('/region/?type=hotel')
+
+      this.hotelRegions = data.regions
     }
   },
 
@@ -947,6 +1136,7 @@ export default {
     this.getBusRegions()
     this.getEntertainmentRegions()
     this.getEventsRegions()
+    this.getHotelsRegions()
   }
 }
 </script>
@@ -1132,7 +1322,8 @@ export default {
 
   .PopularRoutes,
   .PopularEntertainment,
-  .PopularEvents {
+  .PopularEvents,
+  .PopularHotels {
     @apply py-8 md:py-12 lg:py-16;
 
     .Container {
